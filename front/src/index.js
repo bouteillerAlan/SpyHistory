@@ -1,7 +1,15 @@
+// Core
 import React from 'react'
 import ReactDOM from 'react-dom'
+// Components
 import App from './component/App'
+// Styles
+import './style/css/base.scss'
+import './style/font/font.scss'
+// Services
 import * as serviceWorker from './serviceWorker'
+
+
 
 ReactDOM.render(<App />, document.getElementById('root'))
 
