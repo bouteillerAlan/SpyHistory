@@ -49,6 +49,20 @@ class Stories extends Component {
         M.Collapsible.init(elems, options)
     }
 
+    groupBy (list, keyGetter) {
+        const map = new Map()
+        list.forEach((item) => {
+            const key = keyGetter(item)
+            const collection = map.get(key)
+            if (!collection) {
+                map.set(key, [item])
+            } else {
+                collection.push(item)
+            }
+        })
+        return map
+    }
+
     componentWillMount () {
         // get the list of all quests
         getQuests(env.apiLink,env.apiVersion).then((res) => {
@@ -59,8 +73,12 @@ class Stories extends Component {
 
         // get the list of all stories
         getStories(env.apiLink,env.apiVersion).then((res) => {
+            const s1 = res.sort(function(a, b){return a['order']-b['order']})
+            const s2 = this.groupBy(s1, his => his.season)
+            const data = [...s2]
+
             this.setState({
-                stories : res.sort(function(a, b){return a['order']-b['order']})
+                stories : data
             })
         })
 
@@ -101,17 +119,18 @@ class Stories extends Component {
 
                     <ul className="collapsible popout">
                         {
-                            stories.map((story) => (
-                                <li key={story['id']}>
-                                    <div className="collapsible-header">{story['name']} {story['races'] ? '- '+story['races'] : null }</div>
+                            stories.map((storyTag) => (
+                                storyTag[1].map((story) => (
+                                    <li key={story['id']}>
+                                        <div className="collapsible-header">{story['name']} {story['races'] ? '- '+story['races'] : null }</div>
 
-                                    <div className="collapsible-body">
+                                        <div className="collapsible-body">
 
-                                        <div className="grid">
-                                            {
-                                                quests.map((quest) => (
+                                            <div className="grid">
+                                                {
+                                                    quests.map((quest) => (
 
-                                                    quest['story'] === story['id'] &&
+                                                        quest['story'] === story['id'] &&
                                                         <div key={quest['id']} className="card">
                                                             <p className={'info'}><small>{story['timeline']}</small><small>Qid : {quest['id']}</small></p>
                                                             <h5 className={'title'}>{quest['name']}</h5>
@@ -121,13 +140,15 @@ class Stories extends Component {
                                                                 ))}
                                                             </ul>
                                                         </div>
-                                                ))
-                                            }
+                                                    ))
+                                                }
+                                            </div>
+
+
                                         </div>
+                                    </li>
+                                ))
 
-
-                                    </div>
-                                </li>
                             ))
                         }
                     </ul>
