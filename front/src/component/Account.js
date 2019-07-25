@@ -29,7 +29,11 @@ class Account extends Component {
 
         return (
             <div className="row">
-                {loading && <h3>LOADING</h3>}
+                {loading &&
+                <div className="progress">
+                    <div className="indeterminate"> </div>
+                </div>
+                }
                 {account &&
                     <div>
                         <p>Welcome {account['name']} you have access to : </p>

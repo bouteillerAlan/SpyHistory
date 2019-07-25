@@ -1,9 +1,7 @@
 import React, {Component} from 'react'
-import history from '../history'
 import env from '../env'
 import Header from './Header'
 import Account from './Account'
-import Stories from './Stories'
 import Testing from './testing'
 
 class App extends Component {
@@ -81,7 +79,8 @@ class App extends Component {
 
                 <div className="container row">
 
-                    {!localKey && <div className="col s12">
+                    {!localKey &&
+                    <div className="col s12">
                         <div className="input-field col s12 l12">
                             <input id="apiKey" type="text" className={error} value={this.state.apiKey} onChange={(e) => {this.handleForm(e)}}/>
                             <label htmlFor="apiKey">api key</label>
@@ -93,9 +92,15 @@ class App extends Component {
                                 <i className="material-icons right">send</i>
                             </button>
                         </div>
-                    </div>}
+                    </div>
+                    }
 
-                    {localKey && <Account apiKey={localKey} />}
+                    {localKey &&
+                        <div>
+                            <Account apiKey={localKey} />
+                            <Testing apiKey={localKey} />
+                        </div>
+                    }
                 </div>
 
 
