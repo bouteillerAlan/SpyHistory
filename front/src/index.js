@@ -1,17 +1,32 @@
 // Core
 import React from 'react'
 import ReactDOM from 'react-dom'
+import {Route} from 'react-router'
+import { Router } from 'react-router-dom'
+import history from './history'
+
 // Components
 import App from './component/App'
+// Fonts
+import './style/font/font.scss'
 // Styles
 import './style/css/base.scss'
-import './style/font/font.scss'
+import './style/css/materialize.scss'
 // Services
 import * as serviceWorker from './serviceWorker'
 
+function Routeur () {
+    return (
+        <div>
+            <Router history={history}>
+                {/*Site*/}
+                <Route path='/' component={App} />
+            </Router>
+        </div>
+    )
+}
 
-
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<Routeur />, document.getElementById('root'))
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

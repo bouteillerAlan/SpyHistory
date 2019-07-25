@@ -72,22 +72,30 @@ nav {
 /*
 * CARD DISPLAY
 */
-.grid {
-  .card {
-    padding: 10px;
-    border: solid var(--primary-color) 2px;
+.collapsible-body{
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content : center;
 
-    .info {
-      margin-top: 0;
+    .card {
+      width: 250px;
+      margin: 15px;
+      padding: 10px;
+      border: solid var(--primary-color) 2px;
 
-      small:nth-child(2) {
-        float: right;
+      .info {
+        margin-top: 0;
+
+        small:nth-child(2) {
+          float: right;
+        }
       }
-    }
 
-    .title {
-      text-align: center;
-    }
+      .title {
+        text-align: center;
+      }
 
+    }
   }
 }

@@ -2,26 +2,25 @@ import React, {Component} from 'react'
 import env from '../env'
 import getAccount from '../function/getAccount'
 
-class testingAPI extends Component {
+class Account extends Component {
 
     constructor (props) {
         super(props)
         this.state = {
             loading: true,
             error: false,
-            account: ''
+            account: null,
+            apiKey: this.props.apiKey
         }
     }
 
     componentWillMount() {
-        getAccount(env.apiLink,env.apiVersion,env.apiKey).then((res) => {
-            console.log(res)
+        getAccount(env.apiLink,env.apiVersion,this.state.apiKey).then((res) => {
             this.setState({
                 loading : false,
                 account : res
             })
         })
-
     }
 
     render() {
@@ -29,25 +28,27 @@ class testingAPI extends Component {
         const {loading, account} = this.state
 
         return (
-            <div>
-                {loading && <h3>LOADING</h3>}
-                {account !== '' &&
+            <div className="row">
+                {loading &&
+                <div className="progress">
+                    <div className="indeterminate"> </div>
+                </div>
+                }
+                {account &&
                     <div>
-                        <p>Welcome {account['name']} you have an access to : </p>
-                        <ul>
-
+                        <p>Welcome {account['name']} you have access to : </p>
+                        <ul className="browser-default">
                             {account['access'].map(el => (
-                                    <li key={el}>{el}</li>
+                                <li key={el}>{el}</li>
                             ))}
-
                         </ul>
+                        <p><small>account id : {account['id']}</small></p>
                     </div>
                 }
             </div>
-
         )
     }
 
 }
 
-export default testingAPI
+export default Account
