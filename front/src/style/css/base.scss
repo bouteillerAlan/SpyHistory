@@ -1,0 +1,93 @@
+/*
+* GENERAL THEME
+*/
+:root {
+  --primary-color : #272727;
+  --primary-background : white;
+}
+
+body, .card {
+  color: var(--primary-color) !important;
+  background-color: var(--primary-background) !important;
+}
+
+p, h1, h2, h3, h4, h5, h6, a, ul, li {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+}
+
+.helper-text {
+  color: red !important;
+}
+
+/*
+* HEADER
+*/
+nav {
+  background-color: var(--primary-color) !important;
+}
+
+.brand-logo {
+  margin-left: 20px;
+  height: inherit;
+  .header {
+    float: right;
+    margin-left: 15px;
+
+    p {
+      margin-top: 0 !important;
+    }
+
+  }
+
+}
+
+.header {
+  p {
+    .online {
+      font-size: small;
+      color: #0f9d58;
+      .btn-floating {
+        width: 10px;
+        height: 10px;
+        line-height: 10px;
+        margin-bottom: 4px;
+        background-color: #0f9d58;
+      }
+    }
+    .offline {
+      font-size: small;
+      color: #880e4f;
+      .btn-floating {
+        width: 10px;
+        height: 10px;
+        line-height: 10px;
+        margin-bottom: 4px;
+        background-color: #880e4f;
+      }
+    }
+  }
+}
+
+/*
+* CARD DISPLAY
+*/
+.grid {
+  .card {
+    padding: 10px;
+    border: solid var(--primary-color) 2px;
+
+    .info {
+      margin-top: 0;
+
+      small:nth-child(2) {
+        float: right;
+      }
+    }
+
+    .title {
+      text-align: center;
+    }
+
+  }
+}
