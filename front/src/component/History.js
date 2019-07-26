@@ -14,10 +14,38 @@ class History extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            key : this.props.apiKey,
+            key : localStorage.getItem('apiKey') ? localStorage.getItem('apiKey') : this.props.apiKey,
+            lang : localStorage.getItem('lang') ? localStorage.getItem('lang') : this.props.lang,
             loading : true,
             data : false
         }
+    }
+
+    // build a object contain all infos
+    async getter () {
+        const seasonsNS = await getSeasons(env.apiLink,env.apiVersion,this.state.lang)
+        const storiesNS = await getStories(env.apiLink,env.apiVersion,this.state.lang)
+        const quests = await getQuests(env.apiLink,env.apiVersion,this.state.lang)
+        const characters = await getCharacters(env.apiLink,env.apiVersion,this.state.lang,this.state.key)
+
+        const seasons = seasonsNS.sort(function(a, b){return a['order']-b['order']})
+        const stories = loadHash.orderBy(storiesNS, ['season', 'order'])
+
+        let questsDone = {}
+        for (let i = 0; i<characters.length; i++) {
+            questsDone[characters[i]] = await getDoneQuests(env.apiLink,env.apiVersion,this.state.lang,this.state.key,characters[i])
+        }
+
+        return {seasons, stories, quests, characters, questsDone}
+    }
+
+    componentWillMount () {
+        this.getter().then((res) => {
+            this.setState({
+                loading : false,
+                data : res
+            })
+        })
     }
 
     // init js
@@ -26,34 +54,6 @@ class History extends Component {
         const elems = document.querySelectorAll('.collapsible')
         const options = {}
         M.Collapsible.init(elems, options)
-    }
-
-    // build a object contain all infos
-    async getter () {
-        const seasonsNS = await getSeasons(env.apiLink,env.apiVersion)
-        const storiesNS = await getStories(env.apiLink,env.apiVersion)
-        const quests = await getQuests(env.apiLink,env.apiVersion)
-        const characters = await getCharacters(env.apiLink,env.apiVersion,this.state.key)
-
-        const seasons = seasonsNS.sort(function(a, b){return a['order']-b['order']})
-        const stories = loadHash.orderBy(storiesNS, ['season', 'order'])
-
-        let questsDone = {}
-        for (let i = 0; i<characters.length; i++) {
-            questsDone[characters[i]] = await getDoneQuests(env.apiLink,env.apiVersion,this.state.key,characters[i])
-        }
-
-        return {seasons, stories, quests, characters, questsDone}
-    }
-
-    componentWillMount () {
-        this.getter().then((res) => {
-            console.log(res)
-            this.setState({
-                loading : false,
-                data : res
-            })
-        })
     }
 
     render() {
@@ -92,9 +92,14 @@ class History extends Component {
 
                                                                         <p className={'info'}><small>{storieD['timeline']}</small><small>Qid : {quest['id']}</small></p>
                                                                         <h5 className={'title'}>{quest['name']}</h5>
-                                                                        <ul className={'browser-default'}>
+                                                                        <ul>
                                                                             {data.characters.map((character) => (
-                                                                                <li key={quest['id']+character} className={data.questsDone[character].includes(quest['id']) ? 'green' : ''}>{character}</li>
+                                                                                <li key={quest['id']+character} className={data.questsDone[character].includes(quest['id']) ? 'green' : ''}>
+                                                                                    <span className={data.questsDone[character].includes(quest['id']) ? '' : 'blue-grey-text'}>
+                                                                                        {data.questsDone[character].includes(quest['id']) ? '🗸 ' : 'x '}
+                                                                                        {character}
+                                                                                    </span>
+                                                                                </li>
                                                                             ))}
                                                                         </ul>
 

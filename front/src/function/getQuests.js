@@ -1,7 +1,7 @@
 
-async function getQuests (link,version) {
+async function getQuests (link,version,lang) {
         // fetch data
-    const data = await fetch(`${link}${version}/quests?ids=all`, {
+    const data = await fetch(`${link}${version}/quests?ids=all&lang=${lang}`, {
         method : 'GET',
         mode : 'cors'
     })

@@ -1,23 +1,89 @@
 /*
 * GENERAL THEME
 */
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+
 :root {
   --primary-color : #272727;
   --primary-background : white;
 }
 
-body, .card {
+body {
+  background-color: #3d3d3d;
   color: var(--primary-color) !important;
-  background-color: var(--primary-background) !important;
+  p, h1, h2, h3, h4, h5, h6, a, ul, li, blockquote {
+    color: var(--primary-background) !important;
+    font-family: 'Roboto', sans-serif;
+  }
 }
 
-p, h1, h2, h3, h4, h5, h6, a, ul, li {
+.card {
+  background-color: var(--primary-background) !important;
+  p, h1, h2, h3, h4, h5, h6, a, ul, li, blockquote {
+    color: var(--primary-color) !important;
+  }
+}
+
+.collapsible-header {
+  color: var(--primary-color) !important;
+}
+
+blockquote {
+  border-left-color: #f39c12 !important;
+  a {
+    text-decoration: underline var(--primary-background)!important;
+    font-style: italic;
+  }
+}
+
+input {
+  color: var(--primary-background) !important;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
+  border-bottom-color: var(--primary-background);
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid #f39c12!important;
+  box-shadow: 0 1px 0 0 #f39c12!important;
+}
+
+.select-wrapper {
+  input.select-dropdown:focus {
+    border-bottom: 1px solid #f39c12!important;
+  }
+  svg {
+    fill : #f39c12!important;
+  }
+}
+
+.select-dropdown {
+  li {
+    span {
+      color: var(--primary-color) !important;
+    }
+  }
+  li:hover{
+    background-color: #f39c12!important;
+  }
+}
+
+.api-input {
+
+  margin-top: 25px !important;
+
+  label {
+    color: var(--primary-background) !important;
+    font-family: 'Roboto', sans-serif;
+  }
 }
 
 .helper-text {
   color: red !important;
+}
+
+.btn {
+  background-color: #f39c12 !important;
 }
 
 /*
@@ -27,19 +93,54 @@ nav {
   background-color: var(--primary-color) !important;
 }
 
-.brand-logo {
+.nav-wrapper {
+  a {
+    color: var(--primary-background) !important;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+  }
+}
+
+.brand-logo.large {
   margin-left: 20px;
+}
+
+@media only screen and (max-width: 992px) {
+  nav .brand-logo {
+    left: 13%!important;
+    transform: translateX(-13%)!important;
+  }
+}
+
+.brand-logo {
+  font-family: 'Press Start 2P', sans-serif;
   height: inherit;
+  top: -5px;
+
+  .text-brand.small {
+    font-size: 100%;
+  }
+
+  .text-brand {
+    position: relative;
+
+    span {
+      position: absolute;
+      top: 7px;
+      left: 65px;
+      font-size: xx-small;
+    }
+  }
+
   .header {
-    float: right;
     margin-left: 15px;
+    float: right;
 
     p {
       margin-top: 0 !important;
     }
 
   }
-
 }
 
 .header {
@@ -73,6 +174,8 @@ nav {
 * CARD DISPLAY
 */
 .collapsible-body{
+  border-bottom: 0 !important;
+
   .grid {
     display: flex;
     flex-wrap: wrap;
@@ -99,3 +202,4 @@ nav {
     }
   }
 }
+
