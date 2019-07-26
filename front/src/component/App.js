@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import env from '../env'
 import Header from './Header'
 import Account from './Account'
-import Testing from './testing'
+import Testing from './testing2'
 
 class App extends Component {
 
