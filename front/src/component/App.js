@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import env from '../env'
 import Header from './Header'
 import Account from './Account'
-import Testing from './testing2'
+import History from './History'
 
 class App extends Component {
 
@@ -98,7 +98,7 @@ class App extends Component {
                     {localKey &&
                         <div>
                             <Account apiKey={localKey} />
-                            <Testing apiKey={localKey} />
+                            <History apiKey={localKey} />
                         </div>
                     }
                 </div>

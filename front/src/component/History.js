@@ -9,7 +9,7 @@ import getDoneQuests from '../function/getDoneQuests'
 import getStories from '../function/getStories'
 import getSeasons from '../function/getSeasons'
 
-class Stories extends Component {
+class History extends Component {
 
     constructor (props) {
         super(props)
@@ -78,36 +78,34 @@ class Stories extends Component {
                                     {/*data['stories'] first because it's the right sort*/}
                                     {data['stories'].map((storieD) => (
                                         season['stories'].map((storieS) => (
-                                            <>
-                                                {storieD['id'] === storieS ?
-                                                    <li>
-                                                        <div className="collapsible-header">
-                                                            {storieD['name']} {storieD['races']?' - '+storieD['races']:null}
+                                            storieD['id'] === storieS ?
+                                                <li key={storieD['id']}>
+                                                    <div className="collapsible-header">
+                                                        {storieD['name']} {storieD['races']?' - '+storieD['races']:null}
+                                                    </div>
+                                                    <div className="collapsible-body">
+
+                                                        <div className="grid">
+                                                            {data['quests'].map((quest) => (
+                                                                quest['story'] === storieD['id'] ?
+                                                                    <div key={quest['id']} className={'card'}>
+
+                                                                        <p className={'info'}><small>{storieD['timeline']}</small><small>Qid : {quest['id']}</small></p>
+                                                                        <h5 className={'title'}>{quest['name']}</h5>
+                                                                        <ul className={'browser-default'}>
+                                                                            {data.characters.map((character) => (
+                                                                                <li key={quest['id']+character} className={data.questsDone[character].includes(quest['id']) ? 'green' : ''}>{character}</li>
+                                                                            ))}
+                                                                        </ul>
+
+                                                                    </div>
+                                                                    : null
+                                                            ))}
                                                         </div>
-                                                        <div className="collapsible-body">
-                                                            <ul className={'browser-default'}>
-                                                                {data['quests'].map((quest) => (
-                                                                    quest['story'] === storieD['id'] ?
-                                                                        <div>
-                                                                            <li>{quest['name']}
-                                                                                <ul className={'browser-default'}>
-                                                                                    {data.characters.map((character) => (
-                                                                                        data.questsDone[character].map((questDone) => (
-                                                                                            questDone === quest['id'] ?
-                                                                                                <li>{character}</li>
-                                                                                                : null
-                                                                                        ))
-                                                                                    ))}
-                                                                                </ul>
-                                                                            </li>
-                                                                        </div>
-                                                                        : null
-                                                                ))}
-                                                            </ul>
-                                                        </div>
-                                                    </li>
-                                                    : null}
-                                            </>
+
+                                                    </div>
+                                                </li>
+                                                : null
                                         ))
                                     ))}
                                 </ul>
@@ -122,4 +120,4 @@ class Stories extends Component {
 
 }
 
-export default Stories
+export default History
