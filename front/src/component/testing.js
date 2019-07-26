@@ -117,41 +117,44 @@ class Stories extends Component {
                 <div className="col s12">
                     <p>All Story Marked (green background)</p>
 
-                    <ul className="collapsible popout">
                         {
                             stories.map((storyTag) => (
                                 storyTag[1].map((story) => (
-                                    <li key={story['id']}>
-                                        <div className="collapsible-header">{story['name']} {story['races'] ? '- '+story['races'] : null }</div>
+                                    <div>
+                                        <h5>{story['season']}</h5>
+                                        <ul className="collapsible popout">
+                                            <li key={story['id']}>
+                                                <div className="collapsible-header">{story['name']} {story['races'] ? '- '+story['races'] : null }</div>
 
-                                        <div className="collapsible-body">
+                                                <div className="collapsible-body">
 
-                                            <div className="grid">
-                                                {
-                                                    quests.map((quest) => (
+                                                    <div className="grid">
+                                                        {
+                                                            quests.map((quest) => (
 
-                                                        quest['story'] === story['id'] &&
-                                                        <div key={quest['id']} className="card">
-                                                            <p className={'info'}><small>{story['timeline']}</small><small>Qid : {quest['id']}</small></p>
-                                                            <h5 className={'title'}>{quest['name']}</h5>
-                                                            <ul className={'browser-default'}>
-                                                                {characters.map((character) => (
-                                                                    <li key={character} className={questsDone[character].includes(quest['id']) ? 'green' : ''}>{character}</li>
-                                                                ))}
-                                                            </ul>
-                                                        </div>
-                                                    ))
-                                                }
-                                            </div>
+                                                                quest['story'] === story['id'] &&
+                                                                <div key={quest['id']} className="card">
+                                                                    <p className={'info'}><small>{story['timeline']}</small><small>Qid : {quest['id']}</small></p>
+                                                                    <h5 className={'title'}>{quest['name']}</h5>
+                                                                    <ul className={'browser-default'}>
+                                                                        {characters.map((character) => (
+                                                                            <li key={character} className={questsDone[character].includes(quest['id']) ? 'green' : ''}>{character}</li>
+                                                                        ))}
+                                                                    </ul>
+                                                                </div>
+                                                            ))
+                                                        }
+                                                    </div>
 
-
-                                        </div>
-                                    </li>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 ))
 
                             ))
                         }
-                    </ul>
+
 
                 </div>
                 }
