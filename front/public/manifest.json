@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Observatory",
+  "name": "Observatory Keep your story in mind",
   "icons": [
     {
       "src": "favicon.ico",

@@ -4,9 +4,9 @@
 // version string api version
 // ids string list of id (1,2,3)
 
-async function getSeasons (link,version,ids='all') {
+async function getSeasons (link,version,lang,ids='all') {
     // fetch data
-    const data = await fetch(`${link}${version}//stories/seasons?ids=${ids}`, {
+    const data = await fetch(`${link}${version}//stories/seasons?ids=${ids}&lang=${lang}`, {
         method : 'GET',
         mode : 'cors'
     })

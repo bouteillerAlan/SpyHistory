@@ -28,10 +28,10 @@ class Header extends Component {
         const {online} = this.state
 
         return (
-            <div className="row header">
+            <div className="row header hide-on-med-only">
                 <p>
-                    {online && <span className='online'> <button className="btn-floating pulse"> </button> <span>Gw2 api is online</span></span>}
-                    {!online && <span className='offline'> <button className="btn-floating pulse"> </button> <span>Gw2 api is offline</span></span>}
+                    {online && <span className='online'> <button className="btn-floating pulse"> </button> <span className={'text_status'}>Gw2 api is online</span></span>}
+                    {!online && <span className='offline'> <button className="btn-floating pulse"> </button> <span className={'text_status'}>Gw2 api is offline</span></span>}
                 </p>
             </div>
         )

@@ -1,7 +1,7 @@
 
-async function getDoneQuests (link,version,token,character) {
+async function getDoneQuests (link,version,lang,token,character) {
     // fetch data
-    const data = await fetch(`${link}${version}/characters/${character}/quests?access_token=${token}`, {
+    const data = await fetch(`${link}${version}/characters/${character}/quests?access_token=${token}&lang=${lang}`, {
         method : 'GET',
         mode : 'cors'
     })
