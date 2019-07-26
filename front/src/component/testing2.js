@@ -38,17 +38,12 @@ class Stories extends Component {
         const seasons = seasonsNS.sort(function(a, b){return a['order']-b['order']})
         const stories = loadHash.orderBy(storiesNS, ['season', 'order'])
 
-        // sort each story in each season
-        for (let i = 0; i<seasons.length; i++) {
-            seasons[i]['stories'].sort(function(a, b){return a-b})
-        }
-
-        let qDone = {}
+        let questsDone = {}
         for (let i = 0; i<characters.length; i++) {
-            qDone[characters[i]] = await getDoneQuests(env.apiLink,env.apiVersion,this.state.key,characters[i])
+            questsDone[characters[i]] = await getDoneQuests(env.apiLink,env.apiVersion,this.state.key,characters[i])
         }
 
-        return {seasons, stories, quests, characters, qDone}
+        return {seasons, stories, quests, characters, questsDone}
     }
 
     componentWillMount () {
@@ -79,16 +74,29 @@ class Stories extends Component {
                             <div key={season['id']}>
                                 <h4>{season['name']}</h4>
 
+                                {/*data['stories'] first because it's the right sort*/}
                                 {data['stories'].map((storieD) => (
                                     season['stories'].map((storieS) => (
                                         <div>
                                             {storieD['id'] === storieS ?
                                                 <div>
                                                     <h5>{storieD['name']} {storieD['races']?' - '+storieD['races']:null} </h5>
-                                                    <ul>
+                                                    <ul className={'browser-default'}>
                                                         {data['quests'].map((quest) => (
                                                             quest['story'] === storieD['id'] ?
-                                                                <p>{quest['name']}</p>
+                                                                <div>
+                                                                    <li>{quest['name']}
+                                                                        <ul className={'browser-default'}>
+                                                                            {data.characters.map((character) => (
+                                                                                data.questsDone[character].map((questDone) => (
+                                                                                    questDone === quest['id'] ?
+                                                                                        <li>{character}</li>
+                                                                                        : null
+                                                                                ))
+                                                                            ))}
+                                                                        </ul>
+                                                                    </li>
+                                                                </div>
                                                                 : null
                                                         ))}
                                                     </ul>
