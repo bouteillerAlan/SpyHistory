@@ -74,40 +74,43 @@ class Stories extends Component {
                             <div key={season['id']}>
                                 <h4>{season['name']}</h4>
 
-                                {/*data['stories'] first because it's the right sort*/}
-                                {data['stories'].map((storieD) => (
-                                    season['stories'].map((storieS) => (
-                                        <div>
-                                            {storieD['id'] === storieS ?
-                                                <div>
-                                                    <h5>{storieD['name']} {storieD['races']?' - '+storieD['races']:null} </h5>
-                                                    <ul className={'browser-default'}>
-                                                        {data['quests'].map((quest) => (
-                                                            quest['story'] === storieD['id'] ?
-                                                                <div>
-                                                                    <li>{quest['name']}
-                                                                        <ul className={'browser-default'}>
-                                                                            {data.characters.map((character) => (
-                                                                                data.questsDone[character].map((questDone) => (
-                                                                                    questDone === quest['id'] ?
-                                                                                        <li>{character}</li>
-                                                                                        : null
-                                                                                ))
-                                                                            ))}
-                                                                        </ul>
-                                                                    </li>
-                                                                </div>
-                                                                : null
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                                : null}
-
-                                        </div>
-
-                                    ))
-                                ))}
-
+                                <ul className="collapsible popout">
+                                    {/*data['stories'] first because it's the right sort*/}
+                                    {data['stories'].map((storieD) => (
+                                        season['stories'].map((storieS) => (
+                                            <>
+                                                {storieD['id'] === storieS ?
+                                                    <li>
+                                                        <div className="collapsible-header">
+                                                            {storieD['name']} {storieD['races']?' - '+storieD['races']:null}
+                                                        </div>
+                                                        <div className="collapsible-body">
+                                                            <ul className={'browser-default'}>
+                                                                {data['quests'].map((quest) => (
+                                                                    quest['story'] === storieD['id'] ?
+                                                                        <div>
+                                                                            <li>{quest['name']}
+                                                                                <ul className={'browser-default'}>
+                                                                                    {data.characters.map((character) => (
+                                                                                        data.questsDone[character].map((questDone) => (
+                                                                                            questDone === quest['id'] ?
+                                                                                                <li>{character}</li>
+                                                                                                : null
+                                                                                        ))
+                                                                                    ))}
+                                                                                </ul>
+                                                                            </li>
+                                                                        </div>
+                                                                        : null
+                                                                ))}
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+                                                    : null}
+                                            </>
+                                        ))
+                                    ))}
+                                </ul>
                             </div>
                         ))}
                     </div>
