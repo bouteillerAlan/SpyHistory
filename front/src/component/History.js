@@ -25,16 +25,22 @@ class History extends Component {
     async getter () {
         const seasonsNS = await getSeasons(env.apiLink,env.apiVersion,this.state.lang)
         const storiesNS = await getStories(env.apiLink,env.apiVersion,this.state.lang)
-        const quests = await getQuests(env.apiLink,env.apiVersion,this.state.lang)
+        const questsNS = await getQuests(env.apiLink,env.apiVersion,this.state.lang)
         const characters = await getCharacters(env.apiLink,env.apiVersion,this.state.lang,this.state.key)
 
         const seasons = seasonsNS.sort(function(a, b){return a['order']-b['order']})
         const stories = loadHash.orderBy(storiesNS, ['season', 'order'])
+        const quests = loadHash.orderBy(questsNS, ['story', 'level']) // for the moment 'level' is the best way for short this thing
 
         let questsDone = {}
         for (let i = 0; i<characters.length; i++) {
             questsDone[characters[i]] = await getDoneQuests(env.apiLink,env.apiVersion,this.state.lang,this.state.key,characters[i])
         }
+
+        const test = [3,2,1,4,8,6,7]
+        const a = [1,2,3,4,5,6,7,8]
+        const b = loadHash(test, a)
+        console.log(b)
 
         return {seasons, stories, quests, characters, questsDone}
     }
@@ -56,9 +62,62 @@ class History extends Component {
         M.Collapsible.init(elems, options)
     }
 
-    render() {
+    // map the data in a single object
+    map () {
+        const {data} = this.state
+        let obj = {}
 
+        // seasons -> stories -> quests -> characters -> questsDone
+        data['seasons'].map((season) => {
+
+            // create object key
+            obj[season['name']] = {}
+
+            data['stories'].map((story) => {
+
+                // check if story is in seasons and store it
+                if (story['season'] === season['id']) {
+
+                    // if a race is set
+                    const storyName = story['races'] ? story['name']+' - '+story['races'] : story['name']
+
+                    obj[season['name']][storyName] = {quests : {}, description : story['description']}
+
+                    // and continue loop
+                    data['quests'].map((quest) => {
+
+                        // check if quest is in story and store it
+                        if (quest['story'] === story['id']) {
+                            obj[season['name']][storyName]['quests'][quest['name']] = {Qid:'', Qlevel:'', status:{}}
+
+                            data['characters'].map((character) => {
+
+                                // stock id and level
+                                obj[season['name']][storyName]['quests'][quest['name']]['Qid'] = quest['id']
+                                obj[season['name']][storyName]['quests'][quest['name']]['Qlevel'] = quest['level']
+
+                                // check if it's done, if it's the case tag it
+                                obj[season['name']][storyName]['quests'][quest['name']]['status'][character] = data['questsDone'][character].includes(quest['id']) ? 1 : 0
+
+                            })
+                        }
+                    })
+                }
+            })
+        })
+
+        // return the map
+        return obj
+    }
+
+    render() {
         const {loading, data} = this.state
+
+        if (data) {
+            console.log(data)
+            const test = this.map()
+            console.log(test)
+        }
 
         return (
             <div className="row">
