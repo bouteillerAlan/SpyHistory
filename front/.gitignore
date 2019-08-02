@@ -9,7 +9,6 @@
 
 # misc
 .idea
-env.*
 .env
 .env.local
 .env.development.local
