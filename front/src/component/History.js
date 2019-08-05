@@ -154,7 +154,7 @@ class History extends Component {
                                                                         <ul>
                                                                             {data.characters.map((character) => (
                                                                                 <li key={quest['id']+character} className={data.questsDone[character].includes(quest['id']) ? 'green' : ''}>
-                                                                                    <span className={data.questsDone[character].includes(quest['id']) ? '' : 'blue-grey-text'}>
+                                                                                    <span className={data.questsDone[character].includes(quest['id']) ? '' : 'grey-text'}>
                                                                                         {data.questsDone[character].includes(quest['id']) ? '🗸 ' : 'x '}
                                                                                         {character}
                                                                                     </span>

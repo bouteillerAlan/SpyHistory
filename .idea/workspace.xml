@@ -24,10 +24,56 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>input-field</find>
+      <find>card</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1Oiqm0RbXiFt3ork8iC6Wq3tTIr" />
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/front/src/index.css" />
+        <option value="$PROJECT_DIR$/front/src/App.js" />
+        <option value="$PROJECT_DIR$/front/src/style/font/font.css" />
+        <option value="$PROJECT_DIR$/front/src/.env" />
+        <option value="$PROJECT_DIR$/front/README.md" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/front/package.json" />
+        <option value="$PROJECT_DIR$/front/src/function/getAccount.js" />
+        <option value="$PROJECT_DIR$/front/src/component/stories.js" />
+        <option value="$PROJECT_DIR$/front/src/component/testingAPI.js" />
+        <option value="$PROJECT_DIR$/front/src/function/getBackstory.js" />
+        <option value="$PROJECT_DIR$/front/src/function/getStories.js" />
+        <option value="$PROJECT_DIR$/front/src/function/getCharacters.js" />
+        <option value="$PROJECT_DIR$/front/src/component/Stories.js" />
+        <option value="$PROJECT_DIR$/front/src/function/getStoriesDone.js" />
+        <option value="$PROJECT_DIR$/front/src/component/getStories.js" />
+        <option value="$PROJECT_DIR$/front/src/function/getDoneQuests.js" />
+        <option value="$PROJECT_DIR$/front/src/function/getQuests.js" />
+        <option value="$PROJECT_DIR$/front/src/component/testing.js" />
+        <option value="$PROJECT_DIR$/front/public/index.html" />
+        <option value="$PROJECT_DIR$/front/src/env.js" />
+        <option value="$PROJECT_DIR$/front/src/component/Header.js" />
+        <option value="$PROJECT_DIR$/front/src/style/css/base.scss" />
+        <option value="$PROJECT_DIR$/front/src/history.html" />
+        <option value="$PROJECT_DIR$/front/src/history.js" />
+        <option value="$PROJECT_DIR$/front/src/index.js" />
+        <option value="$PROJECT_DIR$/front/src/component/Account.js" />
+        <option value="$PROJECT_DIR$/front/src/component/App.js" />
+        <option value="$PROJECT_DIR$/front/.gitignore" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="137" />
+    <option name="y" value="393" />
+    <option name="width" value="1805" />
+    <option name="height" value="937" />
+  </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -79,8 +125,6 @@
       <option name="presentableId" value="Default" />
       <updated>1563986840728</updated>
       <workItem from="1563986841813" duration="36665000" />
-      <workItem from="1564470922084" duration="1020000" />
-      <workItem from="1564557494500" duration="13557000" />
     </task>
     <servers />
   </component>
