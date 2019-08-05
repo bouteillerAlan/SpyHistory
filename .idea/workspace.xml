@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d2c78220-975d-48d3-97d7-fa7aaa89a149" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/front/src/personal_story_line.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/component/History.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/component/History.js" afterDir="false" />
     </list>
@@ -125,6 +126,13 @@
       <option name="presentableId" value="Default" />
       <updated>1563986840728</updated>
       <workItem from="1563986841813" duration="36665000" />
+<<<<<<< Updated upstream
+=======
+      <workItem from="1564470922084" duration="1020000" />
+      <workItem from="1564557494500" duration="15512000" />
+      <workItem from="1564998905850" duration="17000" />
+      <workItem from="1564998934531" duration="4625000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
