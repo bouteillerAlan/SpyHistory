@@ -37,11 +37,6 @@ class History extends Component {
             questsDone[characters[i]] = await getDoneQuests(env.apiLink,env.apiVersion,this.state.lang,this.state.key,characters[i])
         }
 
-        const test = [3,2,1,4,8,6,7]
-        const a = [1,2,3,4,5,6,7,8]
-        const b = loadHash(test, a)
-        console.log(b)
-
         return {seasons, stories, quests, characters, questsDone}
     }
 
