@@ -227,11 +227,6 @@ nav {
         .card_persona {
           text-align: center;
           color: var(--primary-color);
-
-          .status {
-
-          }
-
         }
 
       }
@@ -246,6 +241,10 @@ nav {
 }
 
 .material-tooltip {
-  width: 50% !important;
+  max-width: 50% !important;
+}
+
+.tooltipped:hover {
+  cursor: pointer;
 }
 

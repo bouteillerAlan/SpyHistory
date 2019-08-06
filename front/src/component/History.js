@@ -114,12 +114,12 @@ class History extends Component {
         const {loading, data} = this.state
         const map = data ? this.map() : null
 
-        if (data) {
-            console.log(data)
-            const test = this.map()
-            console.log(test)
-            psl['Asura'].map((quest) => {console.log(quest)})
-        }
+        // if (data) {
+        //     console.log(data)
+        //     const test = this.map()
+        //     console.log(test)
+        //     psl['Asura'].map((quest) => {console.log(quest)})
+        // }
 
         return (
             <div className="row">
@@ -149,20 +149,20 @@ class History extends Component {
 
                                                 <div className="ecran">
                                                     {psl[story.split('- ')[1]] && psl[story.split('- ')[1]].map((quest) => (
-                                                        <div className="grid">
+                                                        <div key={quest} className="grid">
                                                             {quest.map((line) => (
-                                                                <div className="line">
+                                                                <div key={line} className="line">
                                                                     {line.map((id) => (
-                                                                        <div className="multi_card">
+                                                                        <div key={id} className="multi_card">
                                                                             {Array.isArray(id) ?
                                                                                 // is a choice
                                                                                 id.map((uId) => (
-                                                                                    <div className={'card'}>
+                                                                                    <div key={uId} className={'card'}>
                                                                                         <p className={'info'}><small>Lvl : {map[season][story]['quests'][uId]['Qlevel']}</small><small>Qid : {map[season][story]['quests'][uId]['Qid']}</small></p>
                                                                                         <h5 className={'title'}>{map[season][story]['quests'][uId]['Qname']}</h5>
                                                                                         <div className={'card_persona'}>
                                                                                             {Object.keys(map[season][story]['quests'][uId]['status']).map((character) => (
-                                                                                                <span className={'status ' + (map[season][story]['quests'][uId]['status'][character] ? 'green' : 'red')}>
+                                                                                                <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][uId]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
                                                                                                     <span>{map[season][story]['quests'][uId]['status'][character] ? '🗸 ' : 'x '}</span>
                                                                                                 </span>
                                                                                             ))}
@@ -175,7 +175,7 @@ class History extends Component {
                                                                                     <h5 className={'title'}>{map[season][story]['quests'][id]['Qname']}</h5>
                                                                                     <div className={'card_persona'}>
                                                                                         {Object.keys(map[season][story]['quests'][id]['status']).map((character) => (
-                                                                                            <span className={'status ' + (map[season][story]['quests'][id]['status'][character] ? 'green' : 'red')}>
+                                                                                            <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][id]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
                                                                                                     <span>{map[season][story]['quests'][id]['status'][character] ? '🗸 ' : 'x '}</span>
                                                                                             </span>
                                                                                         ))}
