@@ -1,7 +1,6 @@
 /*
 * GENERAL THEME
 */
-@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
 
 :root {
   --primary-color : #272727;
@@ -175,31 +174,86 @@ nav {
 */
 .collapsible-body{
   border-bottom: 0 !important;
+  overflow-x: auto !important;
+
+  .ecran {
+    display: flex;
+    align-items: center;
+  }
+
+  .grid_col {
+    display: flex;
+    flex-direction: column;
+  }
 
   .grid {
     display: flex;
-    flex-wrap: wrap;
-    justify-content : center;
+    flex-direction: column;
 
-    .card {
-      width: 250px;
-      margin: 15px;
-      padding: 10px;
-      border: solid var(--primary-color) 2px;
+    .line {
+      display: flex;
+      flex-direction: row;
 
-      .info {
-        margin-top: 0;
+      .multi_card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
 
-        small:nth-child(2) {
-          float: right;
+      .card {
+        width: 250px;
+        min-height: 150px;
+        max-height: fit-content;
+        margin: 15px;
+        padding: 10px;
+        border: solid var(--primary-color) 2px;
+
+        // content position
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .info {
+          margin-top: 0;
+          display: flex;
+          justify-content: space-between;
         }
-      }
 
-      .title {
-        text-align: center;
-      }
+        .title {
+          text-align: center;
+          margin: 0 !important;
+        }
 
+        .card_persona {
+          text-align: center;
+          color: var(--primary-color);
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+
+          .status {
+            span {
+              padding: 5px;
+            }
+          }
+        }
+
+      }
     }
+
   }
+}
+
+.badge {
+  background-color: #f39c12 !important;
+  color: var(--primary-color) !important;
+}
+
+.material-tooltip {
+  max-width: 50% !important;
+}
+
+.tooltipped:hover {
+  cursor: pointer;
 }
 

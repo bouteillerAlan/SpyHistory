@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import env from '../env'
+import psl from '../personal_story_line'
 import M from 'materialize-css'
 import loadHash from 'lodash'
 
@@ -86,16 +87,17 @@ class History extends Component {
 
                         // check if quest is in story and store it
                         if (quest['story'] === story['id']) {
-                            obj[season['name']][storyName]['quests'][quest['name']] = {Qid:'', Qlevel:'', status:{}}
+                            obj[season['name']][storyName]['quests'][quest['id']] = {Qname :'', Qid:'', Qlevel:'', status:{}}
 
                             data['characters'].map((character) => {
 
                                 // stock id and level
-                                obj[season['name']][storyName]['quests'][quest['name']]['Qid'] = quest['id']
-                                obj[season['name']][storyName]['quests'][quest['name']]['Qlevel'] = quest['level']
+                                obj[season['name']][storyName]['quests'][quest['id']]['Qname'] = quest['name']
+                                obj[season['name']][storyName]['quests'][quest['id']]['Qid'] = quest['id']
+                                obj[season['name']][storyName]['quests'][quest['id']]['Qlevel'] = quest['level']
 
                                 // check if it's done, if it's the case tag it
-                                obj[season['name']][storyName]['quests'][quest['name']]['status'][character] = data['questsDone'][character].includes(quest['id']) ? 1 : 0
+                                obj[season['name']][storyName]['quests'][quest['id']]['status'][character] = data['questsDone'][character].includes(quest['id']) ? 1 : 0
 
                             })
                         }
@@ -112,11 +114,12 @@ class History extends Component {
         const {loading, data} = this.state
         const map = data ? this.map() : null
 
-        if (data) {
-            console.log(data)
-            const test = this.map()
-            console.log(test)
-        }
+        // if (data) {
+        //     console.log(data)
+        //     const test = this.map()
+        //     console.log(test)
+        //     psl['Asura'].map((quest) => {console.log(quest)})
+        // }
 
         return (
             <div className="row">
@@ -130,40 +133,67 @@ class History extends Component {
                     <div>
                         {Object.keys(map).map((season) => (
                             <div key={season}>
-                                <h4># {season}</h4>
+                                <h4><blockquote>{season}</blockquote></h4>
 
                                 <ul className="collapsible popout">
 
                                     {Object.keys(map[season]).map((story) => (
                                         <li key={story}>
-                                            <div className={"collapsible-header " + (map[season][story]['description'] ? "tooltipped" : null)} data-position="top" data-tooltip={map[season][story]['description']}>
+                                            <div className="collapsible-header">
                                                 {story}
+                                                {map[season][story]['description'] &&
+                                                    <span className="new badge tooltipped hide-on-med-and-down" data-badge-caption="Info." data-position="left" data-tooltip={map[season][story]['description']}> </span>
+                                                }
                                             </div>
                                             <div className="collapsible-body">
 
-                                                <div className="grid">
-
-                                                    {Object.keys(map[season][story]['quests']).map((quest) => (
-
-                                                        <div key={map[season][story]['quests'][quest]['Qid']} className={'card'}>
-                                                            <p className={'info'}><small>Lvl : {map[season][story]['quests'][quest]['Qlevel']}</small><small>Qid : {map[season][story]['quests'][quest]['Qid']}</small></p>
-                                                            <h5 className={'title'}>{quest}</h5>
-                                                            <ul>
-                                                                {Object.keys(map[season][story]['quests'][quest]['status']).map((character) => (
-                                                                    <li key={map[season][story]['quests'][quest]['Qid'] + character} className={map[season][story]['quests'][quest]['status'][character] ? 'green' : ''}>
-                                                                        <span className={map[season][story]['quests'][quest]['status'][character] ? '' : 'grey-text'}>
-                                                                            {map[season][story]['quests'][quest]['status'][character] ? '🗸 ' : 'x '}
-                                                                            {character}
-                                                                        </span>
-                                                                    </li>
-                                                                ))}
-                                                            </ul>
+                                                <div className="ecran">
+                                                    {psl[story.split('- ')[1]] && psl[story.split('- ')[1]].map((quest) => (
+                                                        <div key={quest} className="grid">
+                                                            {quest.map((line) => (
+                                                                <div key={line} className="line">
+                                                                    {line.map((id) => (
+                                                                        <div key={id} className="multi_card">
+                                                                            {Array.isArray(id) ?
+                                                                                // is a choice
+                                                                                id.map((uId) => (
+                                                                                    <div key={uId} className={'card'}>
+                                                                                        <p className={'info'}><small>Lvl : {map[season][story]['quests'][uId]['Qlevel']}</small><small>Qid : {map[season][story]['quests'][uId]['Qid']}</small></p>
+                                                                                        <h5 className={'title'}>{map[season][story]['quests'][uId]['Qname']}</h5>
+                                                                                        <div className={'card_persona'}>
+                                                                                            {Object.keys(map[season][story]['quests'][uId]['status']).map((character) => (
+                                                                                                <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][uId]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
+                                                                                                    <span>
+                                                                                                        {/*{map[season][story]['quests'][uId]['status'][character] ? '🗸 ' : 'x '}*/}
+                                                                                                        {character.substring(0,3)}
+                                                                                                    </span>
+                                                                                                </span>
+                                                                                            ))}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                ))
+                                                                                :
+                                                                                <div className={'card'}>
+                                                                                    <p className={'info'}><small>Lvl : {map[season][story]['quests'][id]['Qlevel']}</small><small>Qid : {map[season][story]['quests'][id]['Qid']}</small></p>
+                                                                                    <h5 className={'title'}>{map[season][story]['quests'][id]['Qname']}</h5>
+                                                                                    <div className={'card_persona'}>
+                                                                                        {Object.keys(map[season][story]['quests'][id]['status']).map((character) => (
+                                                                                            <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][id]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
+                                                                                                    <span>
+                                                                                                        {/*{map[season][story]['quests'][uId]['status'][character] ? '🗸 ' : 'x '}*/}
+                                                                                                        {character.substring(0,3)}
+                                                                                                    </span>
+                                                                                            </span>
+                                                                                        ))}
+                                                                                    </div>
+                                                                                </div>}
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+                                                            ))}
                                                         </div>
-
                                                     ))}
-
                                                 </div>
-
                                             </div>
                                         </li>
                                     ))}
