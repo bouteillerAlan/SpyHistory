@@ -1,7 +1,6 @@
 /*
 * GENERAL THEME
 */
-@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
 
 :root {
   --primary-color : #272727;
@@ -175,14 +174,38 @@ nav {
 */
 .collapsible-body{
   border-bottom: 0 !important;
+  overflow-x: scroll !important;
+
+  //.ecran {
+  //  display: flex;
+  //  align-items: center;
+  //}
+
+  .grid_col {
+    display: flex;
+    flex-direction: column;
+  }
 
   .grid {
     display: flex;
-    flex-wrap: wrap;
-    justify-content : center;
+    //flex-wrap: wrap;
+    //justify-content : center;
+
+    div {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .card_blank {
+      width: 250px;
+      margin: 17px;
+      padding: 10px;
+    }
 
     .card {
       width: 250px;
+      max-height: fit-content;
       margin: 15px;
       padding: 10px;
       border: solid var(--primary-color) 2px;
@@ -201,5 +224,14 @@ nav {
 
     }
   }
+}
+
+.badge {
+  background-color: #f39c12 !important;
+  color: var(--primary-color) !important;
+}
+
+.material-tooltip {
+  width: 50% !important;
 }
 

@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import env from '../env'
+import psl from '../personal_story_line'
 import M from 'materialize-css'
 import loadHash from 'lodash'
 
@@ -126,18 +127,70 @@ class History extends Component {
                     </div>
                 }
 
+                <div>
+                    <h4>Test</h4>
+                    <ul className="collapsible popout">
+                        <li>
+                            <div className="collapsible-header">
+                            </div>
+                            <div className="collapsible-body">
+                                <div className="ecran">
+                                    {psl['asura_col'].map((quest) => (
+
+                                        <div className="grid">
+                                            {quest.map((id) => (
+                                                <div>
+                                                    {/*id is is null*/}
+                                                    {!id ? <div className="card_blank"> </div>
+                                                        :
+                                                        // if id is a multi choice option
+                                                        Array.isArray(id) ? id.map((v) => (
+                                                            <div className={'card'}>
+                                                                <p className={'info'}><small>Lvl :</small><small>Qid : {quest}</small></p>
+                                                                <h5 className={'title'}>{v}</h5>
+                                                                <ul>
+                                                                    <li>
+                                                                        <span className={''}>##</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        )) :
+                                                            <div className={'card'}>
+                                                                <p className={'info'}><small>Lvl :</small><small>Qid : {quest}</small></p>
+                                                                <h5 className={'title'}>{id}</h5>
+                                                                <ul>
+                                                                    <li>
+                                                                        <span className={''}>##</span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                    }
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                    ))}
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
                 {map &&
                     <div>
                         {Object.keys(map).map((season) => (
                             <div key={season}>
-                                <h4># {season}</h4>
+                                <h4><blockquote>{season}</blockquote></h4>
 
                                 <ul className="collapsible popout">
 
                                     {Object.keys(map[season]).map((story) => (
                                         <li key={story}>
-                                            <div className={"collapsible-header " + (map[season][story]['description'] ? "tooltipped" : null)} data-position="top" data-tooltip={map[season][story]['description']}>
+                                            <div className="collapsible-header">
                                                 {story}
+                                                {map[season][story]['description'] &&
+                                                    <span className="new badge tooltipped hide-on-med-and-down" data-badge-caption="Info." data-position="left" data-tooltip={map[season][story]['description']}> </span>
+                                                }
                                             </div>
                                             <div className="collapsible-body">
 
