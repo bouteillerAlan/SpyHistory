@@ -163,7 +163,10 @@ class History extends Component {
                                                                                         <div className={'card_persona'}>
                                                                                             {Object.keys(map[season][story]['quests'][uId]['status']).map((character) => (
                                                                                                 <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][uId]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
-                                                                                                    <span>{map[season][story]['quests'][uId]['status'][character] ? '🗸 ' : 'x '}</span>
+                                                                                                    <span>
+                                                                                                        {/*{map[season][story]['quests'][uId]['status'][character] ? '🗸 ' : 'x '}*/}
+                                                                                                        {character.substring(0,3)}
+                                                                                                    </span>
                                                                                                 </span>
                                                                                             ))}
                                                                                         </div>
@@ -176,7 +179,10 @@ class History extends Component {
                                                                                     <div className={'card_persona'}>
                                                                                         {Object.keys(map[season][story]['quests'][id]['status']).map((character) => (
                                                                                             <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][id]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
-                                                                                                    <span>{map[season][story]['quests'][id]['status'][character] ? '🗸 ' : 'x '}</span>
+                                                                                                    <span>
+                                                                                                        {/*{map[season][story]['quests'][uId]['status'][character] ? '🗸 ' : 'x '}*/}
+                                                                                                        {character.substring(0,3)}
+                                                                                                    </span>
                                                                                             </span>
                                                                                         ))}
                                                                                     </div>

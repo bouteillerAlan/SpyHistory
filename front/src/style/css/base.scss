@@ -227,6 +227,15 @@ nav {
         .card_persona {
           text-align: center;
           color: var(--primary-color);
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+
+          .status {
+            span {
+              padding: 5px;
+            }
+          }
         }
 
       }
