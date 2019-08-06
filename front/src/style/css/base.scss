@@ -174,7 +174,7 @@ nav {
 */
 .collapsible-body{
   border-bottom: 0 !important;
-  overflow-x: scroll !important;
+  overflow-x: auto !important;
 
   .ecran {
     display: flex;
@@ -202,21 +202,36 @@ nav {
 
       .card {
         width: 250px;
+        min-height: 150px;
         max-height: fit-content;
         margin: 15px;
         padding: 10px;
         border: solid var(--primary-color) 2px;
 
+        // content position
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
         .info {
           margin-top: 0;
-
-          small:nth-child(2) {
-            float: right;
-          }
+          display: flex;
+          justify-content: space-between;
         }
 
         .title {
           text-align: center;
+          margin: 0 !important;
+        }
+
+        .card_persona {
+          text-align: center;
+          color: var(--primary-color);
+
+          .status {
+
+          }
+
         }
 
       }
