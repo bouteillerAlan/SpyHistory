@@ -52,9 +52,12 @@ class History extends Component {
     // init js
     // DidUpdate because the elem is not render if fetch is null
     componentDidUpdate () {
-        const elems = document.querySelectorAll('.collapsible')
-        const options = {}
-        M.Collapsible.init(elems, options)
+        const elems_collapsible = document.querySelectorAll('.collapsible')
+        const elems_tooltipped = document.querySelectorAll('.tooltipped')
+        const options_collapsible = {}
+        const options_tooltipped = {}
+        M.Collapsible.init(elems_collapsible, options_collapsible)
+        M.Tooltip.init(elems_tooltipped, options_tooltipped)
     }
 
     // map the data in a single object
@@ -107,6 +110,7 @@ class History extends Component {
 
     render() {
         const {loading, data} = this.state
+        const map = data ? this.map() : null
 
         if (data) {
             console.log(data)
@@ -122,52 +126,50 @@ class History extends Component {
                     </div>
                 }
 
-                {data &&
+                {map &&
                     <div>
-                        {data['seasons'].map((season) => (
-                            <div key={season['id']}>
-                                <h4>{season['name']}</h4>
+                        {Object.keys(map).map((season) => (
+                            <div key={season}>
+                                <h4># {season}</h4>
 
                                 <ul className="collapsible popout">
-                                    {/*data['stories'] first because it's the right sort*/}
-                                    {data['stories'].map((storieD) => (
-                                        season['stories'].map((storieS) => (
-                                            storieD['id'] === storieS ?
-                                                <li key={storieD['id']}>
-                                                    <div className="collapsible-header">
-                                                        {storieD['name']} {storieD['races']?' - '+storieD['races']:null}
-                                                    </div>
-                                                    <div className="collapsible-body">
 
-                                                        <div className="grid">
-                                                            {data['quests'].map((quest) => (
-                                                                quest['story'] === storieD['id'] ?
-                                                                    <div key={quest['id']} className={'card'}>
+                                    {Object.keys(map[season]).map((story) => (
+                                        <li key={story}>
+                                            <div className={"collapsible-header " + (map[season][story]['description'] ? "tooltipped" : null)} data-position="top" data-tooltip={map[season][story]['description']}>
+                                                {story}
+                                            </div>
+                                            <div className="collapsible-body">
 
-                                                                        <p className={'info'}><small>{storieD['timeline']}</small><small>Qid : {quest['id']}</small></p>
-                                                                        <h5 className={'title'}>{quest['name']}</h5>
-                                                                        <ul>
-                                                                            {data.characters.map((character) => (
-                                                                                <li key={quest['id']+character} className={data.questsDone[character].includes(quest['id']) ? 'green' : ''}>
-                                                                                    <span className={data.questsDone[character].includes(quest['id']) ? '' : 'grey-text'}>
-                                                                                        {data.questsDone[character].includes(quest['id']) ? '🗸 ' : 'x '}
-                                                                                        {character}
-                                                                                    </span>
-                                                                                </li>
-                                                                            ))}
-                                                                        </ul>
+                                                <div className="grid">
 
-                                                                    </div>
-                                                                    : null
-                                                            ))}
+                                                    {Object.keys(map[season][story]['quests']).map((quest) => (
+
+                                                        <div key={map[season][story]['quests'][quest]['Qid']} className={'card'}>
+                                                            <p className={'info'}><small>Lvl : {map[season][story]['quests'][quest]['Qlevel']}</small><small>Qid : {map[season][story]['quests'][quest]['Qid']}</small></p>
+                                                            <h5 className={'title'}>{quest}</h5>
+                                                            <ul>
+                                                                {Object.keys(map[season][story]['quests'][quest]['status']).map((character) => (
+                                                                    <li key={map[season][story]['quests'][quest]['Qid'] + character} className={map[season][story]['quests'][quest]['status'][character] ? 'green' : ''}>
+                                                                        <span className={map[season][story]['quests'][quest]['status'][character] ? '' : 'grey-text'}>
+                                                                            {map[season][story]['quests'][quest]['status'][character] ? '🗸 ' : 'x '}
+                                                                            {character}
+                                                                        </span>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
                                                         </div>
 
-                                                    </div>
-                                                </li>
-                                                : null
-                                        ))
+                                                    ))}
+
+                                                </div>
+
+                                            </div>
+                                        </li>
                                     ))}
+
                                 </ul>
+
                             </div>
                         ))}
                     </div>
