@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d2c78220-975d-48d3-97d7-fa7aaa89a149" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/component/History.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/component/History.js" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>input-field</find>
+      <find>card</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/front/src/index.css" />
+        <option value="$PROJECT_DIR$/front/src/App.js" />
+        <option value="$PROJECT_DIR$/front/src/style/font/font.css" />
+        <option value="$PROJECT_DIR$/front/src/.env" />
+        <option value="$PROJECT_DIR$/front/README.md" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/front/package.json" />
+        <option value="$PROJECT_DIR$/front/src/function/getAccount.js" />
+        <option value="$PROJECT_DIR$/front/src/component/stories.js" />
+        <option value="$PROJECT_DIR$/front/src/component/testingAPI.js" />
+        <option value="$PROJECT_DIR$/front/src/function/getBackstory.js" />
+        <option value="$PROJECT_DIR$/front/src/function/getStories.js" />
+        <option value="$PROJECT_DIR$/front/src/function/getCharacters.js" />
+        <option value="$PROJECT_DIR$/front/src/component/Stories.js" />
+        <option value="$PROJECT_DIR$/front/src/function/getStoriesDone.js" />
+        <option value="$PROJECT_DIR$/front/src/component/getStories.js" />
+        <option value="$PROJECT_DIR$/front/src/function/getDoneQuests.js" />
+        <option value="$PROJECT_DIR$/front/src/function/getQuests.js" />
+        <option value="$PROJECT_DIR$/front/src/component/testing.js" />
+        <option value="$PROJECT_DIR$/front/public/index.html" />
+        <option value="$PROJECT_DIR$/front/src/env.js" />
+        <option value="$PROJECT_DIR$/front/src/component/Header.js" />
+        <option value="$PROJECT_DIR$/front/src/style/css/base.scss" />
+        <option value="$PROJECT_DIR$/front/src/history.html" />
+        <option value="$PROJECT_DIR$/front/src/history.js" />
+        <option value="$PROJECT_DIR$/front/src/index.js" />
+        <option value="$PROJECT_DIR$/front/src/component/Account.js" />
+        <option value="$PROJECT_DIR$/front/src/component/App.js" />
+        <option value="$PROJECT_DIR$/front/.gitignore" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="137" />
+    <option name="y" value="393" />
+    <option name="width" value="1805" />
+    <option name="height" value="937" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="P:\Developer_Tools\laragon\www\SpyHistory\front\src\component" />
+    </key>
+  </component>
+  <component name="RemoteSynchronizer">
+    <option name="targetMappings">
+      <list>
+        <TargetMappings>
+          <option name="name" value="Default" />
+        </TargetMappings>
+      </list>
+    </option>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d2c78220-975d-48d3-97d7-fa7aaa89a149" name="Default Changelist" comment="" />
+      <created>1563986840728</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1563986840728</updated>
+      <workItem from="1563986841813" duration="36665000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
