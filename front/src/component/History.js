@@ -135,36 +135,34 @@ class History extends Component {
                             </div>
                             <div className="collapsible-body">
                                 <div className="ecran">
-                                    {psl['asura_col'].map((quest) => (
+                                    {psl['asura_ligne'].map((quest) => (
 
                                         <div className="grid">
                                             {quest.map((id) => (
-                                                <div>
-                                                    {/*id is is null*/}
-                                                    {!id ? <div className="card_blank"> </div>
-                                                        :
-                                                        // if id is a multi choice option
-                                                        Array.isArray(id) ? id.map((v) => (
-                                                            <div className={'card'}>
-                                                                <p className={'info'}><small>Lvl :</small><small>Qid : {quest}</small></p>
-                                                                <h5 className={'title'}>{v}</h5>
-                                                                <ul>
-                                                                    <li>
-                                                                        <span className={''}>##</span>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        )) :
-                                                            <div className={'card'}>
-                                                                <p className={'info'}><small>Lvl :</small><small>Qid : {quest}</small></p>
-                                                                <h5 className={'title'}>{id}</h5>
-                                                                <ul>
-                                                                    <li>
-                                                                        <span className={''}>##</span>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
+                                                <div className="line">
+
+                                                    {Array.isArray(id) ? id.map((v) => (
+                                                        <div className={'card'}>
+                                                            <p className={'info'}><small>Lvl :</small><small>Qid : {quest}</small></p>
+                                                            <h5 className={'title'}>{v}</h5>
+                                                            <ul>
+                                                                <li>
+                                                                    <span className={''}>##</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    )) :
+                                                        <div className={'card'}>
+                                                            <p className={'info'}><small>Lvl :</small><small>Qid : {quest}</small></p>
+                                                            <h5 className={'title'}>{id}</h5>
+                                                            <ul>
+                                                                <li>
+                                                                    <span className={''}>##</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                     }
+
                                                 </div>
                                             ))}
                                         </div>

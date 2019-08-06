@@ -176,10 +176,10 @@ nav {
   border-bottom: 0 !important;
   overflow-x: scroll !important;
 
-  //.ecran {
-  //  display: flex;
-  //  align-items: center;
-  //}
+  .ecran {
+    display: flex;
+    align-items: center;
+  }
 
   .grid_col {
     display: flex;
@@ -188,41 +188,34 @@ nav {
 
   .grid {
     display: flex;
-    //flex-wrap: wrap;
-    //justify-content : center;
+    flex-direction: column;
 
-    div {
+    .line {
       display: flex;
-      justify-content: center;
-      flex-direction: column;
-    }
+      flex-direction: row;
 
-    .card_blank {
-      width: 250px;
-      margin: 17px;
-      padding: 10px;
-    }
+      .card {
+        width: 250px;
+        max-height: fit-content;
+        margin: 15px;
+        padding: 10px;
+        border: solid var(--primary-color) 2px;
 
-    .card {
-      width: 250px;
-      max-height: fit-content;
-      margin: 15px;
-      padding: 10px;
-      border: solid var(--primary-color) 2px;
+        .info {
+          margin-top: 0;
 
-      .info {
-        margin-top: 0;
-
-        small:nth-child(2) {
-          float: right;
+          small:nth-child(2) {
+            float: right;
+          }
         }
-      }
 
-      .title {
-        text-align: center;
-      }
+        .title {
+          text-align: center;
+        }
 
+      }
     }
+
   }
 }
 
