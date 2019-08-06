@@ -194,6 +194,12 @@ nav {
       display: flex;
       flex-direction: row;
 
+      .multi_card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
       .card {
         width: 250px;
         max-height: fit-content;
