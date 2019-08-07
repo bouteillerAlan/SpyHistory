@@ -286,6 +286,12 @@ nav {
         color: rgba(255, 255, 255, 0.69) !important;
         word-break: break-word;
       }
+
+      .card_content {
+        display: none;
+        transition: 0.3s;
+        transition-timing-function: ease-out;
+      }
     }
   }
 

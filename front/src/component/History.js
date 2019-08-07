@@ -80,7 +80,7 @@ class History extends Component {
                     // if a race is set
                     const storyName = story['races'] ? story['name']+' - '+story['races'] : story['name']
 
-                    obj[season['name']][storyName] = {quests : {}, description : story['description']}
+                    obj[season['name']][storyName] = {id : story['id'], quests : {}, description : story['description']}
 
                     // and continue loop
                     data['quests'].map((quest) => {
@@ -110,8 +110,10 @@ class History extends Component {
         return obj
     }
 
-    handleCard = () => {
-        console.log("pop")
+    handleCard = (id) => {
+        // get target
+        const target = document.getElementById(id)
+
     }
 
     render() {
@@ -137,10 +139,10 @@ class History extends Component {
                                 <div>
                                     <div className="cards_stack">
                                         {Object.keys(map[season]).map((story) => (
-                                            <div key={story} className={"card " + season.replace(/[\s]|[']/g,'')} onClick={() => {this.handleCard()}}>
+                                            <div key={story} className={"card " + season.replace(/[\s]|[']/g,'')} onClick={() => {this.handleCard(map[season][story]['id'])}}>
                                                 <div className="card_bck">
                                                     <h6>{story}</h6>
-                                                    <div className="card_content">
+                                                    <div className="card_content" id={map[season][story]['id']}>
                                                         <p>relative tree</p>
                                                     </div>
                                                 </div>
