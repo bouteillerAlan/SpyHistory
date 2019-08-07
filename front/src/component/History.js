@@ -110,16 +110,15 @@ class History extends Component {
         return obj
     }
 
+    handleCard = () => {
+        console.log("pop")
+    }
+
     render() {
         const {loading, data} = this.state
         const map = data ? this.map() : null
 
-        // if (data) {
-        //     console.log(data)
-        //     const test = this.map()
-        //     console.log(test)
-        //     psl['Asura'].map((quest) => {console.log(quest)})
-        // }
+        console.log(map)
 
         return (
             <div className="row">
@@ -135,70 +134,86 @@ class History extends Component {
                             <div key={season}>
                                 <h4><blockquote>{season}</blockquote></h4>
 
-                                <ul className="collapsible popout">
-
-                                    {Object.keys(map[season]).map((story) => (
-                                        <li key={story}>
-                                            <div className="collapsible-header">
-                                                {story}
-                                                {map[season][story]['description'] &&
-                                                    <span className="new badge tooltipped hide-on-med-and-down" data-badge-caption="Info." data-position="left" data-tooltip={map[season][story]['description']}> </span>
-                                                }
-                                            </div>
-                                            <div className="collapsible-body">
-
-                                                <div className="ecran">
-                                                    {psl[story.split('- ')[1]] && psl[story.split('- ')[1]].map((quest) => (
-                                                        <div key={quest} className="grid">
-                                                            {quest.map((line) => (
-                                                                <div key={line} className="line">
-                                                                    {line.map((id) => (
-                                                                        <div key={id} className="multi_card">
-                                                                            {Array.isArray(id) ?
-                                                                                // is a choice
-                                                                                id.map((uId) => (
-                                                                                    <div key={uId} className={'card'}>
-                                                                                        <p className={'info'}><small>Lvl : {map[season][story]['quests'][uId]['Qlevel']}</small><small>Qid : {map[season][story]['quests'][uId]['Qid']}</small></p>
-                                                                                        <h5 className={'title'}>{map[season][story]['quests'][uId]['Qname']}</h5>
-                                                                                        <div className={'card_persona'}>
-                                                                                            {Object.keys(map[season][story]['quests'][uId]['status']).map((character) => (
-                                                                                                <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][uId]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
-                                                                                                    <span>
-                                                                                                        {/*{map[season][story]['quests'][uId]['status'][character] ? '🗸 ' : 'x '}*/}
-                                                                                                        {character.substring(0,3)}
-                                                                                                    </span>
-                                                                                                </span>
-                                                                                            ))}
-                                                                                        </div>
-                                                                                    </div>
-                                                                                ))
-                                                                                :
-                                                                                <div className={'card'}>
-                                                                                    <p className={'info'}><small>Lvl : {map[season][story]['quests'][id]['Qlevel']}</small><small>Qid : {map[season][story]['quests'][id]['Qid']}</small></p>
-                                                                                    <h5 className={'title'}>{map[season][story]['quests'][id]['Qname']}</h5>
-                                                                                    <div className={'card_persona'}>
-                                                                                        {Object.keys(map[season][story]['quests'][id]['status']).map((character) => (
-                                                                                            <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][id]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
-                                                                                                    <span>
-                                                                                                        {/*{map[season][story]['quests'][uId]['status'][character] ? '🗸 ' : 'x '}*/}
-                                                                                                        {character.substring(0,3)}
-                                                                                                    </span>
-                                                                                            </span>
-                                                                                        ))}
-                                                                                    </div>
-                                                                                </div>}
-                                                                        </div>
-                                                                    ))}
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    ))}
+                                <div>
+                                    <div className="cards_stack">
+                                        {Object.keys(map[season]).map((story) => (
+                                            <div key={story} className={"card " + season.replace(/[\s]|[']/g,'')} onClick={() => {this.handleCard()}}>
+                                                <div className="card_bck">
+                                                    <h6>{story}</h6>
+                                                    <div className="card_content">
+                                                        <p>relative tree</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </li>
-                                    ))}
+                                        ))}
+                                    </div>
+                                </div>
 
-                                </ul>
+
+                                {/*<ul className="collapsible popout">*/}
+
+                                {/*    {Object.keys(map[season]).map((story) => (*/}
+                                {/*        <li key={story}>*/}
+                                {/*            <div className="collapsible-header">*/}
+                                {/*                {story}*/}
+                                {/*                {map[season][story]['description'] &&*/}
+                                {/*                    <span className="new badge tooltipped hide-on-med-and-down" data-badge-caption="Info." data-position="left" data-tooltip={map[season][story]['description']}> </span>*/}
+                                {/*                }*/}
+                                {/*            </div>*/}
+                                {/*            <div className="collapsible-body">*/}
+
+                                {/*                <div className="ecran">*/}
+                                {/*                    {psl[story.split('- ')[1]] && psl[story.split('- ')[1]].map((quest) => (*/}
+                                {/*                        <div key={quest} className="grid">*/}
+                                {/*                            {quest.map((line) => (*/}
+                                {/*                                <div key={line} className="line">*/}
+                                {/*                                    {line.map((id) => (*/}
+                                {/*                                        <div key={id} className="multi_card">*/}
+                                {/*                                            {Array.isArray(id) ?*/}
+                                {/*                                                // is a choice*/}
+                                {/*                                                id.map((uId) => (*/}
+                                {/*                                                    <div key={uId} className={'card'}>*/}
+                                {/*                                                        <p className={'info'}><small>Lvl : {map[season][story]['quests'][uId]['Qlevel']}</small><small>Qid : {map[season][story]['quests'][uId]['Qid']}</small></p>*/}
+                                {/*                                                        <h5 className={'title'}>{map[season][story]['quests'][uId]['Qname']}</h5>*/}
+                                {/*                                                        <div className={'card_persona'}>*/}
+                                {/*                                                            {Object.keys(map[season][story]['quests'][uId]['status']).map((character) => (*/}
+                                {/*                                                                <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][uId]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>*/}
+                                {/*                                                                    <span>*/}
+                                {/*                                                                        /!*{map[season][story]['quests'][uId]['status'][character] ? '🗸 ' : 'x '}*!/*/}
+                                {/*                                                                        {character.substring(0,3)}*/}
+                                {/*                                                                    </span>*/}
+                                {/*                                                                </span>*/}
+                                {/*                                                            ))}*/}
+                                {/*                                                        </div>*/}
+                                {/*                                                    </div>*/}
+                                {/*                                                ))*/}
+                                {/*                                                :*/}
+                                {/*                                                <div className={'card'}>*/}
+                                {/*                                                    <p className={'info'}><small>Lvl : {map[season][story]['quests'][id]['Qlevel']}</small><small>Qid : {map[season][story]['quests'][id]['Qid']}</small></p>*/}
+                                {/*                                                    <h5 className={'title'}>{map[season][story]['quests'][id]['Qname']}</h5>*/}
+                                {/*                                                    <div className={'card_persona'}>*/}
+                                {/*                                                        {Object.keys(map[season][story]['quests'][id]['status']).map((character) => (*/}
+                                {/*                                                            <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][id]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>*/}
+                                {/*                                                                    <span>*/}
+                                {/*                                                                        /!*{map[season][story]['quests'][uId]['status'][character] ? '🗸 ' : 'x '}*!/*/}
+                                {/*                                                                        {character.substring(0,3)}*/}
+                                {/*                                                                    </span>*/}
+                                {/*                                                            </span>*/}
+                                {/*                                                        ))}*/}
+                                {/*                                                    </div>*/}
+                                {/*                                                </div>}*/}
+                                {/*                                        </div>*/}
+                                {/*                                    ))}*/}
+                                {/*                                </div>*/}
+                                {/*                            ))}*/}
+                                {/*                        </div>*/}
+                                {/*                    ))}*/}
+                                {/*                </div>*/}
+                                {/*            </div>*/}
+                                {/*        </li>*/}
+                                {/*    ))}*/}
+
+                                {/*</ul>*/}
 
                             </div>
                         ))}
