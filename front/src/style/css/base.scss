@@ -286,12 +286,6 @@ nav {
         color: rgba(255, 255, 255, 0.69) !important;
         word-break: break-word;
       }
-
-      .card_content {
-        display: none;
-        transition: 0.3s;
-        transition-timing-function: ease-out;
-      }
     }
   }
 
@@ -313,6 +307,51 @@ nav {
   .card:focus ~ .card {
     transform: translateX(100px);
   }
+}
+
+.card_content {
+  transition: 5s;
+  transition-timing-function: ease-out;
+  display: none;
+  // materialize menu = z-index : 997
+  z-index: 998;
+}
+
+.card_content.call {
+  background-color: var(--primary-color);
+  position: fixed;
+  display: block;
+  animation: anim 0.5s;
+  animation-fill-mode: forwards;
+
+  @keyframes anim {
+    0% {
+      width: 150px;
+      height: 200px;
+      // hauteur écrans - (hauteur carte / 2)
+      top: calc(50vh - 100px);
+      // largeur écran - (largeur carte / 2)
+      left: calc(50vw - 75px);
+    }
+    99% {
+      overflow-y: hidden;
+    }
+    100% {
+      height: 100vh;
+      width: 100vw;
+      top: 0;
+      left: 0;
+      overflow-y: auto;
+    }
+  }
+}
+
+.noOverY {
+  overflow-y: hidden;
+}
+
+.autoOverY {
+  overflow-y: auto;
 }
 
 // test for adaptive background
