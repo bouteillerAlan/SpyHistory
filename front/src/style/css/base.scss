@@ -310,22 +310,77 @@ nav {
 }
 
 .card_content {
-  transition: 5s;
-  transition-timing-function: ease-out;
+  overflow-y: hidden;
+  position: fixed;
   display: none;
   // materialize menu = z-index : 997
   z-index: 998;
+  background-color: var(--primary-color);
+  width: 150px;
+  height: 200px;
+  // hauteur écrans - (hauteur carte / 2)
+  top: calc(50vh - 100px);
+  // largeur écran - (largeur carte / 2)
+  left: calc(50vw - 75px);
+
+  .header {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-size: cover;
+    background-position: center 60%;
+    height: 150px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+
+    .header-title {
+      text-shadow: 2px 2px 2px var(--primary-color);
+    }
+
+    .header-close {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      span {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        border-radius: 50%;
+        border: solid 2px white;
+        color: white;
+        width: 35px;
+        height: 35px;
+      }
+      span:hover {
+        cursor: pointer;
+        background-color: rgba(41, 41, 41, 0.27);
+        border-color: rgba(255, 255, 255, 0.84);
+        color: rgba(255, 255, 255, 0.84);
+      }
+    }
+  }
+
+  .description {
+    display: flex;
+    color: white;
+    div {
+      padding: 10px;
+      h5, p {
+        margin: 0;
+      }
+    }
+  }
+
 }
 
 .card_content.call {
-  background-color: var(--primary-color);
-  position: fixed;
-  display: block;
-  animation: anim 0.5s;
+  animation: open 0.3s;
   animation-fill-mode: forwards;
 
-  @keyframes anim {
+  @keyframes open {
     0% {
+      border-radius: 10px;
       width: 150px;
       height: 200px;
       // hauteur écrans - (hauteur carte / 2)
@@ -337,11 +392,37 @@ nav {
       overflow-y: hidden;
     }
     100% {
+      border-radius: 0;
       height: 100vh;
       width: 100vw;
       top: 0;
       left: 0;
       overflow-y: auto;
+    }
+  }
+}
+
+.card_content.exit {
+  animation: exit 0.3s;
+  animation-fill-mode: forwards;
+  transition-timing-function: ease-out;
+
+  @keyframes exit {
+    0% {
+      border-radius: 0;
+      height: 100vh;
+      width: 100vw;
+      top: 0;
+      left: 0;
+    }
+    100% {
+      border-radius: 10px;
+      width: 150px;
+      height: 200px;
+      // hauteur écrans - (hauteur carte / 2)
+      top: calc(50vh - 100px);
+      // largeur écran - (largeur carte / 2)
+      left: calc(50vw - 75px);
     }
   }
 }
@@ -358,7 +439,7 @@ nav {
 .Monhistoire, .MyStory {
   background-image: url("../img/guildwars2-121.jpg");
 }
-.GuerrecontreScralet, .ScarletsWar {
+.GuerrecontreScarlet, .ScarletsWar {
   background-image: url("../img/ddea6bf5d703-04_BfLA-1920x1080.jpg");
 }
 .Saison2duMondevivant, .LivingWorldSeason2 {
@@ -376,4 +457,3 @@ nav {
 .Saison4duMondevivant, .LivingWorldSeason4 {
   background-image: url("../img/3b03dPOF_Wallpaper_1920x1200_6.jpg");
 }
-

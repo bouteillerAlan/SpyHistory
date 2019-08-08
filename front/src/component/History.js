@@ -18,7 +18,8 @@ class History extends Component {
             key : localStorage.getItem('apiKey') ? localStorage.getItem('apiKey') : this.props.apiKey,
             lang : localStorage.getItem('lang') ? localStorage.getItem('lang') : this.props.lang,
             loading : true,
-            data : false
+            data : false,
+            isOpen : false
         }
     }
 
@@ -115,12 +116,23 @@ class History extends Component {
         const body = document.getElementsByTagName('body')[0]
         const target = document.getElementById(id)
 
-        // call target
-        target.classList.toggle('call')
+        if (this.state.isOpen) {
+            // close target
+            this.setState({'isOpen' : false})
+            target.classList.add('exit')
+            target.classList.remove('call')
+            // time exit animation - 5ms
+            setTimeout(function(){ target.style.display = 'none' }, 250)
+        } else {
+            // call target
+            this.setState({'isOpen' : true})
+            target.classList.remove('exit')
+            target.style.display = 'block'
+            target.classList.add('call')
+        }
 
         // set overflow
         body.classList.toggle('noOverY')
-        // target.classList.toggle('autoOverY')
     }
 
     render() {
@@ -159,85 +171,30 @@ class History extends Component {
                                     {Object.keys(map[season]).map((story) => (
                                         <div>
                                             <div className="card_content" id={map[season][story]['id']}>
-                                                <p onClick={() => {this.handleCard(map[season][story]['id'])}}>close</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p><p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p><p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p><p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p><p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p><p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p><p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
-                                                <p>relative tree</p>
+                                                <div className="content">
+                                                    <div className={"header " + season.replace(/[\s]|[']/g,'')}>
+                                                        <div className="header-title">
+                                                            <h4>{season}</h4>
+                                                            <p>{story}</p>
+                                                        </div>
+                                                        <div className="header-close">
+                                                            <span onClick={() => {this.handleCard(map[season][story]['id'])}}>
+                                                                <i className="material-icons">close</i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="description">
+                                                        <div>
+                                                            <h5>Description</h5>
+                                                        </div>
+                                                        <div>
+                                                            <p>{map[season][story]['description']}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="schema">
+
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     ))}
