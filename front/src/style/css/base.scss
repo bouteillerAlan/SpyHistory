@@ -33,13 +33,13 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #3d3d3d;
+  background: #f39c12;
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(61, 61, 61, 0.82);
+  background: rgba(243, 156, 18, 0.82);
 }
 
 .card {
@@ -263,7 +263,7 @@ nav {
   // ~ = previous elems
   .card:hover ~ .card,
   .card:focus ~ .card {
-    transform: translateX(100px);
+    transform: translateX(65px);
   }
 }
 
@@ -332,6 +332,7 @@ nav {
     .ecran_overflow {
       // windows - header
       height: calc(100vh - 150px);
+      padding: 1px;
     }
 
     .ecran {
@@ -367,6 +368,8 @@ nav {
           margin: 15px;
           padding: 10px;
           border: solid var(--primary-color) 2px;
+          background-color: rgba(255, 255, 255, 0.09);
+          color: var(--primary-color) !important;
 
           // content position
           display: flex;
@@ -390,6 +393,13 @@ nav {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+
+            .green {
+              background-color: #27ae60;
+            }
+            .red {
+              background-color: #c0392b;
+            }
 
             .status {
               span {
