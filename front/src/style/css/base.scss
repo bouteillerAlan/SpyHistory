@@ -14,6 +14,7 @@ body {
     color: var(--primary-background) !important;
     font-family: 'Roboto', sans-serif;
   }
+  overflow-x: hidden;
 }
 
 .card {
@@ -172,89 +173,20 @@ nav {
 /*
 * CARD DISPLAY
 */
-.collapsible-body{
-  border-bottom: 0 !important;
-  overflow-x: auto !important;
-
-  .ecran {
-    display: flex;
-    align-items: center;
-  }
-
-  .grid_col {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .grid {
-    display: flex;
-    flex-direction: column;
-
-    .line {
-      display: flex;
-      flex-direction: row;
-
-      .multi_card {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      .card {
-        width: 250px;
-        min-height: 150px;
-        max-height: fit-content;
-        margin: 15px;
-        padding: 10px;
-        border: solid var(--primary-color) 2px;
-
-        // content position
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-
-        .info {
-          margin-top: 0;
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .title {
-          text-align: center;
-          margin: 0 !important;
-        }
-
-        .card_persona {
-          text-align: center;
-          color: var(--primary-color);
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-
-          .status {
-            span {
-              padding: 5px;
-            }
-          }
-        }
-
-      }
-    }
-
-  }
-}
-
 .badge {
   background-color: #f39c12 !important;
   color: var(--primary-color) !important;
 }
-
   .material-tooltip {
   max-width: 50% !important;
 }
 
 .tooltipped:hover {
   cursor: pointer;
+}
+
+#season_grid {
+  transition: 0.3s ease-out;
 }
 
 .cards_stack {
@@ -303,6 +235,7 @@ nav {
   }
 
   // card focus for tab navigation
+  // ~ = previous elems
   .card:hover ~ .card,
   .card:focus ~ .card {
     transform: translateX(100px);
@@ -310,18 +243,14 @@ nav {
 }
 
 .card_content {
+  --top-target : 0;
+  --left-target : 0;
   overflow-y: hidden;
   position: fixed;
   display: none;
   // materialize menu = z-index : 997
   z-index: 998;
   background-color: var(--primary-color);
-  width: 150px;
-  height: 200px;
-  // hauteur écrans - (hauteur carte / 2)
-  top: calc(50vh - 100px);
-  // largeur écran - (largeur carte / 2)
-  left: calc(50vw - 75px);
 
   .header {
     border-top-left-radius: 10px;
@@ -372,11 +301,92 @@ nav {
     }
   }
 
+  .schema {
+    border-bottom: 0 !important;
+
+    .ecran_overflow {
+      // windows - header
+      height: calc(100vh - 150px);
+    }
+
+    .ecran {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: fit-content;
+    }
+
+    .grid_col {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .grid {
+      display: flex;
+      flex-direction: row;
+
+      .line {
+        display: flex;
+        flex-direction: column;
+
+        .multi_card {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+        }
+
+        .card_tree {
+          width: 250px;
+          min-height: 150px;
+          max-height: fit-content;
+          margin: 15px;
+          padding: 10px;
+          border: solid var(--primary-color) 2px;
+
+          // content position
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .info {
+            margin-top: 0;
+            display: flex;
+            justify-content: space-between;
+          }
+
+          .title {
+            text-align: center;
+            margin: 0 !important;
+          }
+
+          .card_persona {
+            text-align: center;
+            color: var(--primary-color);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            .status {
+              span {
+                padding: 5px;
+              }
+            }
+          }
+
+        }
+      }
+
+    }
+  }
+
 }
 
 .card_content.call {
-  animation: open 0.3s;
+  animation: open 0.4s;
   animation-fill-mode: forwards;
+  transition-timing-function: ease-out;
+  overflow-y: hidden;
+  overflow-x: hidden;
 
   @keyframes open {
     0% {
@@ -384,12 +394,9 @@ nav {
       width: 150px;
       height: 200px;
       // hauteur écrans - (hauteur carte / 2)
-      top: calc(50vh - 100px);
+      top: calc(var(--top-target));
       // largeur écran - (largeur carte / 2)
-      left: calc(50vw - 75px);
-    }
-    99% {
-      overflow-y: hidden;
+      left: calc(var(--left-target));
     }
     100% {
       border-radius: 0;
@@ -397,15 +404,16 @@ nav {
       width: 100vw;
       top: 0;
       left: 0;
-      overflow-y: auto;
     }
   }
 }
 
 .card_content.exit {
-  animation: exit 0.3s;
+  animation: exit 0.4s;
   animation-fill-mode: forwards;
   transition-timing-function: ease-out;
+  overflow-y: hidden;
+  overflow-x: hidden;
 
   @keyframes exit {
     0% {
@@ -420,15 +428,16 @@ nav {
       width: 150px;
       height: 200px;
       // hauteur écrans - (hauteur carte / 2)
-      top: calc(50vh - 100px);
+      top: calc(var(--top-target));
       // largeur écran - (largeur carte / 2)
-      left: calc(50vw - 75px);
+      left: calc(var(--left-target));
     }
   }
 }
 
-.noOverY {
+.noOver {
   overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 .autoOverY {
@@ -456,4 +465,12 @@ nav {
 }
 .Saison4duMondevivant, .LivingWorldSeason4 {
   background-image: url("../img/3b03dPOF_Wallpaper_1920x1200_6.jpg");
+}
+
+#dot {
+  background-color: red;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  position: absolute;
 }
