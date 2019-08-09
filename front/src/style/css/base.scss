@@ -17,6 +17,31 @@ body {
   overflow-x: hidden;
 }
 
+/*
+* SCROLLBAR CUSTOM
+ */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #3d3d3d;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(61, 61, 61, 0.82);
+}
+
 .card {
   background-color: var(--primary-background) !important;
   p, h1, h2, h3, h4, h5, h6, a, ul, li, blockquote {
