@@ -8,6 +8,7 @@ import loadHash from 'lodash'
 import getQuests from '../function/getQuests'
 import getCharacters from '../function/getCharacters'
 import getDoneQuests from '../function/getDoneQuests'
+import getBackstories from '../function/getBackstories'
 import getStories from '../function/getStories'
 import getSeasons from '../function/getSeasons'
 
@@ -42,11 +43,13 @@ class History extends Component {
         const quests = loadHash.orderBy(questsNS, ['story', 'level']) // for the moment 'level' is the best way for short this thing
 
         let questsDone = {}
+        let backstories = {}
         for (let i = 0; i<characters.length; i++) {
             questsDone[characters[i]] = await getDoneQuests(env.apiLink,env.apiVersion,this.state.lang,this.state.key,characters[i])
+            backstories[characters[i]] = await getBackstories(env.apiLink,env.apiVersion,this.state.key,characters[i])
         }
 
-        return {seasons, stories, quests, characters, questsDone}
+        return {seasons, stories, quests, characters, questsDone, backstories}
     }
 
     componentWillMount () {
@@ -315,6 +318,22 @@ class History extends Component {
                                                                             </span>
                                                                         ))}
                                                                     </div>
+
+                                                                    {psl['2choice'].includes(id) ?
+                                                                        <div className="choice-2">
+                                                                            <i className="material-icons a">looks_two</i>
+                                                                            <hr/>
+                                                                        </div>
+                                                                        : null
+                                                                    }
+                                                                    {psl['3choice'].includes(id) ?
+                                                                        <div className="choice-3">
+                                                                            <i className="material-icons a">looks_3</i>
+                                                                            <hr/>
+                                                                        </div>
+                                                                        : null
+                                                                    }
+
                                                                 </div>
                                                             ))
                                                             // else is a single quest
@@ -331,6 +350,22 @@ class History extends Component {
                                                                         </span>
                                                                     ))}
                                                                 </div>
+
+                                                                {psl['2choice'].includes(id) ?
+                                                                    <div className="choice-2">
+                                                                        <i className="material-icons a">looks_two</i>
+                                                                        <hr/>
+                                                                    </div>
+                                                                    : null
+                                                                }
+                                                                {psl['3choice'].includes(id) ?
+                                                                    <div className="choice-3">
+                                                                        <i className="material-icons a">looks_3</i>
+                                                                        <hr/>
+                                                                    </div>
+                                                                    : null
+                                                                }
+
                                                             </div>}
                                                     </div>
                                                 ))}
@@ -350,6 +385,9 @@ class History extends Component {
     render() {
         const {loading, data, lang} = this.state
         const map = data ? this.map() : null
+
+        console.log(data)
+        console.log(map)
 
         return (
             <div className="row">
