@@ -117,6 +117,15 @@ class History extends Component {
         return obj
     }
 
+    // works badly
+    // only a part of the elements are deleted
+    purge =()=> {
+        const data = document.querySelectorAll('.material-tooltip')
+        for (let i=0;i<data.length;i++) {
+            data[i].remove()
+        }
+    }
+
     setProperty () {
         const {parent,grid,onClose,elemShow} = this.state
         // just the body
@@ -141,7 +150,7 @@ class History extends Component {
                 onClose : false
             })
             // purge tooltip elem
-            document.getElementsByClassName('tooltip-purge')
+            this.purge()
             // remove overflow
             ecran_overflow.style.overflow = 'hidden'
             target.style.overflow = 'hidden'
