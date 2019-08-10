@@ -21,9 +21,11 @@ class History extends Component {
             data : false,
             // modal is open ?
             isOpen : false,
+            onClose : false,
             // stock the DOM coordinates of parent and grid for animation
             parent : {},
-            grid : {}
+            grid : {},
+            elemShow : {}
         }
     }
 
@@ -115,11 +117,13 @@ class History extends Component {
         return obj
     }
 
-    setProperty (target) {
-        const {parent,grid,isOpen} = this.state
+    setProperty () {
+        const {parent,grid,onClose,elemShow} = this.state
         // just the body
         const body = document.getElementsByTagName('body')[0]
         // get the target content
+        const target = document.getElementById(elemShow['id'])
+
         const header = target.getElementsByClassName('header')[0]
         const title = target.getElementsByClassName('header-title')[0]
         const btnClose = target.getElementsByClassName('header-close')[0]
@@ -131,10 +135,13 @@ class History extends Component {
         // transform origin is card emplacement - container value
         grid['elem'].style.transformOrigin = `${ parent['left']-grid['left'] }px ${ parent['top']-grid['top'] }px 0px`
 
-        if (isOpen) {
-            // close target
-            this.setState({isOpen : false}) // change state
-            // first show the animated
+        if (onClose) {
+            // switch close status
+            this.setState({
+                onClose : false
+            })
+            // purge tooltip elem
+            document.getElementsByClassName('tooltip-purge')
             // remove overflow
             ecran_overflow.style.overflow = 'hidden'
             target.style.overflow = 'hidden'
@@ -157,7 +164,13 @@ class History extends Component {
                 grid['elem'].style.transform = 'matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1)' // anim for background
             }, 350)
             // time exit animation - 5ms 250
-            setTimeout(() => { target.style.display = 'none' }, 500) // delete card content to the view
+            setTimeout(() => {
+                // switch status card
+                this.setState({
+                    isOpen : false
+                })
+                target.style.display = 'none'
+            }, 500) // delete card content to the view
         } else {
             // call target
             // show the overflow only at end
@@ -171,7 +184,6 @@ class History extends Component {
             // make sur content is invisible
             header.style.opacity = '0'
             schema.style.opacity = '0'
-            this.setState({isOpen : true}) // change the state
             grid['elem'].style.transform = 'matrix3d(5,0,0.00,0,0.00,5,0.00,0,0,0,1,0,0,0,0,1)' // anim the background
             target.classList.remove('exit') // remove class for closing
             target.style.display = 'block' // show card content
@@ -194,38 +206,134 @@ class History extends Component {
         body.classList.toggle('noOver')
     }
 
-    handleCard (id, e) {
+    handleCard (id, season, story, e) {
         const {isOpen} = this.state
-        // the div target
-        const target = document.getElementById(id)
-        // if is open stock the value of target and grid
-        // the value is delete and replace each time of card id open
+        // if is not open stock the value of grid, target and data
+        // the value is delete and replace each time of card is open
         if (!isOpen) {
+            // card is open
             this.setState({
+                isOpen : true
+            })
+            this.setState({
+                grid : {
+                    elem : document.getElementById('season_grid'),
+                    top : document.getElementById('season_grid').getBoundingClientRect().top,
+                    left : document.getElementById('season_grid').getBoundingClientRect().left
+                },
                 parent : {
                     elem : e.currentTarget,
                     top : e.currentTarget.getBoundingClientRect().top,
                     left : e.currentTarget.getBoundingClientRect().left
                 },
-                grid : {
-                    elem : document.getElementById('season_grid'),
-                    top : document.getElementById('season_grid').getBoundingClientRect().top,
-                    left : document.getElementById('season_grid').getBoundingClientRect().left
+                elemShow : {
+                    season : season,
+                    story : story,
+                    id : id,
                 }
             }, () => {
                 // function work but just code no...
-                // call animations
-                this.setProperty(target)
+                this.showCard()
+                this.setProperty()
             })
         } else {
             // if is a close action value is already defined
-            // just call animation
-            this.setProperty(target)
+            // onClose demand
+            this.setState({
+                onClose : true
+            }, () => {
+                this.showCard()
+                this.setProperty()
+            })
         }
     }
 
-    showCard = () => {
-        
+    showCard () {
+        // get data
+        const {data, elemShow} = this.state
+        const map = data ? this.map() : null
+        // stock
+        const season = elemShow['season']
+        const story = elemShow['story']
+        const id = elemShow['id']
+
+        // return card with good data
+        return (
+            <div className="card_content" id={id}>
+                <div className="content">
+                    <div className={"header animated " + season.replace(/[\s]|[']/g,'')}>
+                        <div className="header-title animated">
+                            <h4>{season}</h4>
+                            <p>{story}</p>
+                        </div>
+                        <div className="header-close animated">
+                            <span onClick={() => {this.handleCard(map[season][story]['id'])}}>
+                                <i className="material-icons">close</i>
+                            </span>
+                        </div>
+                    </div>
+                    {/*<div className="description">*/}
+                    {/*    <div>*/}
+                    {/*        <h5>Description</h5>*/}
+                    {/*    </div>*/}
+                    {/*    <div>*/}
+                    {/*        <p>{map[season][story]['description']}</p>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                    <div className="schema animated">
+                        <div className="ecran_overflow">
+                            <div className="ecran">
+                                {psl[story.split('- ')[1]] && psl[story.split('- ')[1]].map((quest) => (
+                                    <div key={quest} className="grid">
+                                        {quest.map((line) => (
+                                            <div key={line} className="line">
+                                                {line.map((id) => (
+                                                    <div key={id} className="multi_card">
+                                                        {Array.isArray(id) ?
+                                                            // if is a array is a choice
+                                                            id.map((uId) => (
+                                                                <div key={uId} className={'card_tree'}>
+                                                                    <p className={'info'}><small>Lvl : {map[season][story]['quests'][uId]['Qlevel']}</small><small>Qid : {map[season][story]['quests'][uId]['Qid']}</small></p>
+                                                                    <h5 className={'title'}>{map[season][story]['quests'][uId]['Qname']}</h5>
+                                                                    <div className={'card_persona'}>
+                                                                        {Object.keys(map[season][story]['quests'][uId]['status']).map((character) => (
+                                                                            <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][uId]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
+                                                                                <span>
+                                                                                    {character.substring(0,3)}
+                                                                                </span>
+                                                                            </span>
+                                                                        ))}
+                                                                    </div>
+                                                                </div>
+                                                            ))
+                                                            // else is a single quest
+                                                            :
+                                                            <div className={'card_tree'}>
+                                                                <p className={'info'}><small>Lvl : {map[season][story]['quests'][id]['Qlevel']}</small><small>Qid : {map[season][story]['quests'][id]['Qid']}</small></p>
+                                                                <h5 className={'title'}>{map[season][story]['quests'][id]['Qname']}</h5>
+                                                                <div className={'card_persona'}>
+                                                                    {Object.keys(map[season][story]['quests'][id]['status']).map((character) => (
+                                                                        <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][id]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
+                                                                                <span>
+                                                                                    {character.substring(0,3)}
+                                                                                </span>
+                                                                        </span>
+                                                                    ))}
+                                                                </div>
+                                                            </div>}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ))}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+
     }
 
     render() {
@@ -250,7 +358,7 @@ class History extends Component {
                                 <div>
                                     <div className="cards_stack">
                                         {Object.keys(map[season]).map((story) => (
-                                            <div key={story} className={"card " + season.replace(/[\s]|[']/g,'')} onClick={(e) => {this.handleCard(map[season][story]['id'], e)}}>
+                                            <div key={story} className={"card " + season.replace(/[\s]|[']/g,'')} onClick={(e) => {this.handleCard(map[season][story]['id'], season, story, e)}}>
                                                 <div className="card_bck">
                                                     <h6>{story}</h6>
                                                 </div>
@@ -264,89 +372,8 @@ class History extends Component {
                     </div>
                 }
 
-                {/*pop-up generation*/}
-                {map &&
-                <div id="card_content_grid">
-                    {Object.keys(map).map((season) => (
-                        Object.keys(map[season]).map((story) => (
-                            <div key={story}>
-                                <div className="card_content" id={map[season][story]['id']}>
-                                    <div className="content">
-                                        <div className={"header animated " + season.replace(/[\s]|[']/g,'')}>
-                                            <div className="header-title animated">
-                                                <h4>{season}</h4>
-                                                <p>{story}</p>
-                                            </div>
-                                            <div className="header-close animated">
-                                                <span onClick={() => {this.handleCard(map[season][story]['id'])}}>
-                                                    <i className="material-icons">close</i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        {/*<div className="description">*/}
-                                        {/*    <div>*/}
-                                        {/*        <h5>Description</h5>*/}
-                                        {/*    </div>*/}
-                                        {/*    <div>*/}
-                                        {/*        <p>{map[season][story]['description']}</p>*/}
-                                        {/*    </div>*/}
-                                        {/*</div>*/}
-                                        <div className="schema animated">
-                                            <div className="ecran_overflow">
-                                                <div className="ecran">
-                                                    {psl[story.split('- ')[1]] && psl[story.split('- ')[1]].map((quest) => (
-                                                        <div key={quest} className="grid">
-                                                            {quest.map((line) => (
-                                                                <div key={line} className="line">
-                                                                    {line.map((id) => (
-                                                                        <div key={id} className="multi_card">
-                                                                            {Array.isArray(id) ?
-                                                                                // if is a array is a choice
-                                                                                id.map((uId) => (
-                                                                                    <div key={uId} className={'card_tree'}>
-                                                                                        <p className={'info'}><small>Lvl : {map[season][story]['quests'][uId]['Qlevel']}</small><small>Qid : {map[season][story]['quests'][uId]['Qid']}</small></p>
-                                                                                        <h5 className={'title'}>{map[season][story]['quests'][uId]['Qname']}</h5>
-                                                                                        <div className={'card_persona'}>
-                                                                                            {Object.keys(map[season][story]['quests'][uId]['status']).map((character) => (
-                                                                                                <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][uId]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
-                                                                                                        <span>
-                                                                                                            {character.substring(0,3)}
-                                                                                                        </span>
-                                                                                                    </span>
-                                                                                            ))}
-                                                                                        </div>
-                                                                                    </div>
-                                                                                ))
-                                                                                // else is a single quest
-                                                                                :
-                                                                                <div className={'card_tree'}>
-                                                                                    <p className={'info'}><small>Lvl : {map[season][story]['quests'][id]['Qlevel']}</small><small>Qid : {map[season][story]['quests'][id]['Qid']}</small></p>
-                                                                                    <h5 className={'title'}>{map[season][story]['quests'][id]['Qname']}</h5>
-                                                                                    <div className={'card_persona'}>
-                                                                                        {Object.keys(map[season][story]['quests'][id]['status']).map((character) => (
-                                                                                            <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][id]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
-                                                                                                        <span>
-                                                                                                            {character.substring(0,3)}
-                                                                                                        </span>
-                                                                                                </span>
-                                                                                        ))}
-                                                                                    </div>
-                                                                                </div>}
-                                                                        </div>
-                                                                    ))}
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            ))
-                    ))}
-                </div>
+                {this.state.isOpen &&
+                    this.showCard()
                 }
 
             </div>

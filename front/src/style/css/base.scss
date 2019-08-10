@@ -475,10 +475,6 @@ nav {
   overflow-x: hidden;
 }
 
-.autoOverY {
-  overflow-y: auto;
-}
-
 // test for adaptive background
 .Monhistoire, .MyStory {
   background-image: url("../img/guildwars2-121.jpg");
@@ -500,12 +496,4 @@ nav {
 }
 .Saison4duMondevivant, .LivingWorldSeason4 {
   background-image: url("../img/3b03dPOF_Wallpaper_1920x1200_6.jpg");
-}
-
-#dot {
-  background-color: red;
-  height: 10px;
-  width: 10px;
-  border-radius: 50%;
-  position: absolute;
 }
