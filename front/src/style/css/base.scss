@@ -224,6 +224,28 @@ nav {
   }
 }
 
+.choice-2 {
+  text-align: center;
+  color: white;
+  position: relative;
+  .a {
+    background-color: #3a3a3a;
+    position: absolute;
+    left: 45%;
+  }
+}
+
+.choice-3 {
+  text-align: center;
+  color: white;
+  position: relative;
+  .a {
+    background-color: #3a3a3a;
+    position: absolute;
+    left: 45%;
+  }
+}
+
 /*
 * CARD DISPLAY
 */
@@ -392,7 +414,7 @@ nav {
 
         .card_tree {
           width: 250px;
-          min-height: 150px;
+          min-height: 200px;
           max-height: fit-content;
           margin: 15px;
           padding: 10px;
