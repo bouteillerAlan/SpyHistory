@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import env from '../env'
-import psl from '../personal_story_line'
+import psl from '../quests_line'
+import tuto from '../tuto_line'
 import M from 'materialize-css'
 import loadHash from 'lodash'
 
@@ -77,7 +78,7 @@ class History extends Component {
         data['seasons'].map((season) => {
 
             // create object key
-            obj[season['name']] = {}
+            obj[season['name']] = {id : season['id'], story : {}}
 
             data['stories'].map((story) => {
 
@@ -87,24 +88,24 @@ class History extends Component {
                     // if a race is set
                     const storyName = story['races'] ? story['name']+' - '+story['races'] : story['name']
 
-                    obj[season['name']][storyName] = {id : story['id'], quests : {}, description : story['description']}
+                    obj[season['name']]['story'][storyName] = {id : story['id'], quests : {}, description : story['description']}
 
                     // and continue loop
                     data['quests'].map((quest) => {
 
                         // check if quest is in story and store it
                         if (quest['story'] === story['id']) {
-                            obj[season['name']][storyName]['quests'][quest['id']] = {Qname :'', Qid:'', Qlevel:'', status:{}}
+                            obj[season['name']]['story'][storyName]['quests'][quest['id']] = {Qname :'', Qid:'', Qlevel:'', status:{}}
 
                             data['characters'].map((character) => {
 
                                 // stock id and level
-                                obj[season['name']][storyName]['quests'][quest['id']]['Qname'] = quest['name']
-                                obj[season['name']][storyName]['quests'][quest['id']]['Qid'] = quest['id']
-                                obj[season['name']][storyName]['quests'][quest['id']]['Qlevel'] = quest['level']
+                                obj[season['name']]['story'][storyName]['quests'][quest['id']]['Qname'] = quest['name']
+                                obj[season['name']]['story'][storyName]['quests'][quest['id']]['Qid'] = quest['id']
+                                obj[season['name']]['story'][storyName]['quests'][quest['id']]['Qlevel'] = quest['level']
 
                                 // check if it's done, if it's the case tag it
-                                obj[season['name']][storyName]['quests'][quest['id']]['status'][character] = data['questsDone'][character].includes(quest['id']) ? 1 : 0
+                                obj[season['name']]['story'][storyName]['quests'][quest['id']]['status'][character] = data['questsDone'][character].includes(quest['id']) ? 1 : 0
 
                             })
                         }
@@ -261,6 +262,7 @@ class History extends Component {
         // get data
         const {data, elemShow} = this.state
         const map = data ? this.map() : null
+
         // stock
         const season = elemShow['season']
         const story = elemShow['story']
@@ -276,7 +278,7 @@ class History extends Component {
                             <p>{story}</p>
                         </div>
                         <div className="header-close animated">
-                            <span onClick={() => {this.handleCard(map[season][story]['id'])}}>
+                            <span onClick={() => {this.handleCard(map[season]['story'][story]['id'])}}>
                                 <i className="material-icons">close</i>
                             </span>
                         </div>
@@ -302,11 +304,11 @@ class History extends Component {
                                                             // if is a array is a choice
                                                             id.map((uId) => (
                                                                 <div key={uId} className={'card_tree'}>
-                                                                    <p className={'info'}><small>Lvl : {map[season][story]['quests'][uId]['Qlevel']}</small><small>Qid : {map[season][story]['quests'][uId]['Qid']}</small></p>
-                                                                    <h5 className={'title'}>{map[season][story]['quests'][uId]['Qname']}</h5>
+                                                                    <p className={'info'}><small>Lvl : {map[season]['story'][story]['quests'][uId]['Qlevel']}</small><small>Qid : {map[season]['story'][story]['quests'][uId]['Qid']}</small></p>
+                                                                    <h5 className={'title'}>{map[season]['story'][story]['quests'][uId]['Qname']}</h5>
                                                                     <div className={'card_persona'}>
-                                                                        {Object.keys(map[season][story]['quests'][uId]['status']).map((character) => (
-                                                                            <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][uId]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
+                                                                        {Object.keys(map[season]['story'][story]['quests'][uId]['status']).map((character) => (
+                                                                            <span key={character} className={'tooltipped status ' + (map[season]['story'][story]['quests'][uId]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
                                                                                 <span>
                                                                                     {character.substring(0,3)}
                                                                                 </span>
@@ -318,11 +320,11 @@ class History extends Component {
                                                             // else is a single quest
                                                             :
                                                             <div className={'card_tree'}>
-                                                                <p className={'info'}><small>Lvl : {map[season][story]['quests'][id]['Qlevel']}</small><small>Qid : {map[season][story]['quests'][id]['Qid']}</small></p>
-                                                                <h5 className={'title'}>{map[season][story]['quests'][id]['Qname']}</h5>
+                                                                <p className={'info'}><small>Lvl : {map[season]['story'][story]['quests'][id]['Qlevel']}</small><small>Qid : {map[season]['story'][story]['quests'][id]['Qid']}</small></p>
+                                                                <h5 className={'title'}>{map[season]['story'][story]['quests'][id]['Qname']}</h5>
                                                                 <div className={'card_persona'}>
-                                                                    {Object.keys(map[season][story]['quests'][id]['status']).map((character) => (
-                                                                        <span key={character} className={'tooltipped status ' + (map[season][story]['quests'][id]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
+                                                                    {Object.keys(map[season]['story'][story]['quests'][id]['status']).map((character) => (
+                                                                        <span key={character} className={'tooltipped status ' + (map[season]['story'][story]['quests'][id]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
                                                                                 <span>
                                                                                     {character.substring(0,3)}
                                                                                 </span>
@@ -362,12 +364,18 @@ class History extends Component {
                     <div id="season_grid">
                         {Object.keys(map).map((season) => (
                             <div key={season}>
-                                <h4><blockquote>{season}</blockquote></h4>
-
+                                <h4>
+                                    <blockquote>
+                                        {season + ' '}
+                                        <a href={tuto[map[season]['id']]} target="_blank" rel="noopener noreferrer" className="tooltipped" data-position="right" data-tooltip="Tutorial">
+                                            <i className="material-icons">explore</i>
+                                        </a>
+                                    </blockquote>
+                                </h4>
                                 <div>
                                     <div className="cards_stack">
-                                        {Object.keys(map[season]).map((story) => (
-                                            <div key={story} className={"card " + season.replace(/[\s]|[']/g,'')} onClick={(e) => {this.handleCard(map[season][story]['id'], season, story, e)}}>
+                                        {Object.keys(map[season]['story']).map((story) => (
+                                            <div key={story} className={"card " + season.replace(/[\s]|[']/g,'')} onClick={(e) => {this.handleCard(map[season]['story'][story]['id'], season, story, e)}}>
                                                 <div className="card_bck">
                                                     <h6>{story}</h6>
                                                 </div>
