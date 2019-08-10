@@ -348,7 +348,7 @@ class History extends Component {
     }
 
     render() {
-        const {loading, data} = this.state
+        const {loading, data, lang} = this.state
         const map = data ? this.map() : null
 
         return (
@@ -367,7 +367,7 @@ class History extends Component {
                                 <h4>
                                     <blockquote>
                                         {season + ' '}
-                                        <a href={tuto[map[season]['id']]} target="_blank" rel="noopener noreferrer" className="tooltipped" data-position="right" data-tooltip="Tutorial">
+                                        <a href={tuto[map[season]['id']]} target="_blank" rel="noopener noreferrer" className="explore tooltipped" data-position="right" data-tooltip={lang==='fr' ? 'Vers le tutoriel' : 'Go to tutorial'}>
                                             <i className="material-icons">explore</i>
                                         </a>
                                     </blockquote>
