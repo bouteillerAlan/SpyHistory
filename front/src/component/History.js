@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import env from '../env'
 import psl from '../quests_line'
 import tuto from '../tuto_line'
+import bk from '../backStories_line'
 import M from 'materialize-css'
 import loadHash from 'lodash'
 
@@ -98,17 +99,32 @@ class History extends Component {
 
                         // check if quest is in story and store it
                         if (quest['story'] === story['id']) {
-                            obj[season['name']]['story'][storyName]['quests'][quest['id']] = {Qname :'', Qid:'', Qlevel:'', status:{}}
+                            obj[season['name']]['story'][storyName]['quests'][quest['id']] = {Qname :'', Qid:'', Qlevel:'', status:{}, authorization:{}}
 
                             data['characters'].map((character) => {
 
-                                // stock id and level
+                                // stock name, id and level
                                 obj[season['name']]['story'][storyName]['quests'][quest['id']]['Qname'] = quest['name']
                                 obj[season['name']]['story'][storyName]['quests'][quest['id']]['Qid'] = quest['id']
                                 obj[season['name']]['story'][storyName]['quests'][quest['id']]['Qlevel'] = quest['level']
 
                                 // check if it's done, if it's the case tag it
                                 obj[season['name']]['story'][storyName]['quests'][quest['id']]['status'][character] = data['questsDone'][character].includes(quest['id']) ? 1 : 0
+
+                                // check if is authorized
+                                // and stock it in obj[season['name']]['story'][storyName]['quests'][quest['id']]['authorization'][character]
+                                let a = true
+                                data['backstories'][character]['backstory'].map((bkId) => {
+                                    // if backstory exist in bk file
+                                    if (bk[bkId]) {
+                                        // if quest id exist in backstory bk file
+                                        if (bk[bkId].includes(quest['id'])) {
+                                            a = false
+                                        }
+                                    }
+
+                                })
+                                obj[season['name']]['story'][storyName]['quests'][quest['id']]['authorization'][character] = a
 
                             })
                         }
