@@ -14,6 +14,32 @@ body {
     color: var(--primary-background) !important;
     font-family: 'Roboto', sans-serif;
   }
+  overflow-x: hidden;
+}
+
+/*
+* SCROLLBAR CUSTOM
+ */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #f39c12;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(243, 156, 18, 0.82);
 }
 
 .card {
@@ -98,6 +124,35 @@ nav {
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
   }
+
+  .right {
+    li {
+      a:hover {
+        .material-icons {
+          animation: rotate 1s infinite linear;
+          @keyframes rotate {
+            0%{transform: rotate(360deg);}
+            100%{transform: rotate(0deg);}
+          }
+        }
+      }
+    }
+  }
+}
+
+.explore:hover {
+  i {
+    animation: search 2s;
+    animation-fill-mode: forwards;
+    @keyframes search {
+      0%{transform: rotate(360deg);}
+      50%{transform: rotate(230deg);}
+      80%{transform: rotate(300deg);}
+      85%{transform: rotate(280deg);}
+      90%{transform: rotate(300deg);}
+      100%{transform: rotate(280deg);}
+    }
+  }
 }
 
 .brand-logo.large {
@@ -169,87 +224,25 @@ nav {
   }
 }
 
-/*
-* CARD DISPLAY
-*/
-.collapsible-body{
-  border-bottom: 0 !important;
-  overflow-x: auto !important;
-
-  .ecran {
-    display: flex;
-    align-items: center;
-  }
-
-  .grid_col {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .grid {
-    display: flex;
-    flex-direction: column;
-
-    .line {
-      display: flex;
-      flex-direction: row;
-
-      .multi_card {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      .card {
-        width: 250px;
-        min-height: 150px;
-        max-height: fit-content;
-        margin: 15px;
-        padding: 10px;
-        border: solid var(--primary-color) 2px;
-
-        // content position
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-
-        .info {
-          margin-top: 0;
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .title {
-          text-align: center;
-          margin: 0 !important;
-        }
-
-        .card_persona {
-          text-align: center;
-          color: var(--primary-color);
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-
-          .status {
-            span {
-              padding: 5px;
-            }
-          }
-        }
-
-      }
-    }
-
+.choice-2, .choice-3, .choice-5 {
+  text-align: center;
+  color: white;
+  position: relative;
+  .a {
+    background-color: #3a3a3a;
+    position: absolute;
+    left: 45%;
   }
 }
 
+/*
+* CARD DISPLAY
+*/
 .badge {
   background-color: #f39c12 !important;
   color: var(--primary-color) !important;
 }
-
-.material-tooltip {
+  .material-tooltip {
   max-width: 50% !important;
 }
 
@@ -257,3 +250,303 @@ nav {
   cursor: pointer;
 }
 
+#season_grid {
+  transition: 0.3s ease-out;
+}
+
+.cards_stack {
+  display : flex;
+
+  .card:not(:first-child) {
+    margin-left: -5rem;
+  }
+
+  .card {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    width: 150px;
+    height: 200px;
+    border-radius: 10px !important;
+    transition: 0.2s;
+    transition-timing-function: ease-out;
+
+    .card_bck {
+        height: 100%;
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px !important;
+        background-color: #0000009c;
+
+      h6 {
+        color: rgba(255, 255, 255, 0.69) !important;
+        word-break: break-word;
+      }
+    }
+  }
+
+  .card:hover {
+    cursor: pointer;
+    transform: translateY(-20px);
+
+    .card_bck {
+      background-color: rgba(0, 0, 0, 0.15);
+
+      h6 {
+        color: white !important;
+      }
+    }
+  }
+
+  // card focus for tab navigation
+  // ~ = previous elems
+  .card:hover ~ .card,
+  .card:focus ~ .card {
+    transform: translateX(65px);
+  }
+}
+
+.card_content {
+  --top-target : 0;
+  --left-target : 0;
+  overflow-y: hidden;
+  position: fixed;
+  display: none;
+  // materialize menu = z-index : 997
+  z-index: 998;
+  background-color: var(--primary-color);
+
+  .header {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-size: cover;
+    background-position: center 60%;
+    height: 150px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+
+    .header-title {
+      text-shadow: 2px 2px 2px var(--primary-color);
+    }
+
+    .header-close {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      span {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        border-radius: 50%;
+        border: solid 2px white;
+        color: white;
+        width: 35px;
+        height: 35px;
+      }
+      span:hover {
+        cursor: pointer;
+        background-color: rgba(41, 41, 41, 0.27);
+        border-color: rgba(255, 255, 255, 0.84);
+        color: rgba(255, 255, 255, 0.84);
+      }
+    }
+  }
+
+  .description {
+    display: flex;
+    color: white;
+    div {
+      padding: 10px;
+      h5, p {
+        margin: 0;
+      }
+    }
+  }
+
+  .schema {
+    border-bottom: 0 !important;
+
+    .ecran_overflow {
+      // windows - header
+      height: calc(100vh - 150px);
+      padding: 1px;
+    }
+
+    .ecran {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: fit-content;
+    }
+
+    .grid_col {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .grid {
+      display: flex;
+      flex-direction: row;
+
+      .line {
+        display: flex;
+        flex-direction: column;
+
+        .multi_card {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+        }
+
+        .card_tree {
+          width: 250px;
+          min-height: 200px;
+          max-height: fit-content;
+          margin: 15px;
+          padding: 10px;
+          border: solid var(--primary-color) 2px;
+          background-color: rgba(255, 255, 255, 0.09);
+          color: var(--primary-color) !important;
+
+          // content position
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .info {
+            margin-top: 0;
+            display: flex;
+            justify-content: space-between;
+          }
+
+          .title {
+            text-align: center;
+            margin: 0 !important;
+          }
+
+          .card_persona {
+            text-align: center;
+            color: var(--primary-color);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            .green {
+              background-color: #27ae60;
+            }
+            .red {
+              background-color: #c0392b;
+            }
+
+            .status {
+              span {
+                padding: 5px;
+              }
+            }
+          }
+
+        }
+      }
+
+    }
+  }
+
+}
+
+.card_content.call {
+  animation: open 0.4s;
+  animation-fill-mode: forwards;
+  transition-timing-function: ease-out;
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+  @keyframes open {
+    0% {
+      border-radius: 10px;
+      width: 150px;
+      height: 200px;
+      // hauteur écrans - (hauteur carte / 2)
+      top: calc(var(--top-target));
+      // largeur écran - (largeur carte / 2)
+      left: calc(var(--left-target));
+    }
+    100% {
+      border-radius: 0;
+      height: 100vh;
+      width: 100vw;
+      top: 0;
+      left: 0;
+    }
+  }
+}
+
+.card_content.exit {
+  animation: exit 0.4s;
+  animation-fill-mode: forwards;
+  transition-timing-function: ease-out;
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+  @keyframes exit {
+    0% {
+      border-radius: 0;
+      height: 100vh;
+      width: 100vw;
+      top: 0;
+      left: 0;
+    }
+    100% {
+      border-radius: 10px;
+      width: 150px;
+      height: 200px;
+      // hauteur écrans - (hauteur carte / 2)
+      top: calc(var(--top-target));
+      // largeur écran - (largeur carte / 2)
+      left: calc(var(--left-target));
+    }
+  }
+}
+
+.noOver {
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+// test for adaptive background
+.Monhistoire, .MyStory {
+  background-image: url("../img/guildwars2-121.jpg");
+}
+.GuerrecontreScarlet, .ScarletsWar {
+  background-image: url("../img/ddea6bf5d703-04_BfLA-1920x1080.jpg");
+}
+.Saison2duMondevivant, .LivingWorldSeason2 {
+  background-image: url("../img/3a88c2017-02_HOT_RaidWing4_Wallpaper-1920x1080.jpg");
+}
+.HeartofThorns {
+  background-image: url("../img/cd93894e7910-29_ToN-1920x1080.jpg");
+}
+.Saison3duMondevivant, .LivingWorldSeason3 {
+  background-image: url("../img/17513POF_Wallpaper_1920x1200_5.jpg");
+}
+.PathofFire {
+  background-image: url("../img/5a94fpath-of-fire-concerpt-art-oasis2.jpg");
+}
+.Saison4duMondevivant, .LivingWorldSeason4 {
+  background-image: url("../img/3b03dPOF_Wallpaper_1920x1200_6.jpg");
+}
+
+.legend {
+  li {
+    margin-top: 10px;
+    span {
+      padding: 5px;
+      i {
+        position: relative;
+        top: 5px;
+      }
+    }
+  }
+}

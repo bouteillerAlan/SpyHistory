@@ -10,8 +10,9 @@ import App from './component/App'
 // Fonts
 import './style/font/font.scss'
 // Styles
-import './style/css/base.scss'
+import './style/css/animated.scss'
 import './style/css/materialize.scss'
+import './style/css/base.scss'
 // Services
 import * as serviceWorker from './serviceWorker'
 
