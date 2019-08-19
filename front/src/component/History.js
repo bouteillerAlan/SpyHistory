@@ -113,6 +113,7 @@ class History extends Component {
 
                                 // check if is authorized
                                 // and stock it in obj[season['name']]['story'][storyName]['quests'][quest['id']]['authorization'][character]
+                                // by default all quests is authorized
                                 let a = true
                                 data['backstories'][character]['backstory'].map((bkId) => {
                                     // if backstory exist in bk file
@@ -277,7 +278,53 @@ class History extends Component {
         }
     }
 
-    showCard () {
+    // return a block for each quests
+    block =(map,id,season,story)=> {
+        return (
+            <div className={'card_tree'} key={id}>
+                <p className={'info'}><small>Lvl : {map[season]['story'][story]['quests'][id]['Qlevel']}</small><small>Qid : {map[season]['story'][story]['quests'][id]['Qid']}</small></p>
+                <h5 className={'title'}>{map[season]['story'][story]['quests'][id]['Qname']}</h5>
+                <div className={'card_persona'}>
+                    {Object.keys(map[season]['story'][story]['quests'][id]['status']).map((character) => (
+                        <span key={character} className={'tooltipped status ' + (!map[season]['story'][story]['quests'][id]['authorization'][character] ? 'grey' : map[season]['story'][story]['quests'][id]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
+                            <span>
+                                {!map[season]['story'][story]['quests'][id]['authorization'][character] ?
+                                    <del>{character.substring(0,3)}</del>
+                                    :
+                                    character.substring(0,3)
+                                }
+                            </span>
+                        </span>
+                    ))}
+                </div>
+
+                {psl['2choice'].includes(id) ?
+                    <div className="choice-2">
+                        <i className="material-icons a">looks_two</i>
+                        <hr/>
+                    </div>
+                    : null
+                }
+                {psl['3choice'].includes(id) ?
+                    <div className="choice-3">
+                        <i className="material-icons a">looks_3</i>
+                        <hr/>
+                    </div>
+                    : null
+                }
+                {psl['5choice'].includes(id) ?
+                    <div className="choice-5">
+                        <i className="material-icons a">looks_5</i>
+                        <hr/>
+                    </div>
+                    : null
+                }
+
+            </div>
+        )
+    }
+
+    showCard =()=> {
         // get data
         const {data, elemShow} = this.state
         const map = data ? this.map() : null
@@ -313,76 +360,20 @@ class History extends Component {
                     <div className="schema animated">
                         <div className="ecran_overflow">
                             <div className="ecran">
-                                {psl[story.split('- ')[1]] && psl[story.split('- ')[1]].map((quest) => (
+                                {psl[map[season]['story'][story]['id']] && psl[map[season]['story'][story]['id']].map((quest) => (
                                     <div key={quest} className="grid">
                                         {quest.map((line) => (
                                             <div key={line} className="line">
                                                 {line.map((id) => (
                                                     <div key={id} className="multi_card">
                                                         {Array.isArray(id) ?
-                                                            // if is a array is a choice
+                                                            // if id is array, is a choice
                                                             id.map((uId) => (
-                                                                <div key={uId} className={'card_tree'}>
-                                                                    <p className={'info'}><small>Lvl : {map[season]['story'][story]['quests'][uId]['Qlevel']}</small><small>Qid : {map[season]['story'][story]['quests'][uId]['Qid']}</small></p>
-                                                                    <h5 className={'title'}>{map[season]['story'][story]['quests'][uId]['Qname']}</h5>
-                                                                    <div className={'card_persona'}>
-                                                                        {Object.keys(map[season]['story'][story]['quests'][uId]['status']).map((character) => (
-                                                                            <span key={character} className={'tooltipped status ' + (map[season]['story'][story]['quests'][uId]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
-                                                                                <span>
-                                                                                    {character.substring(0,3)}
-                                                                                </span>
-                                                                            </span>
-                                                                        ))}
-                                                                    </div>
-
-                                                                    {psl['2choice'].includes(id) ?
-                                                                        <div className="choice-2">
-                                                                            <i className="material-icons a">looks_two</i>
-                                                                            <hr/>
-                                                                        </div>
-                                                                        : null
-                                                                    }
-                                                                    {psl['3choice'].includes(id) ?
-                                                                        <div className="choice-3">
-                                                                            <i className="material-icons a">looks_3</i>
-                                                                            <hr/>
-                                                                        </div>
-                                                                        : null
-                                                                    }
-
-                                                                </div>
+                                                                this.block(map,uId,season,story)
                                                             ))
                                                             // else is a single quest
-                                                            :
-                                                            <div className={'card_tree'}>
-                                                                <p className={'info'}><small>Lvl : {map[season]['story'][story]['quests'][id]['Qlevel']}</small><small>Qid : {map[season]['story'][story]['quests'][id]['Qid']}</small></p>
-                                                                <h5 className={'title'}>{map[season]['story'][story]['quests'][id]['Qname']}</h5>
-                                                                <div className={'card_persona'}>
-                                                                    {Object.keys(map[season]['story'][story]['quests'][id]['status']).map((character) => (
-                                                                        <span key={character} className={'tooltipped status ' + (map[season]['story'][story]['quests'][id]['status'][character] ? 'green' : 'red')} data-position="top" data-tooltip={character}>
-                                                                                <span>
-                                                                                    {character.substring(0,3)}
-                                                                                </span>
-                                                                        </span>
-                                                                    ))}
-                                                                </div>
-
-                                                                {psl['2choice'].includes(id) ?
-                                                                    <div className="choice-2">
-                                                                        <i className="material-icons a">looks_two</i>
-                                                                        <hr/>
-                                                                    </div>
-                                                                    : null
-                                                                }
-                                                                {psl['3choice'].includes(id) ?
-                                                                    <div className="choice-3">
-                                                                        <i className="material-icons a">looks_3</i>
-                                                                        <hr/>
-                                                                    </div>
-                                                                    : null
-                                                                }
-
-                                                            </div>}
+                                                            : this.block(map,id,season,story)
+                                                        }
                                                     </div>
                                                 ))}
                                             </div>
@@ -395,7 +386,6 @@ class History extends Component {
                 </div>
             </div>
         )
-
     }
 
     render() {

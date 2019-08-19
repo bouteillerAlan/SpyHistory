@@ -224,18 +224,7 @@ nav {
   }
 }
 
-.choice-2 {
-  text-align: center;
-  color: white;
-  position: relative;
-  .a {
-    background-color: #3a3a3a;
-    position: absolute;
-    left: 45%;
-  }
-}
-
-.choice-3 {
+.choice-2, .choice-3, .choice-5 {
   text-align: center;
   color: white;
   position: relative;
@@ -547,4 +536,17 @@ nav {
 }
 .Saison4duMondevivant, .LivingWorldSeason4 {
   background-image: url("../img/3b03dPOF_Wallpaper_1920x1200_6.jpg");
+}
+
+.legend {
+  li {
+    margin-top: 10px;
+    span {
+      padding: 5px;
+      i {
+        position: relative;
+        top: 5px;
+      }
+    }
+  }
 }
