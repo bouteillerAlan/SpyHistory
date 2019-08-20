@@ -67,10 +67,13 @@ class History extends Component {
     componentDidUpdate () {
         const elems_collapsible = document.querySelectorAll('.collapsible')
         const elems_tooltipped = document.querySelectorAll('.tooltipped')
+        const elems_modal = document.querySelectorAll('.modal')
         const options_collapsible = {}
         const options_tooltipped = {}
+        const options_modal = {}
         M.Collapsible.init(elems_collapsible, options_collapsible)
         M.Tooltip.init(elems_tooltipped, options_tooltipped)
+        M.Modal.init(elems_modal, options_modal)
     }
 
     // map the data in a single iterative object
@@ -279,21 +282,21 @@ class History extends Component {
     }
 
     // return a block for each quests
-    block =(map,id,season,story)=> {
+    block =(map,id,season,story,lang)=> {
         return (
             <div className={'card_tree'} key={id}>
                 <p className={'info'}>
                     <small>Lvl : {map[season]['story'][story]['quests'][id]['Qlevel']}</small>
                     {psl['durmand'].includes(id) ?
-                        <span className="durmand"> </span>
+                        <span className="durmand tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Prieuré de Durmand' : 'Durmand Priory'}> </span>
                         : null
                     }
                     {psl['whisper'].includes(id) ?
-                        <span className="whisper"> </span>
+                        <span className="whisper tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Ordre des Soupirs' : 'Order of Whispers'}> </span>
                         : null
                     }
                     {psl['vigil'].includes(id) ?
-                        <span className="vigil"> </span>
+                        <span className="vigil tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Veilleurs' : 'Vigil'}> </span>
                         : null
                     }
                     <small>Qid : {map[season]['story'][story]['quests'][id]['Qid']}</small>
@@ -340,7 +343,7 @@ class History extends Component {
 
     showCard =()=> {
         // get data
-        const {data, elemShow} = this.state
+        const {data, elemShow, lang} = this.state
         const map = data ? this.map() : null
 
         // stock
@@ -352,10 +355,25 @@ class History extends Component {
         return (
             <div className="card_content" id={id}>
                 <div className="content">
+
                     <div className={"header animated " + season.replace(/[\s]|[']/g,'')}>
                         <div className="header-title animated">
                             <h4>{season}</h4>
                             <p>{story}</p>
+                            <div className="icons">
+                                {/*History desc*/}
+                                <p>
+                                    <a className="modal-trigger" href={"#m"+id}>
+                                        <i className="material-icons tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Description' : 'Description'}>announcement</i>
+                                    </a>
+                                </p>
+                                {/*Tutorial*/}
+                                <p>
+                                    <a href={tuto[id]} target="_blank" rel="noopener noreferrer" className="explore tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Vers le tutoriel' : 'Go to tutorial'}>
+                                        <i className="material-icons">explore</i>
+                                    </a>
+                                </p>
+                            </div>
                         </div>
                         <div className="header-close animated">
                             <span onClick={() => {this.handleCard(map[season]['story'][story]['id'])}}>
@@ -363,14 +381,7 @@ class History extends Component {
                             </span>
                         </div>
                     </div>
-                    {/*<div className="description">*/}
-                    {/*    <div>*/}
-                    {/*        <h5>Description</h5>*/}
-                    {/*    </div>*/}
-                    {/*    <div>*/}
-                    {/*        <p>{map[season][story]['description']}</p>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+
                     <div className="schema animated">
                         <div className="ecran_overflow">
                             <div className="ecran">
@@ -383,10 +394,10 @@ class History extends Component {
                                                         {Array.isArray(id) ?
                                                             // if id is array, is a choice
                                                             id.map((uId) => (
-                                                                this.block(map,uId,season,story)
+                                                                this.block(map,uId,season,story,lang)
                                                             ))
                                                             // else is a single quest
-                                                            : this.block(map,id,season,story)
+                                                            : this.block(map,id,season,story,lang)
                                                         }
                                                     </div>
                                                 ))}
@@ -414,6 +425,18 @@ class History extends Component {
                     </div>
                 }
 
+                {/*Modal generation*/}
+                {map && Object.keys(map).map((season) => (
+                    Object.keys(map[season]['story']).map((story) => (
+                        <div key={map[season]['story'][story]['id']} id={'m'+map[season]['story'][story]['id']} className="modal">
+                            <div className="modal-content">
+                                <h4>Description</h4>
+                                <p>{map[season]['story'][story]['description']}</p>
+                            </div>
+                        </div>
+                    ))
+                ))}
+
                 {/*card stack generation*/}
                 {map &&
                     <div id="season_grid">
@@ -438,7 +461,6 @@ class History extends Component {
                                         ))}
                                     </div>
                                 </div>
-
                             </div>
                         ))}
                     </div>
@@ -447,7 +469,6 @@ class History extends Component {
                 {this.state.isOpen &&
                     this.showCard()
                 }
-
             </div>
         )
     }
