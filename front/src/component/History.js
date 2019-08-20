@@ -406,9 +406,6 @@ class History extends Component {
         const {loading, data, lang} = this.state
         const map = data ? this.map() : null
 
-        console.log(data)
-        console.log(map)
-
         return (
             <div className="row">
                 {loading &&
@@ -430,7 +427,7 @@ class History extends Component {
                                         </a>
                                     </blockquote>
                                 </h4>
-                                <div>
+                                <div className="card_overflow">
                                     <div className="cards_stack">
                                         {Object.keys(map[season]['story']).map((story) => (
                                             <div key={story} className={"card " + season.replace(/[\s]|[']/g,'')} onClick={(e) => {this.handleCard(map[season]['story'][story]['id'], season, story, e)}}>
