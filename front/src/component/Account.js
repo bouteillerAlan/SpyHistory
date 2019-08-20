@@ -65,24 +65,29 @@ class Account extends Component {
 
                     <div className="col s12 m6">
                         <h4>{lang === 'en' ? 'Legend' : 'Légende' }</h4>
-                        <ul className='legend'>
-                            <li>
-                                <span className="grey"><del>Name</del></span>
-                                {lang === 'en' ? ' Locked quest after a choice in the story' : ' Quête verrouillé suite à un choix dans l\'histoire' }
-                            </li>
-                            <li>
-                                <span className="red">Name</span>
-                                {lang === 'en' ? ' Quest not realized' : ' Quête non réalisée' }
-                            </li>
-                            <li>
-                                <span className="green">Name</span>
-                                {lang === 'en' ? ' Quest realized' : ' Quête réalisée' }
-                            </li>
-                            <li>
-                                <span> <i className="material-icons">looks_two</i> </span>
-                                {lang === 'en' ? ' After this quests it will be necessary to choose among the 2 quests which is below' : ' Aprés cette quêtes il faudra choisir parmis les 2 quêtes qui se trouve dessous' }
-                            </li>
-                        </ul>
+
+                        <table className="legend">
+                            <tr>
+                                <td className="center-align"><span className="grey"><del>Name</del></span></td>
+                                <td>{lang === 'en' ? ' Locked quest after a choice in the story' : ' Quête verrouillé suite à un choix dans l\'histoire' }</td>
+                            </tr>
+                            <tr>
+                                <td className="center-align"><span className="red">Name</span></td>
+                                <td>{lang === 'en' ? ' Quest not realized' : ' Quête non réalisée' }</td>
+                            </tr>
+                            <tr>
+                                <td className="center-align"><span className="green">Name</span></td>
+                                <td>{lang === 'en' ? ' Quest realized' : ' Quête réalisée' }</td>
+                            </tr>
+                            <tr>
+                                <td className="center-align"><span> <i className="material-icons">looks_two</i> </span></td>
+                                <td>{lang === 'en' ? ' After this quests it will be necessary to choose among the 2 quests which is below' : ' Aprés cette quêtes il faudra choisir parmis les 2 quêtes qui se trouve dessous' }</td>
+                            </tr>
+                            <tr>
+                                <td className="center-align"><div className="durmand"> </div></td>
+                                <td><p>{lang === 'en' ? ' Quests only available for this faction' : ' Quêtes accessibles uniquement pour cette faction' }</p></td>
+                            </tr>
+                        </table>
                     </div>
 
                 </div>

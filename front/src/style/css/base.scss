@@ -414,12 +414,32 @@ nav {
           // content position
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
+          justify-content: space-around;
 
           .info {
             margin-top: 0;
+            margin-bottom: 0;
             display: flex;
             justify-content: space-between;
+            // orders icon
+            .durmand {
+              background-image: url('../img/Durmand_Priory_banner.png');
+              background-size: contain;
+              height: 50px;
+              width: 50px;
+            }
+            .whisper {
+              background-image: url('../img/Order_of_Whispers_banner.png');
+              background-size: contain;
+              height: 50px;
+              width: 50px;
+            }
+            .vigil {
+              background-image: url('../img/Vigil_banner.png');
+              background-size: contain;
+              height: 50px;
+              width: 50px;
+            }
           }
 
           .title {
@@ -515,7 +535,7 @@ nav {
   overflow-x: hidden;
 }
 
-// test for adaptive background
+// adaptive background
 .Monhistoire, .MyStory {
   background-image: url("../img/guildwars2-121.jpg");
 }
@@ -539,14 +559,34 @@ nav {
 }
 
 .legend {
-  li {
-    margin-top: 10px;
+  color: white;
+
+  tr {
+    border-color: #f39c12;
+
     span {
+      color: black;
       padding: 5px;
       i {
+        color: white;
         position: relative;
         top: 5px;
       }
     }
+
+    .durmand {
+      background-image: url('../img/Durmand_Priory_banner.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      float: left;
+      height: 50px;
+      width: 50px;
+    }
   }
+
 }
+
+
+
+
+

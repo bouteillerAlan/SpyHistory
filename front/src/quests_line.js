@@ -21,6 +21,13 @@ const psl = {
     // all quests id before 5 choices in the game
     '5choice' : [257,260,262,252],
 
+    // all quests for durmand
+    'durmand' : [251,256,254,261,257,285,286,287,288,289],
+    // all quests for whisper
+    'whisper' : [253,255,258,259,260,290,291,292,293,294],
+    // all quests for vigil
+    'vigil' : [248,249,250,262,252,295,296,298,297,299],
+
     /////////// MY STORY ///////////
     // Mon histoire - charr
     '1' : [

@@ -282,7 +282,22 @@ class History extends Component {
     block =(map,id,season,story)=> {
         return (
             <div className={'card_tree'} key={id}>
-                <p className={'info'}><small>Lvl : {map[season]['story'][story]['quests'][id]['Qlevel']}</small><small>Qid : {map[season]['story'][story]['quests'][id]['Qid']}</small></p>
+                <p className={'info'}>
+                    <small>Lvl : {map[season]['story'][story]['quests'][id]['Qlevel']}</small>
+                    {psl['durmand'].includes(id) ?
+                        <span className="durmand"> </span>
+                        : null
+                    }
+                    {psl['whisper'].includes(id) ?
+                        <span className="whisper"> </span>
+                        : null
+                    }
+                    {psl['vigil'].includes(id) ?
+                        <span className="vigil"> </span>
+                        : null
+                    }
+                    <small>Qid : {map[season]['story'][story]['quests'][id]['Qid']}</small>
+                </p>
                 <h5 className={'title'}>{map[season]['story'][story]['quests'][id]['Qname']}</h5>
                 <div className={'card_persona'}>
                     {Object.keys(map[season]['story'][story]['quests'][id]['status']).map((character) => (
@@ -319,7 +334,6 @@ class History extends Component {
                     </div>
                     : null
                 }
-
             </div>
         )
     }
