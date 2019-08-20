@@ -52,8 +52,6 @@ class Account extends Component {
             account['access'].includes('PathOfFire') ? tab.push({'name':'Path Of Fire','status':true}) : tab.push({'name':'Path Of Fire','status':false})
         }
 
-        console.log(pvp)
-
         return (
             <div className="row">
                 {loading &&
@@ -71,11 +69,11 @@ class Account extends Component {
                             <div className="card-content white-text">
                                 <h5 className="card-title">{account['name']}</h5>
                                 <h6>{lang === 'en' ? 'Your access' : 'Vos accès'}</h6>
-                                <p className="access">
+                                <div className="access">
                                     {tab.map(el => (
                                         <div key={el['name']} className={"badge-access " + (el['status'] ? "green" : "red")}>{el['name']}</div>
                                     ))}
-                                </p>
+                                </div>
                                 <h6>{lang === 'en' ? 'Level' : 'Niveaux'}</h6>
                                 <div className="level">
                                     <p className="valign-wrapper">
