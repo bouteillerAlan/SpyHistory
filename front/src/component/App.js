@@ -198,7 +198,7 @@ class App extends Component {
 
                             <div className="col s12">
                                 <blockquote>
-                                    This app is made by <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a>. <br/>
+                                    This app is made by <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a> in collaboration with <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Waldolf</a>. <br/>
                                     The repo is available <a href="https://github.com/bouteillerAlan/SpyHistory" target="_blank" rel="noopener noreferrer">here</a>.
                                     Do not hesitate to create an <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issue</a> if you find a bug.<br/>
                                     All images are © 2019 ArenaNet, Inc..
