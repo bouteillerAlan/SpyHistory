@@ -327,13 +327,20 @@ nav {
     border-top-right-radius: 10px;
     background-size: cover;
     background-position: center 60%;
-    height: 150px;
+    min-height: 150px;
+    height: fit-content;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
 
     .header-title {
       text-shadow: 2px 2px 2px var(--primary-color);
+      .icons {
+        p {
+          margin-right: 15px;
+          float: left;
+        }
+      }
     }
 
     .header-close {
@@ -361,7 +368,6 @@ nav {
   }
 
   .description {
-    display: flex;
     color: white;
     div {
       padding: 10px;
@@ -551,10 +557,10 @@ nav {
   background-image: url("../img/Brisban_release_concept_art.jpg");
 }
 .HeartofThorns {
-  background-image: url("../img/_Charr_Reckoner__concept_art.jpg");
+  background-image: url("../img/Mastery_Mood_Piece_concept_art_(compressed).jpg");
 }
 .Saison3duMondevivant, .LivingWorldSeason3 {
-  background-image: url("../img/3a88c2017-02_HOT_RaidWing4_Wallpaper-1920x1080.jpg");
+  background-image: url("../img/One_Path_Ends_Wallpaper.jpg");
 }
 .PathofFire {
   background-image: url("../img/Path_of_Fire_concept_art_5.jpg");
@@ -640,7 +646,7 @@ nav {
       display: inline-block;
       height: 40px;
       width: 40px;
-      background-image: url('../img/Legendary_Backpacks.png');
+      background-image: url('../img/Legendary_Division_Background.png');
       background-position: right;
       background-size: contain;
       background-repeat: no-repeat;
@@ -650,7 +656,7 @@ nav {
       display: inline-block;
       height: 40px;
       width: 40px;
-      background-image: url('../img/Fractals_of_the_Mists_(achievements).png');
+      background-image: url('../img/Fractal_Dungeon_Icon.png');
       background-position: right;
       background-size: contain;
       background-repeat: no-repeat;
