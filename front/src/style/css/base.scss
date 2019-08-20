@@ -238,11 +238,7 @@ nav {
 /*
 * CARD DISPLAY
 */
-.badge {
-  background-color: #f39c12 !important;
-  color: var(--primary-color) !important;
-}
-  .material-tooltip {
+.material-tooltip {
   max-width: 50% !important;
 }
 
@@ -254,8 +250,17 @@ nav {
   transition: 0.3s ease-out;
 }
 
+.card_overflow {
+  overflow-x: auto;
+  height: 250px;
+  position: relative;
+}
+
 .cards_stack {
+  position: absolute;
+  top: 15px;
   display : flex;
+  width: fit-content;
 
   .card:not(:first-child) {
     margin-left: -5rem;
@@ -578,15 +583,87 @@ nav {
       background-image: url('../img/Durmand_Priory_banner.png');
       background-size: contain;
       background-repeat: no-repeat;
+      background-position: center;
       float: left;
       height: 50px;
-      width: 50px;
+      width: 100%;
     }
   }
 
 }
 
+.card.id {
+  background-color: #f39c12 !important;
 
+  .card-title {
+    color: var(--primary-color);
+  }
+
+  .card-action {
+    border-color: var(--primary-color);
+    button {
+      background-color: var(--primary-color) !important;
+      color: #f39c12;
+    }
+  }
+
+  .access {
+    display: flex;
+    flex-wrap: wrap;
+    .badge-access {
+      color: var(--primary-color) !important;
+      padding: 5px;
+      margin-left: 10px;
+      width: fit-content;
+    }
+  }
+
+  .level {
+    display: flex;
+    flex-wrap: wrap;
+
+    p {
+      margin-right: 25px;
+    }
+
+    .wvw {
+      display: inline-block;
+      height: 40px;
+      width: 40px;
+      background-image: url('../img/YQpfeEx.png');
+      background-position: right;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .pvp {
+      display: inline-block;
+      height: 40px;
+      width: 40px;
+      background-image: url('../img/Legendary_Backpacks.png');
+      background-position: right;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .fractal {
+      display: inline-block;
+      height: 40px;
+      width: 40px;
+      background-image: url('../img/Fractals_of_the_Mists_(achievements).png');
+      background-position: right;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+  }
+}
+
+.modal {
+  background-color: var(--primary-color);
+  .modal-title {
+    color: #f39c12 !important;
+  }
+}
 
 
 
