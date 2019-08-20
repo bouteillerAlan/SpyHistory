@@ -160,12 +160,12 @@ class App extends Component {
                         <div>
                             <div className="col s12">
                                 <blockquote>
-                                    This app needs a API key to work (and other information entered in the form below). It is stored in your browser via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>. <br/>
+                                    This app needs a API key to work (and others informations entered in the form below). It is stored in your browser via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>. <br/>
                                     You can delete this cookie at any time via the button "Reset API key" present at the top right of your screen. <br/>
                                     No data is sent to our server. All data displayed in this application is provided by <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">Guild Wars 2 API</a> and localStorage cookie.
                                 </blockquote>
                                 <blockquote>
-                                    It will provide you with a key to read the following information: account, characters and progression. <br/>
+                                    You need to provide a key with the following informations : account, characters and progression. <br/>
                                     You can create a key from your <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">ArenaNet account</a>.
                                 </blockquote>
                             </div>
@@ -198,9 +198,9 @@ class App extends Component {
 
                             <div className="col s12">
                                 <blockquote>
-                                    This app has made by <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a>. <br/>
+                                    This app is made by <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a>. <br/>
                                     The repo is available <a href="https://github.com/bouteillerAlan/SpyHistory" target="_blank" rel="noopener noreferrer">here</a>.
-                                    Do not hesitate to create an <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issues</a> if you find a bug.<br/>
+                                    Do not hesitate to create an <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issue</a> if you find a bug.<br/>
                                     All images are © 2019 ArenaNet, Inc..
                                 </blockquote>
                             </div>
