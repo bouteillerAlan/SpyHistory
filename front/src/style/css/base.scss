@@ -17,6 +17,23 @@ body {
   overflow-x: hidden;
 }
 
+.error {
+  color: red !important;
+}
+
+/*checkbox is not checked*/
+[type="checkbox"]+span:not(.lever):before {
+  border-color: #f39c12;
+}
+
+/*checkbox is checked*/
+[type="checkbox"]:checked+span:not(.lever):before {
+  border-top: transparent;
+  border-left: transparent;
+  border-right: 2px solid #f39c12;
+  border-bottom: 2px solid #f39c12;
+}
+
 /*
 * SCROLLBAR CUSTOM
  */

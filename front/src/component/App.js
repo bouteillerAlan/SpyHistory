@@ -13,8 +13,10 @@ class App extends Component {
         this.state = {
             apiKey : '',
             apiKeyError : null,
+            checkError : null,
             localKey : env.apiKey,
-            lang : 'en'
+            lang : 'en',
+            check : false
         }
     }
 
@@ -46,11 +48,29 @@ class App extends Component {
         }
     }
 
+    handleCheck =(e)=> {
+        const value = document.getElementById('check').checked
+        if (value) {
+            this.setState({
+                check : value,
+                checkError : null
+            })
+        } else {
+            this.setState({
+                check : false,
+                checkError : 'Accept conditions'
+            })
+        }
+    }
+
     async handleSubmit () {
         const value = this.state.apiKey
         const lang = this.state.lang
+        const check = this.state.check
 
-        if (value === '') {
+        if (!check) {
+            this.setState({checkError : 'Accept conditions'})
+        } else if (value === '') {
             this.setState({apiKeyError : 'Value must not be null'})
         } else if (value.match(/[[\]\\&~@^%!:*$€¤£µ_*/+°={}`|#²<>]/gm)) {
             this.setState({apiKeyError : 'Unauthorized character'})
@@ -115,7 +135,7 @@ class App extends Component {
 
     render () {
 
-        const {apiKeyError, localKey, lang} = this.state
+        const {apiKeyError, localKey, lang, checkError} = this.state
         const error = apiKeyError ? 'invalid' : ''
 
         return (
@@ -137,35 +157,56 @@ class App extends Component {
                 <div className="container row">
 
                     {!localKey &&
-                    <div className="col s12 api-input">
-                        <blockquote>
-                            This app needs a API key to work. It is stored in your browser via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>. <br/>
-                            You can delete this cookie at any time via the button "Reset API key" present at the top right of your screen. <br/>
-                            No data is sent to our server. All data displayed in this application is provided by <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">Guild Wars 2 API</a>
-                        </blockquote>
-                        <blockquote>
-                            It will provide you with a key to read the following information: account, characters and progression. <br/>
-                            You can create a key from your <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">ArenaNet account</a>.
-                        </blockquote>
-                        <div className="input-field col s12 l6">
-                            <input id="apiKey" type="text" className={error} value={this.state.apiKey} onChange={(e) => {this.handleForm(e)}}/>
-                            <label htmlFor="apiKey">api key</label>
-                            {apiKeyError && <span className="helper-text">{apiKeyError}</span>}
-                        </div>
-                        <div className="input-field col s12 l6">
-                            <select value={lang} onChange={(e) => {this.handleSelect(e)}}>
-                                <option value="en">English</option>
-                                <option value="fr">Français</option>
-                            </select>
-                            <label>Language</label>
+                        <div>
+                            <div className="col s12">
+                                <blockquote>
+                                    This app needs a API key to work (and other information entered in the form below). It is stored in your browser via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>. <br/>
+                                    You can delete this cookie at any time via the button "Reset API key" present at the top right of your screen. <br/>
+                                    No data is sent to our server. All data displayed in this application is provided by <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">Guild Wars 2 API</a> and localStorage cookie.
+                                </blockquote>
+                                <blockquote>
+                                    It will provide you with a key to read the following information: account, characters and progression. <br/>
+                                    You can create a key from your <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">ArenaNet account</a>.
+                                </blockquote>
+                            </div>
+
+                            <div className="col s12 api-input">
+                                <div className="input-field col s12 l6">
+                                    <input id="apiKey" type="text" className={error} value={this.state.apiKey} onChange={(e) => {this.handleForm(e)}}/>
+                                    <label htmlFor="apiKey">api key</label>
+                                    {apiKeyError && <span className="helper-text">{apiKeyError}</span>}
+                                </div>
+                                <div className="input-field col s12 l6">
+                                    <select value={lang} onChange={(e) => {this.handleSelect(e)}}>
+                                        <option value="en">English</option>
+                                        <option value="fr">Français</option>
+                                    </select>
+                                    <label>Language</label>
+                                </div>
+                                <div className="col s12 l12">
+                                    <button className="btn waves-effect waves-light" onClick={() => {this.handleSubmit()}}>Submit
+                                        <i className="material-icons right">send</i>
+                                    </button>
+                                    <p>
+                                        <label>
+                                            <input type="checkbox" id="check" onChange={(e) => {this.handleCheck(e)}}/>
+                                            <span className={checkError && 'error'}>I accept the registration of my API key and the choice of my display language in the "localStorage" cookie.</span>
+                                        </label>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="col s12">
+                                <blockquote>
+                                    This app has made by <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a>. <br/>
+                                    The repo is available <a href="https://github.com/bouteillerAlan/SpyHistory" target="_blank" rel="noopener noreferrer">here</a>.
+                                    Do not hesitate to create an <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issues</a> if you find a bug.<br/>
+                                    All images are © 2019 ArenaNet, Inc..
+                                </blockquote>
+                            </div>
                         </div>
 
-                        <div className="col s12 l12">
-                            <button className="btn waves-effect waves-light" onClick={() => {this.handleSubmit()}}>Submit
-                                <i className="material-icons right">send</i>
-                            </button>
-                        </div>
-                    </div>
+
                     }
 
                     {localKey &&
