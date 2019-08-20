@@ -1,6 +1,12 @@
 # SpyHistory
 Watch the progression in your personal guild wars 2 history
 
+Made by Alan Bouteiller in collaboration with [Waldolf](https://www.lebusmagique.fr/).
+
+# Documentation
+## App
+Available in ``front/README.md`` 
+
 ## API V2 GuildWars 2 documentation
 [source](https://api.guildwars2.com/v2)
 
