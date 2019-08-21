@@ -5,6 +5,9 @@ import Header from './Header'
 import Account from './Account'
 import History from './History'
 import getAccount from '../function/getAccount'
+import {Link} from 'react-router-dom'
+
+import Swup from 'swup'
 
 class App extends Component {
 
@@ -26,6 +29,7 @@ class App extends Component {
         const elems = document.querySelectorAll('select')
         const options = {}
         M.FormSelect.init(elems, options)
+        const swup = new Swup()
     }
     // DidUpdate because the elem is not render if fetch is null
     componentDidUpdate () {
@@ -102,7 +106,8 @@ class App extends Component {
         localStorage.removeItem('lang')
         this.setState({
             apiKey : '',
-            localKey : null
+            localKey : null,
+            check : false
         })
     }
 
@@ -154,20 +159,38 @@ class App extends Component {
                     </nav>
                 </div>
 
-                <div className="container row">
+                <div id="swup" className="container row transition-fade">
+
+                    <p><Link to="/paf">Home</Link></p>
 
                     {!localKey &&
                         <div>
                             <div className="col s12">
-                                <blockquote>
-                                    This app needs a API key to work (and others informations entered in the form below). It is stored in your browser via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>. <br/>
-                                    You can delete this cookie at any time via the button "Reset API key" present at the top right of your screen. <br/>
-                                    No data is sent to our server. All data displayed in this application is provided by <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">Guild Wars 2 API</a> and localStorage cookie.
-                                </blockquote>
-                                <blockquote>
-                                    You need to provide a key with the following informations : account, characters and progression. <br/>
-                                    You can create a key from your <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">ArenaNet account</a>.
-                                </blockquote>
+                                {lang === 'en' ?
+                                    <>
+                                    <blockquote>
+                                        This app needs a API key to work (and others informations entered in the form below). It is stored in your browser via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>. <br/>
+                                        You can delete this cookie at any time via the button "Reset API key" present at the top right of your screen. <br/>
+                                        No data is sent to our server. All data displayed in this application is provided by <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">Guild Wars 2 API</a> and localStorage cookie.
+                                    </blockquote>
+                                    <blockquote>
+                                        You need to provide a key with the following informations : account, characters and progression. <br/>
+                                        You can create a key from your <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">ArenaNet account</a>.
+                                    </blockquote>
+                                    </>
+                                    :
+                                    <>
+                                    <blockquote>
+                                        Cette application à besoin d'une clés API pour fonctionner (ainsi que des informations entrée dans le formulaire ci-dessous). Ces informations sont stocké dans votre navigateur via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>. <br/>
+                                        Vous pouvez supprimer ce cookie n'importe quand via le bouton "Reset API key" présent en haut à droite de votre écran. <br/>
+                                        Aucune donnée est envoyé à notre serveur. Toute les donées affichée sont fournis par <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">l'api Guild Wars 2</a> et le cookie localStorage.
+                                    </blockquote>
+                                    <blockquote>
+                                        Il faut fournir une clés api avec les informations suivante : account, characters et progression. <br/>
+                                        Vous pouvez crée une clés api depuis votre <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">compte ArenaNet</a>.
+                                    </blockquote>
+                                    </>
+                                    }
                             </div>
 
                             <div className="col s12 api-input">
@@ -190,19 +213,28 @@ class App extends Component {
                                     <p>
                                         <label>
                                             <input type="checkbox" id="check" onChange={(e) => {this.handleCheck(e)}}/>
-                                            <span className={checkError && 'error'}>I accept the registration of my API key and the choice of my display language in the "localStorage" cookie.</span>
+                                            <span className={checkError && 'error'}>{lang === 'en' ? "I accept the registration of my API key and the choice of my display language in the \"localStorage\" cookie." : "J'accepte l'enregistrement de ma clés api et du choix de ma langue d'affichage dans le cookie localStorage"}</span>
                                         </label>
                                     </p>
                                 </div>
                             </div>
 
                             <div className="col s12">
-                                <blockquote>
-                                    This app is made by <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a> in collaboration with <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Waldolf</a>. <br/>
-                                    The repo is available <a href="https://github.com/bouteillerAlan/SpyHistory" target="_blank" rel="noopener noreferrer">here</a>.
-                                    Do not hesitate to create an <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issue</a> if you find a bug.<br/>
-                                    All images are © 2019 ArenaNet, Inc..
-                                </blockquote>
+                                {lang === 'en' ?
+                                    <blockquote>
+                                        This app is made by <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a> in collaboration with <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Waldolf</a>. <br/>
+                                        The repo is available <a href="https://github.com/bouteillerAlan/SpyHistory" target="_blank" rel="noopener noreferrer">here</a>.
+                                        Do not hesitate to create an <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issue</a> if you find a bug.<br/>
+                                        All images are © 2019 ArenaNet, Inc..
+                                    </blockquote>
+                                    :
+                                    <blockquote>
+                                        Cette application à été codé par <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a> en collaboration avec <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Waldolf</a>. <br/>
+                                        Le repo est disponible <a href="https://github.com/bouteillerAlan/SpyHistory" target="_blank" rel="noopener noreferrer">ici</a>.
+                                        N'hésité pas à crée une <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issue</a> si vous trouvez un bug.<br/>
+                                        Toutes les images sont © 2019 ArenaNet, Inc..
+                                    </blockquote>
+                                }
                             </div>
                         </div>
 
@@ -216,7 +248,6 @@ class App extends Component {
                         </div>
                     }
                 </div>
-
 
             </section>
         )
