@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import env from '../env'
 import getAccount from '../function/getAccount'
 import getPvp from '../function/getPvp'
-import img from '../style/img/Guardian_04_concept_art.png'
 import M from 'materialize-css'
 
 class Account extends Component {

@@ -13,6 +13,7 @@ import './style/font/font.scss'
 import './style/css/animated.scss'
 import './style/css/materialize.scss'
 import './style/css/base.scss'
+import './style/css/shape.scss'
 // Services
 import * as serviceWorker from './serviceWorker'
 
@@ -21,7 +22,7 @@ function Routeur () {
         <div>
             <Router history={history}>
                 {/*Site*/}
-                <Route path='/' component={App} />
+                <Route exact path='/' component={App} />
             </Router>
         </div>
     )

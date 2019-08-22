@@ -3,16 +3,16 @@
 */
 
 :root {
-  --primary-color : #24262d;
-  --primary-background : white;
+  --primary-background : #24262d;
+  --primary-color : white;
   --primary-yellow : #fbd54a;
 }
 
 body {
-  background-color: #3d3d3d;
-  color: var(--primary-color) !important;
+  background-color: var(--primary-background);
+  color: var(--primary-background) !important;
   p, h1, h2, h3, h4, h5, h6, a, ul, li, blockquote {
-    color: var(--primary-background) !important;
+    color: var(--primary-color) !important;
     font-family: 'Roboto', sans-serif;
   }
   overflow-x: hidden;
@@ -61,29 +61,29 @@ body {
 }
 
 .card {
-  background-color: var(--primary-background) !important;
+  background-color: var(--primary-color) !important;
   p, h1, h2, h3, h4, h5, h6, a, ul, li, blockquote {
-    color: var(--primary-color) !important;
+    color: var(--primary-background) !important;
   }
 }
 
 .collapsible-header {
-  color: var(--primary-color) !important;
+  color: var(--primary-background) !important;
 }
 
 blockquote {
   border-left-color: var(--primary-yellow) !important;
   a {
-    text-decoration: underline var(--primary-background)!important;
+    text-decoration: underline var(--primary-color)!important;
     font-style: italic;
   }
 }
 
 input {
-  color: var(--primary-background) !important;
+  color: var(--primary-color) !important;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  border-bottom-color: var(--primary-background);
+  border-bottom-color: var(--primary-color);
 }
 
 input[type=text]:not(.browser-default):focus:not([readonly]) {
@@ -103,7 +103,7 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 .select-dropdown {
   li {
     span {
-      color: var(--primary-color) !important;
+      color: var(--primary-background) !important;
     }
   }
   li:hover{
@@ -116,7 +116,7 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
   margin-top: 25px !important;
 
   label {
-    color: var(--primary-background) !important;
+    color: var(--primary-color) !important;
     font-family: 'Roboto', sans-serif;
   }
 }
@@ -133,12 +133,12 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 * HEADER
 */
 nav {
-  background-color: var(--primary-color) !important;
+  background-color: var(--primary-background) !important;
 }
 
 .nav-wrapper {
   a {
-    color: var(--primary-background) !important;
+    color: var(--primary-color) !important;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
   }
@@ -338,7 +338,7 @@ nav {
   display: none;
   // materialize menu = z-index : 997
   z-index: 998;
-  background-color: var(--primary-color);
+  background-color: var(--primary-background);
 
   .header {
     border-top-left-radius: 10px;
@@ -352,7 +352,7 @@ nav {
     justify-content: space-between;
 
     .header-title {
-      text-shadow: 2px 2px 2px var(--primary-color);
+      text-shadow: 2px 2px 2px var(--primary-background);
       .icons {
         p {
           margin-right: 15px;
@@ -436,9 +436,9 @@ nav {
           max-height: fit-content;
           margin: 15px;
           padding: 10px;
-          border: solid var(--primary-color) 2px;
+          border: solid var(--primary-background) 2px;
           background-color: rgba(255, 255, 255, 0.09);
-          color: var(--primary-color) !important;
+          color: var(--primary-background) !important;
 
           // content position
           display: flex;
@@ -478,7 +478,7 @@ nav {
 
           .card_persona {
             text-align: center;
-            color: var(--primary-color);
+            color: var(--primary-background);
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -620,13 +620,13 @@ nav {
   background-color: var(--primary-yellow) !important;
 
   .card-title {
-    color: var(--primary-color);
+    color: var(--primary-background);
   }
 
   .card-action {
-    border-color: var(--primary-color);
+    border-color: var(--primary-background);
     button {
-      background-color: var(--primary-color) !important;
+      background-color: var(--primary-background) !important;
       color: var(--primary-yellow);
     }
   }
@@ -635,7 +635,7 @@ nav {
     display: flex;
     flex-wrap: wrap;
     .badge-access {
-      color: var(--primary-color) !important;
+      color: var(--primary-background) !important;
       padding: 5px;
       margin-left: 10px;
       width: fit-content;
@@ -683,7 +683,7 @@ nav {
 }
 
 .modal {
-  background-color: var(--primary-color);
+  background-color: var(--primary-background);
   .modal-title {
     color: var(--primary-yellow) !important;
   }

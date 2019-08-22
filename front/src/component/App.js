@@ -5,9 +5,7 @@ import Header from './Header'
 import Account from './Account'
 import History from './History'
 import getAccount from '../function/getAccount'
-import {Link} from 'react-router-dom'
-
-import Swup from 'swup'
+import ShapeOverlays from '../function/ShapeOverlay'
 
 class App extends Component {
 
@@ -23,13 +21,35 @@ class App extends Component {
         }
     }
 
+    setEvent () {
+        const elmHamburger = document.querySelector('.hamburger')
+        const gNavItems = document.querySelectorAll('.global-menu__item')
+        const elmOverlay = document.querySelector('.shape-overlays')
+        const overlay = new ShapeOverlays(elmOverlay)
+
+        elmHamburger.addEventListener('click', () => {
+            if (overlay.isAnimating) {
+                return false
+            }
+            overlay.toggle()
+            if (overlay.isOpened === true) {
+                for (let i = 0; i < gNavItems.length; i++) {
+                    gNavItems[i].classList.add('is-opened')
+                }
+            } else {
+                for (let i = 0; i < gNavItems.length; i++) {
+                    gNavItems[i].classList.remove('is-opened')
+                }
+            }
+        })
+    }
 
     // init js
     componentDidMount () {
+        this.setEvent()
         const elems = document.querySelectorAll('select')
         const options = {}
         M.FormSelect.init(elems, options)
-        const swup = new Swup()
     }
     // DidUpdate because the elem is not render if fetch is null
     componentDidUpdate () {
@@ -95,6 +115,23 @@ class App extends Component {
                         localKey : value,
                         lang : lang
                     })
+
+                    const gNavItems = document.querySelectorAll('.global-menu__item')
+                    const elmOverlay = document.querySelector('.shape-overlays')
+                    const overlay = new ShapeOverlays(elmOverlay)
+                    if (overlay.isAnimating) {
+                        return false
+                    }
+                    overlay.toggle()
+                    if (overlay.isOpened === true) {
+                        for (let i = 0; i < gNavItems.length; i++) {
+                            gNavItems[i].classList.add('is-opened')
+                        }
+                    } else {
+                        for (let i = 0; i < gNavItems.length; i++) {
+                            gNavItems[i].classList.remove('is-opened')
+                        }
+                    }
                 }
             })
         }
@@ -152,19 +189,17 @@ class App extends Component {
                             {this.brand()}
                             <ul className="right">
                                 <li>
-                                    <a href="#reset" onClick={(e) => {this.handleReset(e)}}><i className="material-icons left">cached</i>Reset API key</a>
+                                    <a href="#reset" className="hamburger" onClick={(e) => {this.handleReset(e)}}><i className="material-icons left">cached</i>Reset API key</a>
                                 </li>
                             </ul>
                         </div>
                     </nav>
                 </div>
 
-                <div id="swup" className="container row transition-fade">
-
-                    <p><Link to="/paf">Home</Link></p>
+                <div className="container row demo-3">
 
                     {!localKey &&
-                        <div>
+                        <div className="demo-title">
                             <div className="col s12">
                                 {lang === 'en' ?
                                     <>
@@ -207,7 +242,7 @@ class App extends Component {
                                     <label>Language</label>
                                 </div>
                                 <div className="col s12 l12">
-                                    <button className="btn waves-effect waves-light" onClick={() => {this.handleSubmit()}}>Submit
+                                    <button className="btn waves-effect waves-light hamburger" onClick={() => {this.handleSubmit()}}>Submit
                                         <i className="material-icons right">send</i>
                                     </button>
                                     <p>
@@ -237,16 +272,20 @@ class App extends Component {
                                 }
                             </div>
                         </div>
-
-
                     }
 
                     {localKey &&
-                        <div>
-                            <Account apiKey={localKey} lang={lang} />
-                            <History apiKey={localKey} lang={lang} />
-                        </div>
+                    <div className="global-menu">
+                        <Account apiKey={localKey} lang={lang} />
+                        <History apiKey={localKey} lang={lang} />
+                    </div>
                     }
+
+                    <svg className="shape-overlays" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path className="shape-overlays__path"> </path>
+                        <path className="shape-overlays__path"> </path>
+                        <path className="shape-overlays__path"> </path>
+                    </svg>
                 </div>
 
             </section>
