@@ -175,107 +175,134 @@ class App extends Component {
         )
     }
 
-    render () {
+    nav =(fixed)=> {
+        return (
+            <div className={fixed ? "navbar-fixed" : null}>
+                <nav>
+                    <div className="nav-wrapper">
+                        {this.brand()}
+                        <ul className="right">
+                            <li>
+                                <a href="#reset" className="hamburger" onClick={(e) => {this.handleReset(e)}}><i className="material-icons left">cached</i>Reset API key</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        )
+    }
 
+    render () {
         const {apiKeyError, localKey, lang, checkError} = this.state
         const error = apiKeyError ? 'invalid' : ''
+        const showNav = false
 
         return (
             <section>
 
-                <div className="navbar-fixed">
-                    <nav>
-                        <div className="nav-wrapper">
-                            {this.brand()}
-                            <ul className="right">
-                                <li>
-                                    <a href="#reset" className="hamburger" onClick={(e) => {this.handleReset(e)}}><i className="material-icons left">cached</i>Reset API key</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
+                {showNav &&
+                    this.nav(true)
+                }
 
-                <div className="container row demo-3">
+                <div className="row demo-3">
 
                     {!localKey &&
-                        <div className="demo-title">
-                            <div className="col s12">
-                                {lang === 'en' ?
-                                    <>
-                                    <blockquote>
-                                        This app needs a API key to work (and others informations entered in the form below). It is stored in your browser via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>. <br/>
-                                        You can delete this cookie at any time via the button "Reset API key" present at the top right of your screen. <br/>
-                                        No data is sent to our server. All data displayed in this application is provided by <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">Guild Wars 2 API</a> and localStorage cookie.
-                                    </blockquote>
-                                    <blockquote>
-                                        You need to provide a key with the following informations : account, characters and progression. <br/>
-                                        You can create a key from your <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">ArenaNet account</a>.
-                                    </blockquote>
-                                    </>
-                                    :
-                                    <>
-                                    <blockquote>
-                                        Cette application à besoin d'une clés API pour fonctionner (ainsi que des informations entrée dans le formulaire ci-dessous). Ces informations sont stocké dans votre navigateur via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>. <br/>
-                                        Vous pouvez supprimer ce cookie n'importe quand via le bouton "Reset API key" présent en haut à droite de votre écran. <br/>
-                                        Aucune donnée est envoyé à notre serveur. Toute les donées affichée sont fournis par <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">l'api Guild Wars 2</a> et le cookie localStorage.
-                                    </blockquote>
-                                    <blockquote>
-                                        Il faut fournir une clés api avec les informations suivante : account, characters et progression. <br/>
-                                        Vous pouvez crée une clés api depuis votre <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">compte ArenaNet</a>.
-                                    </blockquote>
-                                    </>
+                        <div>
+
+                            <div className="head full row col s12 valign-wrapper center-align">
+
+                                <div className="meteor ma"> </div>
+                                <div className="meteor mb"> </div>
+                                <div className="meteor mc"> </div>
+                                <div className="meteor md"> </div>
+                                <div className="meteor me"> </div>
+
+                                <div className="row title">
+                                    <h1>Observatory</h1>
+                                    <h2>Keep your story in mind</h2>
+                                </div>
+
+                                <div className="row lig_yellow"> </div>
+                            </div>
+
+                            <div className="demo-title container">
+                                <div className="col s12">
+                                    {lang === 'en' ?
+                                        <>
+                                            <blockquote>
+                                                This app needs a API key to work (and others informations entered in the form below). It is stored in your browser via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>. <br/>
+                                                You can delete this cookie at any time via the button "Reset API key" present at the top right of your screen. <br/>
+                                                No data is sent to our server. All data displayed in this application is provided by <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">Guild Wars 2 API</a> and localStorage cookie.
+                                            </blockquote>
+                                            <blockquote>
+                                                You need to provide a key with the following informations : account, characters and progression. <br/>
+                                                You can create a key from your <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">ArenaNet account</a>.
+                                            </blockquote>
+                                        </>
+                                        :
+                                        <>
+                                            <blockquote>
+                                                Cette application à besoin d'une clés API pour fonctionner (ainsi que des informations entrée dans le formulaire ci-dessous). Ces informations sont stocké dans votre navigateur via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>. <br/>
+                                                Vous pouvez supprimer ce cookie n'importe quand via le bouton "Reset API key" présent en haut à droite de votre écran. <br/>
+                                                Aucune donnée est envoyé à notre serveur. Toute les donées affichée sont fournis par <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">l'api Guild Wars 2</a> et le cookie localStorage.
+                                            </blockquote>
+                                            <blockquote>
+                                                Il faut fournir une clés api avec les informations suivante : account, characters et progression. <br/>
+                                                Vous pouvez crée une clés api depuis votre <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">compte ArenaNet</a>.
+                                            </blockquote>
+                                        </>
                                     }
-                            </div>
+                                </div>
 
-                            <div className="col s12 api-input">
-                                <div className="input-field col s12 l6">
-                                    <input id="apiKey" type="text" className={error} value={this.state.apiKey} onChange={(e) => {this.handleForm(e)}}/>
-                                    <label htmlFor="apiKey">api key</label>
-                                    {apiKeyError && <span className="helper-text">{apiKeyError}</span>}
+                                <div className="col s12 api-input">
+                                    <div className="input-field col s12 l6">
+                                        <input id="apiKey" type="text" className={error} value={this.state.apiKey} onChange={(e) => {this.handleForm(e)}}/>
+                                        <label htmlFor="apiKey">api key</label>
+                                        {apiKeyError && <span className="helper-text">{apiKeyError}</span>}
+                                    </div>
+                                    <div className="input-field col s12 l6">
+                                        <select value={lang} onChange={(e) => {this.handleSelect(e)}}>
+                                            <option value="en">English</option>
+                                            <option value="fr">Français</option>
+                                        </select>
+                                        <label>Language</label>
+                                    </div>
+                                    <div className="col s12 l12">
+                                        <button className="btn waves-effect waves-light hamburger" onClick={() => {this.handleSubmit()}}>Submit
+                                            <i className="material-icons right">send</i>
+                                        </button>
+                                        <p>
+                                            <label>
+                                                <input type="checkbox" id="check" onChange={(e) => {this.handleCheck(e)}}/>
+                                                <span className={checkError && 'error'}>{lang === 'en' ? "I accept the registration of my API key and the choice of my display language in the \"localStorage\" cookie." : "J'accepte l'enregistrement de ma clés api et du choix de ma langue d'affichage dans le cookie localStorage"}</span>
+                                            </label>
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="input-field col s12 l6">
-                                    <select value={lang} onChange={(e) => {this.handleSelect(e)}}>
-                                        <option value="en">English</option>
-                                        <option value="fr">Français</option>
-                                    </select>
-                                    <label>Language</label>
-                                </div>
-                                <div className="col s12 l12">
-                                    <button className="btn waves-effect waves-light hamburger" onClick={() => {this.handleSubmit()}}>Submit
-                                        <i className="material-icons right">send</i>
-                                    </button>
-                                    <p>
-                                        <label>
-                                            <input type="checkbox" id="check" onChange={(e) => {this.handleCheck(e)}}/>
-                                            <span className={checkError && 'error'}>{lang === 'en' ? "I accept the registration of my API key and the choice of my display language in the \"localStorage\" cookie." : "J'accepte l'enregistrement de ma clés api et du choix de ma langue d'affichage dans le cookie localStorage"}</span>
-                                        </label>
-                                    </p>
-                                </div>
-                            </div>
 
-                            <div className="col s12">
-                                {lang === 'en' ?
-                                    <blockquote>
-                                        This app is made by <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a> in collaboration with <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Waldolf</a>. <br/>
-                                        The repo is available <a href="https://github.com/bouteillerAlan/SpyHistory" target="_blank" rel="noopener noreferrer">here</a>.
-                                        Do not hesitate to create an <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issue</a> if you find a bug.<br/>
-                                        All images are © 2019 ArenaNet, Inc..
-                                    </blockquote>
-                                    :
-                                    <blockquote>
-                                        Cette application à été codé par <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a> en collaboration avec <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Waldolf</a>. <br/>
-                                        Le repo est disponible <a href="https://github.com/bouteillerAlan/SpyHistory" target="_blank" rel="noopener noreferrer">ici</a>.
-                                        N'hésité pas à crée une <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issue</a> si vous trouvez un bug.<br/>
-                                        Toutes les images sont © 2019 ArenaNet, Inc..
-                                    </blockquote>
-                                }
+                                <div className="col s12">
+                                    {lang === 'en' ?
+                                        <blockquote>
+                                            This app is made by <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a> in collaboration with <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Waldolf</a>. <br/>
+                                            The repo is available <a href="https://github.com/bouteillerAlan/SpyHistory" target="_blank" rel="noopener noreferrer">here</a>.
+                                            Do not hesitate to create an <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issue</a> if you find a bug.<br/>
+                                            All images are © 2019 ArenaNet, Inc..
+                                        </blockquote>
+                                        :
+                                        <blockquote>
+                                            Cette application à été codé par <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a> en collaboration avec <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Waldolf</a>. <br/>
+                                            Le repo est disponible <a href="https://github.com/bouteillerAlan/SpyHistory" target="_blank" rel="noopener noreferrer">ici</a>.
+                                            N'hésité pas à crée une <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issue</a> si vous trouvez un bug.<br/>
+                                            Toutes les images sont © 2019 ArenaNet, Inc..
+                                        </blockquote>
+                                    }
+                                </div>
                             </div>
                         </div>
                     }
 
                     {localKey &&
-                    <div className="global-menu">
+                    <div className="global-menu container">
                         <Account apiKey={localKey} lang={lang} />
                         <History apiKey={localKey} lang={lang} />
                     </div>
