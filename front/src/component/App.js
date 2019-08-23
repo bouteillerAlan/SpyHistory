@@ -53,6 +53,7 @@ class App extends Component {
     }
     // DidUpdate because the elem is not render if fetch is null
     componentDidUpdate () {
+        this.setEvent()
         const elems = document.querySelectorAll('select')
         const options = {}
         M.FormSelect.init(elems, options)
@@ -177,13 +178,19 @@ class App extends Component {
 
     nav =(fixed)=> {
         return (
-            <div className={fixed ? "navbar-fixed" : null}>
+            <div className="navbar-fixed">
                 <nav>
                     <div className="nav-wrapper">
                         {this.brand()}
                         <ul className="right">
                             <li>
-                                <a href="#reset" className="hamburger" onClick={(e) => {this.handleReset(e)}}><i className="material-icons left">cached</i>Reset API key</a>
+                                <a href="#reset" className="hamburger" onClick={(e) => {this.handleReset(e)}}>
+                                    <i className="material-icons right rotate">cached</i>
+                                    Reset
+                                </a>
+                            </li>
+                            <li>
+                                <a href=""><i className="material-icons">arrow_forward</i></a>
                             </li>
                         </ul>
                     </div>
@@ -195,13 +202,12 @@ class App extends Component {
     render () {
         const {apiKeyError, localKey, lang, checkError} = this.state
         const error = apiKeyError ? 'invalid' : ''
-        const showNav = false
 
         return (
             <section>
 
-                {showNav &&
-                    this.nav(true)
+                {localKey &&
+                    this.nav()
                 }
 
                 <div className="row demo-3">
@@ -216,9 +222,10 @@ class App extends Component {
                                 <div className="meteor mc"> </div>
                                 <div className="meteor md"> </div>
                                 <div className="meteor me"> </div>
+                                <div className="meteor mf"> </div>
 
                                 <div className="row title">
-                                    <h1>Observatory</h1>
+                                    <h1><span className="yellow-text">O</span>bservatory</h1>
                                     <h2>Keep your story in mind</h2>
                                 </div>
 
