@@ -409,25 +409,25 @@ class History extends Component {
                                 </p>
                                 }
                                 {/*Tutorial*/}
-                                {tuto[id]['link'] &&
+                                {tuto[id][lang]['link'] &&
                                 <p>
-                                    <a href={tuto[id]['link']} target="_blank" rel="noopener noreferrer" className="explore tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Vers le tutoriel' : 'Go to tutorial'}>
+                                    <a href={tuto[id][lang]['link']} target="_blank" rel="noopener noreferrer" className="explore tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Vers le tutoriel' : 'Go to tutorial'}>
                                         <i className="material-icons">explore</i>
                                     </a>
                                 </p>
                                 }
                                 {/*youtube*/}
-                                {tuto[id]['video'] &&
+                                {tuto[id][lang]['video'] &&
                                 <p>
-                                    <a href={tuto[id]['video']} target="_blank" rel="noopener noreferrer" className="tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Vers la vidéo' : 'Go to the vidéo'}>
+                                    <a href={tuto[id][lang]['video']} target="_blank" rel="noopener noreferrer" className="tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Vers la vidéo' : 'Go to the vidéo'}>
                                         <i className="material-icons">ondemand_video</i>
                                     </a>
                                 </p>
                                 }
                                 {/*wiki*/}
-                                {tuto[id]['wiki'] &&
+                                {tuto[id][lang]['wiki'] &&
                                 <p>
-                                    <a href={tuto[id]['wiki']} target="_blank" rel="noopener noreferrer" className="tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Vers le wiki' : 'Go to the wiki'}>
+                                    <a href={tuto[id][lang]['wiki']} target="_blank" rel="noopener noreferrer" className="tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Vers le wiki' : 'Go to the wiki'}>
                                         <i className="material-icons">event_note</i>
                                     </a>
                                 </p>
@@ -510,13 +510,13 @@ class History extends Component {
                                 <div className="carousel-item">
                                     <h4>
                                         {season + ' '}
-                                        {tuto[map[season]['id']]['link'] &&
-                                        <a href={tuto[map[season]['id']]['link']} target="_blank" rel="noopener noreferrer" className="explore tooltipped marging" data-position="right" data-tooltip={lang==='fr' ? 'Vers le tutoriel' : 'Go to tutorial'}>
+                                        {tuto[map[season]['id']][lang]['link'] &&
+                                        <a href={tuto[map[season]['id']][lang]['link']} target="_blank" rel="noopener noreferrer" className="explore tooltipped marging" data-position="right" data-tooltip={lang==='fr' ? 'Vers le tutoriel' : 'Go to tutorial'}>
                                             <i className="material-icons white-text">explore</i>
                                         </a>
                                         }
-                                        {tuto[map[season]['id']]['wiki'] &&
-                                        <a href={tuto[map[season]['id']]['wiki']} target="_blank" rel="noopener noreferrer" className="tooltipped" data-position="right" data-tooltip={lang==='fr' ? 'Vers le wiki' : 'Go to the wiki'}>
+                                        {tuto[map[season]['id']][lang]['wiki'] &&
+                                        <a href={tuto[map[season]['id']][lang]['wiki']} target="_blank" rel="noopener noreferrer" className="tooltipped" data-position="right" data-tooltip={lang==='fr' ? 'Vers le wiki' : 'Go to the wiki'}>
                                             <i className="material-icons white-text">event_note</i>
                                         </a>
                                         }
