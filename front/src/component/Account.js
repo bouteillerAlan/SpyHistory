@@ -91,6 +91,7 @@ class Account extends Component {
                             </div>
                             <div className="card-action">
                                 <button data-target="modal1" className="btn modal-trigger">{lang === 'en' ? 'Legend' : 'Légende' }</button>
+                                <button data-target="modal2" className="btn modal-trigger">{lang === 'en' ? 'Warning' : 'Important' }</button>
                             </div>
 
                         </div>
@@ -125,6 +126,13 @@ class Account extends Component {
                                 </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+
+                    <div id="modal2" className="modal">
+                        <div className="modal-content">
+                            <h4 className="modal-title">{lang === 'en' ? 'Warning' : 'Important' }</h4>
+                            <p>{lang === 'en' ? ' Completed but restarted quests are considered unrealized!' : ' Le système de fonctionnement de l\'API détermine qu\'un épisode d\'histoire relancé est pas définition non terminé. Ce qui explique que certains épisodes soient considérés par cette dernière comme non fait alors qu\'il ont certainement été relancé mais terminés par le passé.' }</p>
                         </div>
                     </div>
 

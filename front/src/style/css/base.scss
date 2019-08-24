@@ -2,18 +2,19 @@
 * RESET
  */
 h1 {
-  font-size: 5.9vw;
+  font-size: 7.9vw;
 }
 h2 {
   font-size: 3.0vh;
-}
-p {
-  font-size: 2vmin;
 }
 
 /*
 * GENERAL THEME
 */
+
+html {
+  scroll-behavior: smooth;
+}
 
 :root {
   //--primary-background : #24262d;
@@ -25,9 +26,14 @@ p {
 body {
   background-color: var(--primary-background);
   color: var(--primary-background) !important;
-  p, h1, h2, h3, h4, h5, h6, a, ul, li, blockquote {
+  p, h1, h2, h3, h4, h5, h6, ul, li, blockquote {
     color: var(--primary-color) !important;
     font-family: 'Roboto', sans-serif;
+  }
+  a {
+    font-family: 'Roboto', sans-serif;
+    color: var(--primary-yellow) !important;
+    text-decoration: underline;
   }
   overflow-x: hidden;
 }
@@ -87,10 +93,6 @@ body {
 
 blockquote {
   border-left-color: var(--primary-yellow) !important;
-  a {
-    text-decoration: underline var(--primary-color)!important;
-    font-style: italic;
-  }
 }
 
 input {
@@ -155,6 +157,7 @@ nav {
     color: var(--primary-color) !important;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
+    text-decoration: none !important;
   }
 
   .right {
@@ -199,7 +202,7 @@ nav {
 }
 
 .brand-logo {
-  font-family: 'Press Start 2P', sans-serif;
+  font-family: 'Lexend Zetta', sans-serif;
   height: inherit;
   top: -5px;
 
@@ -372,6 +375,9 @@ nav {
           margin-right: 15px;
           float: left;
         }
+        i {
+          color: var(--primary-color) !important;
+        }
       }
     }
 
@@ -446,7 +452,7 @@ nav {
 
         .card_tree {
           width: 250px;
-          min-height: 200px;
+          min-height: 250px;
           max-height: fit-content;
           margin: 15px;
           padding: 10px;
@@ -505,8 +511,11 @@ nav {
             }
 
             .status {
+              display: flex;
+              flex-direction: column;
               span {
-                padding: 5px;
+                padding-right: 5px;
+                padding-left: 5px;
               }
             }
           }
@@ -639,6 +648,9 @@ nav {
 
   .card-action {
     border-color: var(--primary-background);
+    button:first-child {
+      margin-right: 10px;
+    }
     button {
       background-color: var(--primary-background) !important;
       color: var(--primary-yellow);
@@ -884,4 +896,55 @@ nav {
     margin-left: 15px !important;
     margin-right: 15px !important;
   }
+}
+
+.content {
+  min-height: 100vh;
+}
+
+.img_content {
+  text-align: center;
+  img {
+    max-height: 20vh;
+    width: auto;
+    max-width: 100%;
+  }
+}
+
+.flag {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  .flag_img {
+    animation: pulse 1.5s infinite;
+    @keyframes pulse {
+      from {
+        transform: scale3d(1, 1, 1);
+      }
+
+      50% {
+        transform: scale3d(1.05, 1.05, 1.05);
+      }
+
+      to {
+        transform: scale3d(1, 1, 1);
+      }
+    }
+  }
+  span:first-child {
+    margin-right: 10px;
+  }
+  .flag_img {
+    height: 40px;
+    width: auto;
+  }
+}
+
+.marging {
+  margin-right: 10px;
+}
+
+.icon_class {
+  height: 22px;
+  width: auto;
 }

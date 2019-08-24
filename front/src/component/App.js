@@ -6,6 +6,10 @@ import Account from './Account'
 import History from './History'
 import getAccount from '../function/getAccount'
 import ShapeOverlays from '../function/ShapeOverlay'
+import logoBus from '../style/img/logo.png'
+import card from '../style/img/card.png'
+import flag_fr from '../style/img/france.png'
+import flag_uk from '../style/img/united-kingdom.png'
 
 class App extends Component {
 
@@ -46,14 +50,16 @@ class App extends Component {
 
     // init js
     componentDidMount () {
-        this.setEvent()
         const elems = document.querySelectorAll('select')
         const options = {}
         M.FormSelect.init(elems, options)
     }
     // DidUpdate because the elem is not render if fetch is null
     componentDidUpdate () {
-        this.setEvent()
+        // trigger only if a button exist
+        if (this.state.localKey) {
+            this.setEvent()
+        }
         const elems = document.querySelectorAll('select')
         const options = {}
         M.FormSelect.init(elems, options)
@@ -176,7 +182,7 @@ class App extends Component {
         )
     }
 
-    nav =(fixed)=> {
+    nav =()=> {
         return (
             <div className="navbar-fixed">
                 <nav>
@@ -190,13 +196,17 @@ class App extends Component {
                                 </a>
                             </li>
                             <li>
-                                <a href=""><i className="material-icons">arrow_forward</i></a>
+                                <a href="https://www.lebusmagique.fr/"><i className="material-icons">arrow_forward</i></a>
                             </li>
                         </ul>
                     </div>
                 </nav>
             </div>
         )
+    }
+
+    getTop =(lang)=> {
+        this.setState({lang:lang})
     }
 
     render () {
@@ -210,11 +220,12 @@ class App extends Component {
                     this.nav()
                 }
 
-                <div className="row demo-3">
+                <div className="demo-3">
 
                     {!localKey &&
                         <div>
 
+                            {/*head*/}
                             <div className="head full row col s12 valign-wrapper center-align">
 
                                 <div className="meteor ma"> </div>
@@ -230,79 +241,149 @@ class App extends Component {
                                 </div>
 
                                 <div className="row lig_yellow"> </div>
+
+                                <div className="flag">
+                                    <p>
+                                        <span>
+                                            <a href="#top">
+                                                <img className="flag_img" src={flag_fr} alt="flag fr" onClick={() => {this.getTop('fr')}}/>
+                                            </a>
+                                        </span>
+                                        <span>
+                                            <a href="#top">
+                                                <img className="flag_img" src={flag_uk} alt="flag uk" onClick={() => {this.getTop('en')}}/>
+                                            </a>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            {/*end head*/}
+
+                            <div className="row container valign-wrapper content" id="top">
+                                <div className="row">
+                                    <div className="col s12 m6 img_content">
+                                        <img src={logoBus} alt="logo du busmagique"/>
+                                    </div>
+                                    <div className="col s12 m6">
+                                        {lang === 'en' ?
+                                            <div>
+                                                <h3>What is Observatory</h3>
+                                                <p>Hosted by <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Le Bus Magique</a>, Observatory lets you know where each of your characters is in the Guild Wars 2 quest timeline.</p>
+                                            </div>
+                                            :
+                                            <div>
+                                                <h3>C'est quoi Observatory</h3>
+                                                <p>Hébergé par <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Le Bus Magique</a>, Observatory permet de savoir ou en est chacun de vos personnages dans la chronologie des quêtes de Guild Wars 2.</p>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
                             </div>
 
-                            <div className="demo-title container">
-                                <div className="col s12">
-                                    {lang === 'en' ?
-                                        <>
-                                            <blockquote>
-                                                This app needs a API key to work (and others informations entered in the form below). It is stored in your browser via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>. <br/>
-                                                You can delete this cookie at any time via the button "Reset API key" present at the top right of your screen. <br/>
-                                                No data is sent to our server. All data displayed in this application is provided by <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">Guild Wars 2 API</a> and localStorage cookie.
-                                            </blockquote>
-                                            <blockquote>
-                                                You need to provide a key with the following informations : account, characters and progression. <br/>
-                                                You can create a key from your <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">ArenaNet account</a>.
-                                            </blockquote>
-                                        </>
-                                        :
-                                        <>
-                                            <blockquote>
-                                                Cette application à besoin d'une clés API pour fonctionner (ainsi que des informations entrée dans le formulaire ci-dessous). Ces informations sont stocké dans votre navigateur via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>. <br/>
-                                                Vous pouvez supprimer ce cookie n'importe quand via le bouton "Reset API key" présent en haut à droite de votre écran. <br/>
-                                                Aucune donnée est envoyé à notre serveur. Toute les donées affichée sont fournis par <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">l'api Guild Wars 2</a> et le cookie localStorage.
-                                            </blockquote>
-                                            <blockquote>
-                                                Il faut fournir une clés api avec les informations suivante : account, characters et progression. <br/>
-                                                Vous pouvez crée une clés api depuis votre <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">compte ArenaNet</a>.
-                                            </blockquote>
-                                        </>
-                                    }
-                                </div>
-
-                                <div className="col s12 api-input">
-                                    <div className="input-field col s12 l6">
-                                        <input id="apiKey" type="text" className={error} value={this.state.apiKey} onChange={(e) => {this.handleForm(e)}}/>
-                                        <label htmlFor="apiKey">api key</label>
-                                        {apiKeyError && <span className="helper-text">{apiKeyError}</span>}
+                            <div className="row container valign-wrapper content">
+                                <div className="row">
+                                    <div className="col s12 m6">
+                                        {lang === 'en' ?
+                                            <div>
+                                                <h3>How it works</h3>
+                                                <p>Thanks to the <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">API provided by ArenaNet</a> we have sorted Seasons, Stories and Quests in a chronological order as a card deck.</p>
+                                                <p>In each card the quest tree follows the chronological order and provides multiple information about the possible choices of each character.</p>
+                                            </div>
+                                            :
+                                            <div>
+                                                <h3>Comment ça fonctionne</h3>
+                                                <p>Grâce à <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">l'api fourni par ArenaNet</a> nous avons trié par ordre chronologique les Saisons, Histoires et Quêtes sous forme de deck de carte.</p>
+                                                <p>Dans chaque carte l'arborescence des quêtes suit l'ordre chronologique et fourni de multiples informations sur les choix possibles ou non de chaque personnage.</p>
+                                            </div>
+                                        }
                                     </div>
-                                    <div className="input-field col s12 l6">
-                                        <select value={lang} onChange={(e) => {this.handleSelect(e)}}>
-                                            <option value="en">English</option>
-                                            <option value="fr">Français</option>
-                                        </select>
-                                        <label>Language</label>
-                                    </div>
-                                    <div className="col s12 l12">
-                                        <button className="btn waves-effect waves-light hamburger" onClick={() => {this.handleSubmit()}}>Submit
-                                            <i className="material-icons right">send</i>
-                                        </button>
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" id="check" onChange={(e) => {this.handleCheck(e)}}/>
-                                                <span className={checkError && 'error'}>{lang === 'en' ? "I accept the registration of my API key and the choice of my display language in the \"localStorage\" cookie." : "J'accepte l'enregistrement de ma clés api et du choix de ma langue d'affichage dans le cookie localStorage"}</span>
-                                            </label>
-                                        </p>
+                                    <div className="col s12 m6 img_content">
+                                        <img src={card} alt="card"/>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div className="col s12">
-                                    {lang === 'en' ?
-                                        <blockquote>
-                                            This app is made by <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a> in collaboration with <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Waldolf</a>. <br/>
-                                            The repo is available <a href="https://github.com/bouteillerAlan/SpyHistory" target="_blank" rel="noopener noreferrer">here</a>.
-                                            Do not hesitate to create an <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issue</a> if you find a bug.<br/>
-                                            All images are © 2019 ArenaNet, Inc..
-                                        </blockquote>
-                                        :
-                                        <blockquote>
-                                            Cette application à été codé par <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a> en collaboration avec <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Waldolf</a>. <br/>
-                                            Le repo est disponible <a href="https://github.com/bouteillerAlan/SpyHistory" target="_blank" rel="noopener noreferrer">ici</a>.
-                                            N'hésité pas à crée une <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issue</a> si vous trouvez un bug.<br/>
-                                            Toutes les images sont © 2019 ArenaNet, Inc..
-                                        </blockquote>
-                                    }
+                            <div className="row container valign-wrapper content">
+                                <div>
+                                    <div className="col s12">
+                                        {lang === 'en' ?
+                                            <>
+                                                <div className="col s12 m6">
+                                                    <h3>Data storage</h3>
+                                                    <p>This app needs a API key to work (and others informations entered in the form below). It is stored in your browser via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>.</p>
+                                                    <p>You can delete this cookie at any time via the button "Reset" present at the top right of your screen. </p>
+                                                    <p>No data is sent to our server. All data displayed in this application is provided by <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">Guild Wars 2 API</a> and localStorage cookie.</p>
+                                                </div>
+                                                <div className="col s12 m6">
+                                                    <h3>Information to provide</h3>
+                                                    <p>You need to provide a key with the following informations : account, characters, progression and pvp.</p>
+                                                    <p>You can create a key from your <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">ArenaNet account</a>.</p>
+                                                </div>
+                                            </>
+                                            :
+                                            <>
+                                                <div className="col s12 m6">
+                                                    <h3>Stockage des données</h3>
+                                                    <p>Cette application à besoin d'une clés API pour fonctionner (ainsi que des informations entrée dans le formulaire ci-dessous). Ces informations sont stocké dans votre navigateur via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>.</p>
+                                                    <p>Vous pouvez supprimer ce cookie n'importe quand via le bouton "Reset" présent en haut à droite de votre écran.</p>
+                                                    <p>Aucune donnée est envoyé à notre serveur. Toute les donées affichée sont fournis par <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">l'api Guild Wars 2</a> et le cookie localStorage.</p>
+                                                </div>
+                                                <div className="col s12 m6">
+                                                    <h3>Informations à fournir</h3>
+                                                    <p>Il faut fournir une clés api avec les informations suivante : account, characters, progression et pvp.</p>
+                                                    <p>Vous pouvez crée une clés api depuis votre <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">compte ArenaNet</a>.</p>
+                                                </div>
+                                            </>
+                                        }
+                                    </div>
+
+                                    <div className="col s12 api-input">
+                                        <div className="input-field col s12 l6">
+                                            <input id="apiKey" type="text" className={error} value={this.state.apiKey} onChange={(e) => {this.handleForm(e)}}/>
+                                            <label htmlFor="apiKey">api key</label>
+                                            {apiKeyError && <span className="helper-text">{apiKeyError}</span>}
+                                        </div>
+                                        <div className="input-field col s12 l6">
+                                            <select value={lang} onChange={(e) => {this.handleSelect(e)}}>
+                                                <option value="en">English</option>
+                                                <option value="fr">Français</option>
+                                            </select>
+                                            <label>Language</label>
+                                        </div>
+                                        <div className="col s12 l12">
+                                            <button className="btn waves-effect waves-light" onClick={() => {this.handleSubmit()}}>Submit
+                                                <i className="material-icons right">send</i>
+                                            </button>
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" id="check" onChange={(e) => {this.handleCheck(e)}}/>
+                                                    <span className={checkError && 'error'}>{lang === 'en' ? "I accept the registration of my API key and the choice of my display language in the \"localStorage\" cookie." : "J'accepte l'enregistrement de ma clés api et du choix de ma langue d'affichage dans le cookie localStorage"}</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="col s12">
+                                        {lang === 'en' ?
+                                            <div className="col s12">
+                                                <p>
+                                                    This app is made by <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a> for <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Le Bus Magique</a>.
+                                                    Do not hesitate to create an <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issue</a> if you find a bug.
+                                                    All game images are © 2019 ArenaNet, Inc..<br/>
+                                                    <small>CC BY-NC-SA Alan Bouteiller</small>
+                                                </p>
+                                            </div>
+                                            :
+                                            <div className="col s12">
+                                                <p>
+                                                    Cette application à été codé par <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a> pour <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Le Bus Magique</a>.
+                                                    N'hésité pas à crée une <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issue</a> si vous trouvez un bug.
+                                                    Toutes les images du jeu sont © 2019 ArenaNet, Inc..<br/>
+                                                    <small>CC BY-NC-SA Alan Bouteiller</small>
+                                                </p>
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>

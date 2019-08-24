@@ -12,6 +12,17 @@ import getDoneQuests from '../function/getDoneQuests'
 import getBackstories from '../function/getBackstories'
 import getStories from '../function/getStories'
 import getSeasons from '../function/getSeasons'
+import getInfoCharacter from '../function/getInfoCharacter'
+
+import Guardian from '../style/img/Guardian_icon.png'
+import Warrior from '../style/img/Warrior_icon.png'
+import Necromancer from '../style/img/Necromancer_icon.png'
+import Elementalist from '../style/img/Elementalist_icon.png'
+import Thief from '../style/img/Thief_icon.png'
+import Engineer from '../style/img/Engineer_icon.png'
+import Ranger from '../style/img/Ranger_icon.png'
+import Revenant from '../style/img/Revenant_icon.png'
+import Mesmer from '../style/img/Mesmer_icon.png'
 
 class History extends Component {
 
@@ -45,12 +56,14 @@ class History extends Component {
 
         let questsDone = {}
         let backstories = {}
+        let characterId = {}
         for (let i = 0; i<characters.length; i++) {
             questsDone[characters[i]] = await getDoneQuests(env.apiLink,env.apiVersion,this.state.lang,this.state.key,characters[i])
             backstories[characters[i]] = await getBackstories(env.apiLink,env.apiVersion,this.state.key,characters[i])
+            characterId[characters[i]] = await getInfoCharacter(env.apiLink,env.apiVersion,this.state.lang,this.state.key,characters[i])
         }
 
-        return {seasons, stories, quests, characters, questsDone, backstories}
+        return {seasons, stories, quests, characters, questsDone, backstories, characterId}
     }
 
     componentWillMount () {
@@ -283,6 +296,8 @@ class History extends Component {
 
     // return a block for each quests
     block =(map,id,season,story,lang)=> {
+        const {data} = this.state
+
         return (
             <div className={'card_tree'} key={id}>
                 <p className={'info'}>
@@ -311,6 +326,20 @@ class History extends Component {
                                     :
                                     character.substring(0,3)
                                 }
+                                {/*{data['characterId'][character]['profession']}*/}
+                            </span>
+                            <span>
+                                <img src={
+                                    data['characterId'][character]['profession'] === "Guardian" ? Guardian :
+                                    data['characterId'][character]['profession'] === "Warrior" ? Warrior :
+                                    data['characterId'][character]['profession'] === "Necromancer" ? Necromancer :
+                                    data['characterId'][character]['profession'] === "Elementalist" ? Elementalist :
+                                    data['characterId'][character]['profession'] === "Thief" ? Thief :
+                                    data['characterId'][character]['profession'] === "Engineer" ? Engineer :
+                                    data['characterId'][character]['profession'] === "Ranger" ? Ranger :
+                                    data['characterId'][character]['profession'] === "Revenant" ? Revenant :
+                                        data['characterId'][character]['profession'] === "Mesmer" ? Mesmer : null
+                                } alt="class icon" className="icon_class"/>
                             </span>
                         </span>
                     ))}
@@ -362,17 +391,37 @@ class History extends Component {
                             <p>{story}</p>
                             <div className="icons">
                                 {/*History desc*/}
+                                {map[season]['story'][story]['description'] &&
                                 <p>
                                     <a className="modal-trigger" href={"#m"+id}>
                                         <i className="material-icons tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Description' : 'Description'}>announcement</i>
                                     </a>
                                 </p>
+                                }
                                 {/*Tutorial*/}
+                                {tuto[id]['link'] &&
                                 <p>
-                                    <a href={tuto[id]} target="_blank" rel="noopener noreferrer" className="explore tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Vers le tutoriel' : 'Go to tutorial'}>
+                                    <a href={tuto[id]['link']} target="_blank" rel="noopener noreferrer" className="explore tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Vers le tutoriel' : 'Go to tutorial'}>
                                         <i className="material-icons">explore</i>
                                     </a>
                                 </p>
+                                }
+                                {/*youtube*/}
+                                {tuto[id]['video'] &&
+                                <p>
+                                    <a href={tuto[id]['video']} target="_blank" rel="noopener noreferrer" className="tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Vers la vidéo' : 'Go to the vidéo'}>
+                                        <i className="material-icons">ondemand_video</i>
+                                    </a>
+                                </p>
+                                }
+                                {/*wiki*/}
+                                {tuto[id]['wiki'] &&
+                                <p>
+                                    <a href={tuto[id]['wiki']} target="_blank" rel="noopener noreferrer" className="tooltipped" data-position="top" data-tooltip={lang==='fr' ? 'Vers le wiki' : 'Go to the wiki'}>
+                                        <i className="material-icons">event_note</i>
+                                    </a>
+                                </p>
+                                }
                             </div>
                         </div>
                         <div className="header-close animated">
@@ -417,6 +466,8 @@ class History extends Component {
         const {loading, data, lang} = this.state
         const map = data ? this.map() : null
 
+        console.log(data, map)
+
         return (
             <div className="row">
                 {loading &&
@@ -445,9 +496,16 @@ class History extends Component {
                                 <h4>
                                     <blockquote>
                                         {season + ' '}
-                                        <a href={tuto[map[season]['id']]} target="_blank" rel="noopener noreferrer" className="explore tooltipped" data-position="right" data-tooltip={lang==='fr' ? 'Vers le tutoriel' : 'Go to tutorial'}>
-                                            <i className="material-icons">explore</i>
+                                        {tuto[map[season]['id']]['link'] &&
+                                        <a href={tuto[map[season]['id']]['link']} target="_blank" rel="noopener noreferrer" className="explore tooltipped marging" data-position="right" data-tooltip={lang==='fr' ? 'Vers le tutoriel' : 'Go to tutorial'}>
+                                            <i className="material-icons white-text">explore</i>
                                         </a>
+                                        }
+                                        {tuto[map[season]['id']]['wiki'] &&
+                                        <a href={tuto[map[season]['id']]['wiki']} target="_blank" rel="noopener noreferrer" className="tooltipped" data-position="right" data-tooltip={lang==='fr' ? 'Vers le wiki' : 'Go to the wiki'}>
+                                            <i className="material-icons white-text">event_note</i>
+                                        </a>
+                                        }
                                     </blockquote>
                                 </h4>
                                 <div className="card_overflow">
