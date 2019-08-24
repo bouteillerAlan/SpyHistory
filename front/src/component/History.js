@@ -466,8 +466,6 @@ class History extends Component {
         const {loading, data, lang} = this.state
         const map = data ? this.map() : null
 
-        console.log(data, map)
-
         return (
             <div className="row">
                 {loading &&

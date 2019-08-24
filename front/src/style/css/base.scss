@@ -149,12 +149,13 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 * HEADER
 */
 nav {
-  background-color: var(--primary-background) !important;
+  background-color: var(--primary-yellow) !important;
+  box-shadow: none !important;
 }
 
 .nav-wrapper {
   a {
-    color: var(--primary-color) !important;
+    color: var(--primary-background) !important;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     text-decoration: none !important;
@@ -203,6 +204,7 @@ nav {
 
 .brand-logo {
   font-family: 'Lexend Zetta', sans-serif;
+  color: var(--primary-background) !important;
   height: inherit;
   top: -5px;
 
@@ -420,7 +422,7 @@ nav {
 
     .ecran_overflow {
       // windows - header
-      height: calc(100vh - 193px);
+      height: calc(100vh - 150px);
       padding: 1px;
     }
 
@@ -513,6 +515,7 @@ nav {
             .status {
               display: flex;
               flex-direction: column;
+              //margin: 5px;
               span {
                 padding-right: 5px;
                 padding-left: 5px;
@@ -947,4 +950,9 @@ nav {
 .icon_class {
   height: 22px;
   width: auto;
+}
+
+.svg_wave {
+  top: -5px;
+  position: relative;
 }
