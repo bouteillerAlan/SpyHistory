@@ -3,9 +3,15 @@ Watch the progression in your personal guild wars 2 history
 
 Made by Alan Bouteiller in collaboration with [Waldolf](https://www.lebusmagique.fr/).
 
+# Todo
+- Made a better *Carousel*
+- Refactor the map()/get()
+- Rework header for account information's
+- Add some animation (header, *carousel*, ...) 
+
 # Documentation
 ## App
-Available in ``front/README.md`` 
+Available in ``front/README.md``
 
 ## API V2 GuildWars 2 documentation
 [source](https://api.guildwars2.com/v2)
