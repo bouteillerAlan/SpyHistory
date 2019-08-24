@@ -956,3 +956,30 @@ nav {
   top: -5px;
   position: relative;
 }
+
+.carousel {
+  height: 415px !important;
+  max-height: fit-content !important;
+  .carousel-item {
+    height: fit-content;
+    max-height: fit-content;
+  }
+}
+
+.icon_carousel {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+  top: -60px;
+  p:nth-child(2) {
+    margin-right: 5px;
+    margin-left: 113px;
+  }
+  p {
+    i:hover {
+      color: var(--primary-yellow);
+      cursor: pointer;
+    }
+  }
+}

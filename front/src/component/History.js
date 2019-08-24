@@ -39,7 +39,8 @@ class History extends Component {
             // stock the DOM coordinates of parent and grid for animation
             parent : {},
             grid : {},
-            elemShow : {}
+            elemShow : {},
+            CarouselInit : false
         }
     }
 
@@ -81,12 +82,21 @@ class History extends Component {
         const elems_collapsible = document.querySelectorAll('.collapsible')
         const elems_tooltipped = document.querySelectorAll('.tooltipped')
         const elems_modal = document.querySelectorAll('.modal')
+        const elems_carousel = document.querySelectorAll('.carousel')
         const options_collapsible = {}
         const options_tooltipped = {}
         const options_modal = {}
+        const options_carousel = {fullWidth: true, indicators: true}
         M.Collapsible.init(elems_collapsible, options_collapsible)
         M.Tooltip.init(elems_tooltipped, options_tooltipped)
         M.Modal.init(elems_modal, options_modal)
+        // Debug the indicator init
+        if (!this.state.CarouselInit) {
+            M.Carousel.init(elems_carousel, options_carousel)
+            this.setState({
+                CarouselInit : true
+            })
+        }
     }
 
     // map the data in a single iterative object
@@ -489,10 +499,16 @@ class History extends Component {
                 {/*card stack generation*/}
                 {map &&
                     <div id="season_grid">
-                        {Object.keys(map).map((season) => (
-                            <div key={season}>
-                                <h4>
-                                    <blockquote>
+
+                        <div className="carousel carousel-slider center">
+                            {Object.keys(map).map((season) => (
+                                <div key={season}>
+                                {/*<div className="carousel-fixed-item center">*/}
+                                {/*<a className="btn waves-effect white grey-text darken-text-2">button</a>*/}
+                                {/*</div>*/}
+
+                                <div className="carousel-item">
+                                    <h4>
                                         {season + ' '}
                                         {tuto[map[season]['id']]['link'] &&
                                         <a href={tuto[map[season]['id']]['link']} target="_blank" rel="noopener noreferrer" className="explore tooltipped marging" data-position="right" data-tooltip={lang==='fr' ? 'Vers le tutoriel' : 'Go to tutorial'}>
@@ -504,21 +520,35 @@ class History extends Component {
                                             <i className="material-icons white-text">event_note</i>
                                         </a>
                                         }
-                                    </blockquote>
-                                </h4>
-                                <div className="card_overflow">
-                                    <div className="cards_stack">
-                                        {Object.keys(map[season]['story']).map((story) => (
-                                            <div key={story} className={"card " + season.replace(/[\s]|[']/g,'')} onClick={(e) => {this.handleCard(map[season]['story'][story]['id'], season, story, e)}}>
-                                                <div className="card_bck">
-                                                    <h6>{story}</h6>
-                                                </div>
+                                    </h4>
+                                    <div>
+                                        <div className="card_overflow">
+                                            <div className="cards_stack">
+                                                {Object.keys(map[season]['story']).map((story) => (
+                                                    <div key={story} className={"card " + season.replace(/[\s]|[']/g,'')} onClick={(e) => {this.handleCard(map[season]['story'][story]['id'], season, story, e)}}>
+                                                        <div className="card_bck">
+                                                            <h6>{story}</h6>
+                                                        </div>
+                                                    </div>
+                                                ))}
                                             </div>
-                                        ))}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="icon_carousel">
+                            <p onClick={() => {const inst = M.Carousel.getInstance(document.querySelector('.carousel')).prev()}}>
+                                <i className="material-icons">arrow_back</i>
+                            </p>
+                            <p> </p>
+                            <p onClick={() => {const inst = M.Carousel.getInstance(document.querySelector('.carousel')).next()}}>
+                                <i className="material-icons">arrow_forward</i>
+                            </p>
+                        </div>
+
                     </div>
                 }
 

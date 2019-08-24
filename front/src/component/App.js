@@ -217,10 +217,13 @@ class App extends Component {
             <section>
 
                 {localKey &&
-                this.nav()}
-                <svg className="svg_wave" xmlns="http://www.w3.org/2000/svg" width="100vw" height="50px" viewBox="0 0 100 25" preserveAspectRatio="none">
-                    <path d="M.133.133v9.221s36.006-16.838 79.67.134c43.664 16.971 96.867-.768 96.867-.768v-8.586z" fill="#fbd54a" stroke="#fbd54a"/>
-                </svg>
+                    <>
+                        {this.nav()}
+                        <svg className="svg_wave" xmlns="http://www.w3.org/2000/svg" width="100vw" height="50px" viewBox="0 0 100 25" preserveAspectRatio="none">
+                            <path d="M.133.133v9.221s36.006-16.838 79.67.134c43.664 16.971 96.867-.768 96.867-.768v-8.586z" fill="#fbd54a" stroke="#fbd54a"/>
+                        </svg>
+                    </>
+                }
 
                 <div className="demo-3">
 
