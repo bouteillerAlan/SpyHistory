@@ -500,7 +500,7 @@ class History extends Component {
                 {map &&
                     <div id="season_grid">
 
-                        <div className="carousel carousel-slider center">
+                        {/*<div className="carousel carousel-slider center">*/}
                             {Object.keys(map).map((season) => (
                                 <div key={season}>
                                 {/*<div className="carousel-fixed-item center">*/}
@@ -537,17 +537,17 @@ class History extends Component {
                                 </div>
                                 </div>
                             ))}
-                        </div>
+                        {/*</div>*/}
 
-                        <div className="icon_carousel">
-                            <p onClick={() => {const inst = M.Carousel.getInstance(document.querySelector('.carousel')).prev()}}>
-                                <i className="material-icons">arrow_back</i>
-                            </p>
-                            <p> </p>
-                            <p onClick={() => {const inst = M.Carousel.getInstance(document.querySelector('.carousel')).next()}}>
-                                <i className="material-icons">arrow_forward</i>
-                            </p>
-                        </div>
+                        {/*<div className="icon_carousel">*/}
+                        {/*    <p onClick={() => {const inst = M.Carousel.getInstance(document.querySelector('.carousel')).prev()}}>*/}
+                        {/*        <i className="material-icons">arrow_back</i>*/}
+                        {/*    </p>*/}
+                        {/*    <p> </p>*/}
+                        {/*    <p onClick={() => {const inst = M.Carousel.getInstance(document.querySelector('.carousel')).next()}}>*/}
+                        {/*        <i className="material-icons">arrow_forward</i>*/}
+                        {/*    </p>*/}
+                        {/*</div>*/}
 
                     </div>
                 }
