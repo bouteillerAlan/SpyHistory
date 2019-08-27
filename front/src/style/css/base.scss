@@ -261,12 +261,82 @@ nav {
   }
 }
 
+.arrow-1 {
+  text-align: center;
+  color: transparent;
+  position: relative;
+  .a {
+    background-color: #333333;
+    position: absolute;
+    left: 45%;
+    height: 56px;
+    width: 20px;
+  }
+}
+
+.arrow-2 {
+  text-align: center;
+  color: transparent;
+  position: relative;
+  .a {
+    background-color: #333333;
+    position: absolute;
+    left: 8% !important;
+    height: 144px;
+    width: 20px;
+    top: -36px;
+    transform: rotate(65deg);
+  }
+  .b {
+    background-color: #333333;
+    position: absolute;
+    left: 82% !important;
+    height: 144px;
+    width: 20px;
+    top: -36px;
+    transform: rotate(114deg);
+  }
+}
+
+.arrow-3 {
+  text-align: center;
+  color: transparent;
+  position: relative;
+  .a {
+    background-color: #333333;
+    position: absolute;
+    left: -81% !important;
+    height: 550px;
+    width: 20px;
+    top: -244px;
+    transform: rotate(84deg);
+  }
+  .b {
+    background-color: #333333;
+    position: absolute;
+    left: 172% !important;
+    height: 550px;
+    width: 20px;
+    top: -244px;
+    transform: rotate(96deg);
+  }
+  .c {
+    background-color: #333333;
+    position: absolute;
+    left: 45%;
+    height: 45px;
+    width: 20px;
+    top: 7px;
+  }
+}
+
+
 .choice-2, .choice-3, .choice-5 {
   text-align: center;
   color: white;
   position: relative;
   .a {
-    background-color: #3a3a3a;
+    background-color: #333333;
     position: absolute;
     left: 45%;
   }
