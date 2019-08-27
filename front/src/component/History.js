@@ -355,26 +355,35 @@ class History extends Component {
                     ))}
                 </div>
 
-                {psl['2choice'].includes(id) ?
+                {
+                    psl['2choice'].includes(id) ?
                     <div className="choice-2">
                         <i className="material-icons a">looks_two</i>
                         <hr/>
+                        <div className="arrow-2">
+                            <i className="material-icons a">all_out</i>
+                            <i className="material-icons b">all_out</i>
+                        </div>
                     </div>
-                    : null
-                }
-                {psl['3choice'].includes(id) ?
+                    : psl['3choice'].includes(id) ?
                     <div className="choice-3">
                         <i className="material-icons a">looks_3</i>
                         <hr/>
+                        <div className="arrow-3">
+                            <i className="material-icons a">all_out</i>
+                            <i className="material-icons b">all_out</i>
+                            <i className="material-icons c">all_out</i>
+                        </div>
                     </div>
-                    : null
-                }
-                {psl['5choice'].includes(id) ?
+                    : psl['5choice'].includes(id) ?
                     <div className="choice-5">
                         <i className="material-icons a">looks_5</i>
                         <hr/>
                     </div>
-                    : null
+                    :
+                    <div className="arrow-1">
+                        <i className="material-icons a">all_out</i>
+                    </div>
                 }
             </div>
         )
