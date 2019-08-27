@@ -22,7 +22,7 @@ function Routeur () {
         <div>
             <Router history={history}>
                 {/*Site*/}
-                <Route exact path='/' component={App} />
+                <Route exact path='/observatory' component={App} />
             </Router>
         </div>
     )
