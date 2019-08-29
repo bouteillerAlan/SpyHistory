@@ -132,7 +132,7 @@ class Account extends Component {
                     <div id="modal2" className="modal">
                         <div className="modal-content">
                             <h4 className="modal-title">{lang === 'en' ? 'Warning' : 'Important' }</h4>
-                            <p>{lang === 'en' ? ' Completed but restarted quests are considered unrealized!' : ' Le système de fonctionnement de l\'API détermine qu\'un épisode d\'histoire relancé est pas définition non terminé. Ce qui explique que certains épisodes soient considérés par cette dernière comme non fait alors qu\'il ont certainement été relancé mais terminés par le passé.' }</p>
+                            <p>{lang === 'en' ? ' Completed but restarted quests are considered unrealized!' : ' Le système de fonctionnement de l\'API détermine qu\'un épisode d\'histoire relancé est par définition non terminé. Ce qui explique que certains épisodes soient considérés par cette dernière comme non fait alors qu\'ils ont certainement été relancé mais terminés par le passé.' }</p>
                         </div>
                     </div>
 
