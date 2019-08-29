@@ -308,7 +308,7 @@ nav {
     left: -82% !important;
     height: 550px;
     width: 10px;
-    top: -244px;
+    top: -242px;
     transform: rotate(84deg);
   }
   .b {
@@ -317,7 +317,7 @@ nav {
     left: 191% !important;
     height: 550px;
     width: 10px;
-    top: -240px;
+    top: -238px;
     transform: rotate(96deg);
   }
   .c {
@@ -326,7 +326,7 @@ nav {
     left: 48%;
     height: 45px;
     width: 10px;
-    top: 7px;
+    top: 9px;
   }
 }
 
@@ -362,6 +362,7 @@ nav {
   overflow-x: auto;
   height: 250px;
   position: relative;
+  overflow-y: hidden;
 }
 
 .cards_stack {
@@ -493,7 +494,7 @@ nav {
 
     .ecran_overflow {
       // windows - header
-      height: calc(100vh - 150px);
+      height: calc(100vh - 192px);
       padding: 1px;
     }
 
