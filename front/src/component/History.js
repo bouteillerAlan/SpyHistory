@@ -65,6 +65,7 @@ class History extends Component {
         }
 
         return {seasons, stories, quests, characters, questsDone, backstories, characterId}
+
     }
 
     componentWillMount () {
@@ -134,8 +135,49 @@ class History extends Component {
                                 obj[season['name']]['story'][storyName]['quests'][quest['id']]['Qid'] = quest['id']
                                 obj[season['name']]['story'][storyName]['quests'][quest['id']]['Qlevel'] = quest['level']
 
-                                // check if it's done, if it's the case tag it
-                                obj[season['name']]['story'][storyName]['quests'][quest['id']]['status'][character] = data['questsDone'][character].includes(quest['id']) ? 1 : 0
+                                // check the race for specific id
+                                const raceQuest = [8,1,3,2,7]
+                                if (raceQuest.includes(obj[season['name']]['story'][storyName]['id'])) {
+                                    switch (obj[season['name']]['story'][storyName]['id']) {
+                                        // asura
+                                        case 8:
+                                            if (data['characterId'][character]['race'] === 'Asura') {
+                                                // check if it's done, if it's the case tag it
+                                                obj[season['name']]['story'][storyName]['quests'][quest['id']]['status'][character] = data['questsDone'][character].includes(quest['id']) ? 1 : 0
+                                            }
+                                            break
+                                        // charr
+                                        case 1:
+                                            if (data['characterId'][character]['race'] === 'Charr') {
+                                                // check if it's done, if it's the case tag it
+                                                obj[season['name']]['story'][storyName]['quests'][quest['id']]['status'][character] = data['questsDone'][character].includes(quest['id']) ? 1 : 0
+                                            }
+                                            break
+                                        // human
+                                        case 3:
+                                            if (data['characterId'][character]['race'] === 'Human') {
+                                                // check if it's done, if it's the case tag it
+                                                obj[season['name']]['story'][storyName]['quests'][quest['id']]['status'][character] = data['questsDone'][character].includes(quest['id']) ? 1 : 0
+                                            }
+                                            break
+                                        // norn
+                                        case 2:
+                                            if (data['characterId'][character]['race'] === 'Norn') {
+                                                // check if it's done, if it's the case tag it
+                                                obj[season['name']]['story'][storyName]['quests'][quest['id']]['status'][character] = data['questsDone'][character].includes(quest['id']) ? 1 : 0
+                                            }
+                                            break
+                                        // sylvari
+                                        case 7:
+                                            if (data['characterId'][character]['race'] === 'Sylvari') {
+                                                // check if it's done, if it's the case tag it
+                                                obj[season['name']]['story'][storyName]['quests'][quest['id']]['status'][character] = data['questsDone'][character].includes(quest['id']) ? 1 : 0
+                                            }
+                                    }
+                                } else {
+                                    // check if it's done, if it's the case tag it
+                                    obj[season['name']]['story'][storyName]['quests'][quest['id']]['status'][character] = data['questsDone'][character].includes(quest['id']) ? 1 : 0
+                                }
 
                                 // check if is authorized
                                 // and stock it in obj[season['name']]['story'][storyName]['quests'][quest['id']]['authorization'][character]
@@ -484,6 +526,9 @@ class History extends Component {
     render() {
         const {loading, data, lang} = this.state
         const map = data ? this.map() : null
+
+        console.log(map)
+        console.log(data)
 
         return (
             <div className="row">
