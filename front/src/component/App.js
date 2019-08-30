@@ -10,6 +10,7 @@ import logoBus from '../style/img/logo.png'
 import card from '../style/img/card.png'
 import flag_fr from '../style/img/france.png'
 import flag_uk from '../style/img/united-kingdom.png'
+import getCharacters from "../function/getCharacters";
 
 class App extends Component {
 
@@ -21,7 +22,9 @@ class App extends Component {
             checkError : null,
             localKey : env.apiKey,
             lang : 'en',
-            check : false
+            check : false,
+            g1:false,
+            g2:false
         }
     }
 
@@ -108,39 +111,60 @@ class App extends Component {
         } else if (!value.match(/[A-Z0-9]{8}[-]{1}[A-Z0-9]{4}[-]{1}[A-Z0-9]{4}[-]{1}[A-Z0-9]{4}[-]{1}[A-Z0-9]{20}[-]{1}[A-Z0-9]{4}[-]{1}[A-Z0-9]{4}[-]{1}[A-Z0-9]{4}[-]{1}[A-Z0-9]{12}/gm)) {
             this.setState({apiKeyError : 'Value is not a api key format'})
         } else {
-            getAccount(env.apiLink,env.apiVersion,value).then((res) => {
-                // if key doesnt exist
-                if(res['text'] === 'Invalid access token') {
+            // check the api keys
+            getCharacters(env.apiLink,env.apiVersion,'en',this.state.apiKey).then((res)=>{
+                if (res['text'] || res['text'] === 'Invalid access token') {
                     this.setState({
                         apiKeyError : 'Invalid key'
                     })
                 } else {
-                    localStorage.setItem('apiKey', value)
-                    localStorage.setItem('lang', lang)
-                    this.setState({
-                        apiKeyError : false,
-                        localKey : value,
-                        lang : lang
-                    })
+                    this.setState({g1:true})
+                    getAccount(env.apiLink,env.apiVersion,this.state.apiKey).then((res)=>{
+                        if (res['text'] || res['text'] === 'Invalid access token') {
+                            this.setState({
+                                apiKeyError : 'Invalid key'
+                            })
+                        } else {
+                            this.setState({g2:true})
+                            if (this.state.g1 && this.state.g2) {
+                                localStorage.setItem('apiKey', value)
+                                localStorage.setItem('lang', lang)
+                                this.setState({
+                                    apiKeyError : false,
+                                    localKey : value,
+                                    lang : lang
+                                })
 
-                    const gNavItems = document.querySelectorAll('.global-menu__item')
-                    const elmOverlay = document.querySelector('.shape-overlays')
-                    const overlay = new ShapeOverlays(elmOverlay)
-                    if (overlay.isAnimating) {
-                        return false
-                    }
-                    overlay.toggle()
-                    if (overlay.isOpened === true) {
-                        for (let i = 0; i < gNavItems.length; i++) {
-                            gNavItems[i].classList.add('is-opened')
+                                const gNavItems = document.querySelectorAll('.global-menu__item')
+                                const elmOverlay = document.querySelector('.shape-overlays')
+                                const overlay = new ShapeOverlays(elmOverlay)
+                                if (overlay.isAnimating) {
+                                    return false
+                                }
+                                overlay.toggle()
+                                if (overlay.isOpened === true) {
+                                    for (let i = 0; i < gNavItems.length; i++) {
+                                        gNavItems[i].classList.add('is-opened')
+                                    }
+                                } else {
+                                    for (let i = 0; i < gNavItems.length; i++) {
+                                        gNavItems[i].classList.remove('is-opened')
+                                    }
+                                }
+                            }
                         }
-                    } else {
-                        for (let i = 0; i < gNavItems.length; i++) {
-                            gNavItems[i].classList.remove('is-opened')
-                        }
-                    }
+                    }).catch((er)=>{
+                        this.setState({
+                            apiKeyError : 'Invalid key'
+                        })
+                    })
                 }
+            }).catch((er)=>{
+                this.setState({
+                    apiKeyError : 'Invalid key'
+                })
             })
+
         }
     }
 
@@ -297,7 +321,7 @@ class App extends Component {
                                             :
                                             <div>
                                                 <h3>Comment ça fonctionne</h3>
-                                                <p>Grâce à <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">l'api fourni par ArenaNet</a> nous avons trié par ordre chronologique les Saisons, Histoires et Quêtes sous forme de deck de carte.</p>
+                                                <p>Grâce à <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">l'api fournie par ArenaNet</a> nous avons trié par ordre chronologique les Saisons, Histoires et Quêtes sous forme de deck de carte.</p>
                                                 <p>Dans chaque carte l'arborescence des quêtes suit l'ordre chronologique et fourni de multiples informations sur les choix possibles ou non de chaque personnage.</p>
                                             </div>
                                         }
@@ -329,14 +353,14 @@ class App extends Component {
                                             <>
                                                 <div className="col s12 m6">
                                                     <h3>Stockage des données</h3>
-                                                    <p>Cette application à besoin d'une clés API pour fonctionner (ainsi que des informations entrée dans le formulaire ci-dessous). Ces informations sont stocké dans votre navigateur via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>.</p>
+                                                    <p>Cette application à besoin d'une clé API pour fonctionner (ainsi que des informations entrée dans le formulaire ci-dessous). Ces informations sont stockées dans votre navigateur via <a href={'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage'} target="_blank" rel="noopener noreferrer">localStorage</a>.</p>
                                                     <p>Vous pouvez supprimer ce cookie n'importe quand via le bouton "Reset" présent en haut à droite de votre écran.</p>
-                                                    <p>Aucune donnée est envoyé à notre serveur. Toute les donées affichée sont fournis par <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">l'api Guild Wars 2</a> et le cookie localStorage.</p>
+                                                    <p>Aucune donnée n'est envoyée à notre serveur. Toutes les données affichées sont fournis par <a href={'https://api.guildwars2.com/v2'} target="_blank" rel="noopener noreferrer">l'api Guild Wars 2</a> et le cookie localStorage.</p>
                                                 </div>
                                                 <div className="col s12 m6">
                                                     <h3>Informations à fournir</h3>
-                                                    <p>Il faut fournir une clés api avec les informations suivante : account, characters, progression et pvp.</p>
-                                                    <p>Vous pouvez crée une clés api depuis votre <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">compte ArenaNet</a>.</p>
+                                                    <p>Il faut fournir une clé api avec les informations suivantes : account, characters, progression et pvp.</p>
+                                                    <p>Vous pouvez créer une clé api depuis votre <a href={'https://account.arena.net/applications'} target="_blank" rel="noopener noreferrer">compte ArenaNet</a>.</p>
                                                 </div>
                                             </>
                                         }
@@ -362,7 +386,7 @@ class App extends Component {
                                             <p>
                                                 <label>
                                                     <input type="checkbox" id="check" onChange={(e) => {this.handleCheck(e)}}/>
-                                                    <span className={checkError && 'error'}>{lang === 'en' ? "I accept the registration of my API key and the choice of my display language in the \"localStorage\" cookie." : "J'accepte l'enregistrement de ma clés api et du choix de ma langue d'affichage dans le cookie localStorage"}</span>
+                                                    <span className={checkError && 'error'}>{lang === 'en' ? "I accept the registration of my API key and the choice of my display language in the \"localStorage\" cookie." : "J'accepte l'enregistrement de ma clé api et du choix de ma langue d'affichage dans le cookie localStorage"}</span>
                                                 </label>
                                             </p>
                                         </div>
@@ -381,8 +405,8 @@ class App extends Component {
                                             :
                                             <div className="col s12">
                                                 <p>
-                                                    Cette application à été codé par <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a> pour <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Le Bus Magique</a>.
-                                                    N'hésité pas à crée une <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issue</a> si vous trouvez un bug.
+                                                    Cette application a été codée par <a href="https://alanbouteiller.dev" target="_blank" rel="noopener noreferrer">Alan Bouteiller</a> pour <a href="https://www.lebusmagique.fr/" target="_blank" rel="noopener noreferrer">Le Bus Magique</a>.
+                                                    N'hésiter pas à créer une <a href="https://github.com/bouteillerAlan/SpyHistory/issues" target="_blank" rel="noopener noreferrer">Issue</a> si vous trouvez un bug.
                                                     Toutes les images du jeu sont © 2019 ArenaNet, Inc..<br/>
                                                     <small>CC BY-NC-SA Alan Bouteiller</small>
                                                 </p>

@@ -40,7 +40,8 @@ class History extends Component {
             parent : {},
             grid : {},
             elemShow : {},
-            CarouselInit : false
+            CarouselInit : false,
+            apiKeyError : null
         }
     }
 
@@ -51,21 +52,27 @@ class History extends Component {
         const questsNS = await getQuests(env.apiLink,env.apiVersion,this.state.lang)
         const characters = await getCharacters(env.apiLink,env.apiVersion,this.state.lang,this.state.key)
 
-        const seasons = seasonsNS.sort(function(a, b){return a['order']-b['order']})
-        const stories = loadHash.orderBy(storiesNS, ['season', 'order'])
-        const quests = loadHash.orderBy(questsNS, ['story', 'level']) // for the moment 'level' is the best way for short this thing
+        if (characters['text'] || characters['text'] === 'Invalid access token') {
+            this.setState({
+                apiKeyError : 'Invalid key',
+                loading: false
+            })
+        } else {
+            const seasons = seasonsNS.sort(function(a, b){return a['order']-b['order']})
+            const stories = loadHash.orderBy(storiesNS, ['season', 'order'])
+            const quests = loadHash.orderBy(questsNS, ['story', 'level']) // for the moment 'level' is the best way for short this thing
 
-        let questsDone = {}
-        let backstories = {}
-        let characterId = {}
-        for (let i = 0; i<characters.length; i++) {
-            questsDone[characters[i]] = await getDoneQuests(env.apiLink,env.apiVersion,this.state.lang,this.state.key,characters[i])
-            backstories[characters[i]] = await getBackstories(env.apiLink,env.apiVersion,this.state.key,characters[i])
-            characterId[characters[i]] = await getInfoCharacter(env.apiLink,env.apiVersion,this.state.lang,this.state.key,characters[i])
+            let questsDone = {}
+            let backstories = {}
+            let characterId = {}
+            for (let i = 0; i<characters.length; i++) {
+                questsDone[characters[i]] = await getDoneQuests(env.apiLink,env.apiVersion,this.state.lang,this.state.key,characters[i])
+                backstories[characters[i]] = await getBackstories(env.apiLink,env.apiVersion,this.state.key,characters[i])
+                characterId[characters[i]] = await getInfoCharacter(env.apiLink,env.apiVersion,this.state.lang,this.state.key,characters[i])
+            }
+
+            return {seasons, stories, quests, characters, questsDone, backstories, characterId}
         }
-
-        return {seasons, stories, quests, characters, questsDone, backstories, characterId}
-
     }
 
     componentWillMount () {
@@ -402,30 +409,30 @@ class History extends Component {
                     <div className="choice-2">
                         <i className="material-icons a">looks_two</i>
                         <hr/>
-                        <div className="arrow-2">
-                            <i className="material-icons a">all_out</i>
-                            <i className="material-icons b">all_out</i>
-                        </div>
+                        {/*<div className="arrow-2">*/}
+                        {/*    <i className="material-icons a">all_out</i>*/}
+                        {/*    <i className="material-icons b">all_out</i>*/}
+                        {/*</div>*/}
                     </div>
                     : psl['3choice'].includes(id) ?
                     <div className="choice-3">
                         <i className="material-icons a">looks_3</i>
                         <hr/>
-                        <div className="arrow-3">
-                            <i className="material-icons a">all_out</i>
-                            <i className="material-icons b">all_out</i>
-                            <i className="material-icons c">all_out</i>
-                        </div>
+                        {/*<div className="arrow-3">*/}
+                        {/*    <i className="material-icons a">all_out</i>*/}
+                        {/*    <i className="material-icons b">all_out</i>*/}
+                        {/*    <i className="material-icons c">all_out</i>*/}
+                        {/*</div>*/}
                     </div>
                     : psl['5choice'].includes(id) ?
                     <div className="choice-5">
                         <i className="material-icons a">looks_5</i>
                         <hr/>
                     </div>
-                    :
-                    <div className="arrow-1">
-                        <i className="material-icons a">all_out</i>
-                    </div>
+                    : null
+                    // <div className="arrow-1">
+                    //     <i className="material-icons a">all_out</i>
+                    // </div>
                 }
             </div>
         )
@@ -524,14 +531,17 @@ class History extends Component {
     }
 
     render() {
-        const {loading, data, lang} = this.state
+        const {loading, data, lang, apiKeyError} = this.state
         const map = data ? this.map() : null
-
-        console.log(map)
-        console.log(data)
 
         return (
             <div className="row">
+                {(!loading && apiKeyError) &&
+                <div>
+                    <div className="red-text">{lang==='fr' ? 'Une erreur c\'est produite, vérifiez votre clé api. \n Cliquez sur le bouton reset pour revenir a la page d\'avant.' : 'An error occurred, check your API key. \n Click on the reset button to return to the previous page.'}</div>
+                </div>
+                }
+
                 {loading &&
                     <div className="progress">
                         <div className="indeterminate"> </div>

@@ -14,21 +14,29 @@ class Account extends Component {
             account: null,
             pvp: null,
             apiKey : localStorage.getItem('apiKey') ? localStorage.getItem('apiKey') : this.props.apiKey,
-            lang : localStorage.getItem('lang') ? localStorage.getItem('lang') : this.props.lang
+            lang : localStorage.getItem('lang') ? localStorage.getItem('lang') : this.props.lang,
+            apiKeyError: null
         }
     }
 
     componentWillMount() {
         getAccount(env.apiLink,env.apiVersion,this.state.apiKey).then((res) => {
-            this.setState({
-                account : res
-            })
-            getPvp(env.apiLink,env.apiVersion,this.state.apiKey).then((res) => {
+            if (res['text'] || res['text'] === 'Invalid access token') {
                 this.setState({
-                    loading : false,
-                    pvp : res
+                    apiKeyError : 'Invalid key',
+                    loading: false
                 })
-            })
+            } else {
+                this.setState({
+                    account : res
+                })
+                getPvp(env.apiLink,env.apiVersion,this.state.apiKey).then((res) => {
+                    this.setState({
+                        loading : false,
+                        pvp : res
+                    })
+                })
+            }
         })
     }
 
@@ -42,7 +50,7 @@ class Account extends Component {
 
     render() {
 
-        const {loading, account, lang, pvp} = this.state
+        const {loading, account, lang, pvp, apiKeyError} = this.state
         let tab = []
 
         if (account) {
@@ -53,6 +61,11 @@ class Account extends Component {
 
         return (
             <div className="row">
+                {(!loading && apiKeyError) &&
+                <div>
+                    <div className="red-text">{lang==='fr' ? 'Une erreur c\'est produite, vérifiez votre clé api. \n Cliquez sur le bouton reset pour revenir a la page d\'avant.' : 'An error occurred, check your API key. \n Click on the reset button to return to the previous page.'}</div>
+                </div>
+                }
                 {loading &&
                 <div className="progress">
                     <div className="indeterminate"> </div>
@@ -106,7 +119,7 @@ class Account extends Component {
                                 <tbody>
                                 <tr>
                                     <td className="center-align"><span className="grey"><del>Name</del></span></td>
-                                    <td>{lang === 'en' ? ' Quest locked after a choice when creating the character' : ' Quête verrouillé suite à un choix lors de la création du personnage' }</td>
+                                    <td>{lang === 'en' ? ' Quest locked after a choice when creating the character' : ' Quête verrouillée suite à un choix lors de la création du personnage' }</td>
                                 </tr>
                                 <tr>
                                     <td className="center-align"><span className="red">Name</span></td>
@@ -118,7 +131,7 @@ class Account extends Component {
                                 </tr>
                                 <tr>
                                     <td className="center-align"><span> <i className="material-icons">looks_two</i> </span></td>
-                                    <td>{lang === 'en' ? ' After this quests it will be necessary to choose among the 2 quests which is below' : ' Aprés cette quêtes il faudra choisir parmis les 2 quêtes qui se trouve dessous' }</td>
+                                    <td>{lang === 'en' ? ' After this quests it will be necessary to choose among the 2 quests which is below' : ' Après cette quête il faudra choisir parmi les 2 quêtes qui se trouve dessous' }</td>
                                 </tr>
                                 <tr>
                                     <td className="center-align"><div className="durmand"> </div></td>
@@ -132,7 +145,7 @@ class Account extends Component {
                     <div id="modal2" className="modal">
                         <div className="modal-content">
                             <h4 className="modal-title">{lang === 'en' ? 'Warning' : 'Important' }</h4>
-                            <p>{lang === 'en' ? ' Completed but restarted quests are considered unrealized!' : ' Le système de fonctionnement de l\'API détermine qu\'un épisode d\'histoire relancé est par définition non terminé. Ce qui explique que certains épisodes soient considérés par cette dernière comme non fait alors qu\'ils ont certainement été relancé mais terminés par le passé.' }</p>
+                            <p>{lang === 'en' ? ' Completed but restarted quests are considered unrealized!' : ' Le système de fonctionnement de l\'API détermine qu\'un épisode d\'histoire relancé est par définition non terminé. Ce qui explique que certains épisodes soient considérés par cette dernière comme non fait alors qu\'ils ont certainement été relancés mais terminés par le passé.' }</p>
                         </div>
                     </div>
 
