@@ -563,6 +563,14 @@ const psl = {
             [549,552,548,551,547]
         ]
     ],
+
+    /////////// Icebrood saga ///////////
+    // 1. prologue bound by blood
+    '91' : [
+        [
+            [553,554,557,556,555]
+        ]
+    ],
 }
 
 export default psl

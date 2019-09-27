@@ -78,6 +78,17 @@ const tuto = {
             'wiki' : 'https://wiki.guildwars2.com/wiki/Living_World_Season_4'
         }
     } ,
+    // Icebrood saga
+    'EDCAE800-302A-4D9B-8331-3CC769ADA0B3' : {
+        'fr' : {
+            'link' : 'https://www.lebusmagique.fr/pages/succes/chroniques/s5/',
+            'wiki' : ''
+        },
+        'en' : {
+            'link' : '',
+            'wiki' : 'https://wiki.guildwars2.com/wiki/Living_World_Season_5'
+        }
+    } ,
 
     // story
     // Mon histoire - Charr
@@ -819,6 +830,19 @@ const tuto = {
             'link' : '',
             'video' : '',
             'wiki' : 'https://wiki.guildwars2.com/wiki/War_Eternal'
+        }
+    },
+    // Prologue Bound by blood
+    '91' : {
+        'fr' : {
+            'link' : 'https://www.lebusmagique.fr/pages/gw2-pof/vallee-de-grothmar/',
+            'video' : 'https://www.youtube.com/watch?v=TjW4tDm2m4I',
+            'wiki' : 'https://wiki-fr.guildwars2.com/wiki/Prologue_:_Li%C3%A9s_par_le_sang'
+        },
+        'en' : {
+            'link' : '',
+            'video' : '',
+            'wiki' : 'https://wiki.guildwars2.com/wiki/Prologue:_Bound_by_Blood'
         }
     }
 }
